@@ -52,36 +52,169 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CrystalReport1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CrystalReport1.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DataBaseCore.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="ReferenceData\FormAddStaff.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="ReferenceData\FormAddStaff.Designer.cs">
+      <DependentUpon>FormAddStaff.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form2.cs">
+    <Compile Include="ReferenceData\FormAddStruct.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form2.Designer.cs">
-      <DependentUpon>Form2.cs</DependentUpon>
+    <Compile Include="ReferenceData\FormAddStruct.Designer.cs">
+      <DependentUpon>FormAddStruct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReferenceData\FormAddTypeDock.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReferenceData\FormAddTypeDock.Designer.cs">
+      <DependentUpon>FormAddTypeDock.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReferenceData\FormAddTypeHeal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReferenceData\FormAddTypeHeal.Designer.cs">
+      <DependentUpon>FormAddTypeHeal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReferenceData\FormAddTypeProc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReferenceData\FormAddTypeProc.Designer.cs">
+      <DependentUpon>FormAddTypeProc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormAutorization.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAutorization.Designer.cs">
+      <DependentUpon>FormAutorization.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormIndex.Designer.cs">
+      <DependentUpon>FormIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormIndex2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormIndex2.Designer.cs">
+      <DependentUpon>FormIndex2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OperationalData\FormOperationalDataHistory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OperationalData\FormOperationalDataHistory.Designer.cs">
+      <DependentUpon>FormOperationalDataHistory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OperationalData\FormOperationalDataHistoryAdd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OperationalData\FormOperationalDataHistoryAdd.Designer.cs">
+      <DependentUpon>FormOperationalDataHistoryAdd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OperationalData\FormOperationalDataList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OperationalData\FormOperationalDataList.Designer.cs">
+      <DependentUpon>FormOperationalDataList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OperationalData\FormOperationalDataListAdd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OperationalData\FormOperationalDataListAdd.Designer.cs">
+      <DependentUpon>FormOperationalDataListAdd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OperationalData\FormOperationalDataPatient.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OperationalData\FormOperationalDataPatient.Designer.cs">
+      <DependentUpon>FormOperationalDataPatient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OperationalData\FormOperationalDataPatientAdd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OperationalData\FormOperationalDataPatientAdd.Designer.cs">
+      <DependentUpon>FormOperationalDataPatientAdd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReferenceData\FormReferenceData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReferenceData\FormReferenceData.Designer.cs">
+      <DependentUpon>FormReferenceData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReferenceData\FormReferenceDataAdd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReferenceData\FormReferenceDataAdd.Designer.cs">
+      <DependentUpon>FormReferenceDataAdd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormReport.Designer.cs">
+      <DependentUpon>FormReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormRequests.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormRequests.Designer.cs">
+      <DependentUpon>FormRequests.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="CrystalReport1.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CrystalReport1.cs</LastGenOutput>
+    <EmbeddedResource Include="ReferenceData\FormAddStaff.resx">
+      <DependentUpon>FormAddStaff.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="ReferenceData\FormAddStruct.resx">
+      <DependentUpon>FormAddStruct.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form2.resx">
-      <DependentUpon>Form2.cs</DependentUpon>
+    <EmbeddedResource Include="ReferenceData\FormAddTypeDock.resx">
+      <DependentUpon>FormAddTypeDock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReferenceData\FormAddTypeHeal.resx">
+      <DependentUpon>FormAddTypeHeal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReferenceData\FormAddTypeProc.resx">
+      <DependentUpon>FormAddTypeProc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormAutorization.resx">
+      <DependentUpon>FormAutorization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormIndex.resx">
+      <DependentUpon>FormIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormIndex2.resx">
+      <DependentUpon>FormIndex2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OperationalData\FormOperationalDataHistory.resx">
+      <DependentUpon>FormOperationalDataHistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OperationalData\FormOperationalDataHistoryAdd.resx">
+      <DependentUpon>FormOperationalDataHistoryAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OperationalData\FormOperationalDataList.resx">
+      <DependentUpon>FormOperationalDataList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OperationalData\FormOperationalDataListAdd.resx">
+      <DependentUpon>FormOperationalDataListAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OperationalData\FormOperationalDataPatient.resx">
+      <DependentUpon>FormOperationalDataPatient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OperationalData\FormOperationalDataPatientAdd.resx">
+      <DependentUpon>FormOperationalDataPatientAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReferenceData\FormReferenceData.resx">
+      <DependentUpon>FormReferenceData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReferenceData\FormReferenceDataAdd.resx">
+      <DependentUpon>FormReferenceDataAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormReport.resx">
+      <DependentUpon>FormReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormRequests.resx">
+      <DependentUpon>FormRequests.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -91,6 +224,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -108,5 +242,12 @@
   <ItemGroup>
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\db.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\database.png" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
