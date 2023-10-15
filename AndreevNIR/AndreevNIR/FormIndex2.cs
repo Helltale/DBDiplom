@@ -12,6 +12,7 @@ namespace AndreevNIR
 {
     public partial class FormIndex2 : Form
     {
+
         public FormIndex2()
         {
             InitializeComponent();

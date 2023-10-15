@@ -30,6 +30,7 @@
         {
             this.panelHeader = new System.Windows.Forms.Panel();
             this.labelName = new System.Windows.Forms.Label();
+            this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
             this.panelInstruments = new System.Windows.Forms.Panel();
             this.comboBoxOperationalData = new System.Windows.Forms.ComboBox();
             this.buttonRequests = new System.Windows.Forms.Button();
@@ -39,11 +40,10 @@
             this.buttonReferenceData = new System.Windows.Forms.Button();
             this.panelForms = new System.Windows.Forms.Panel();
             this.richTextBoxPrimeTime = new System.Windows.Forms.RichTextBox();
-            this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
             this.panelHeader.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
             this.panelInstruments.SuspendLayout();
             this.panelForms.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
             this.SuspendLayout();
             // 
             // panelHeader
@@ -67,6 +67,18 @@
             this.labelName.Text = "Роль - должность";
             this.labelName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // pictureBoxLogo
+            // 
+            this.pictureBoxLogo.BackColor = System.Drawing.Color.Gray;
+            this.pictureBoxLogo.Dock = System.Windows.Forms.DockStyle.Left;
+            this.pictureBoxLogo.Image = global::AndreevNIR.Properties.Resources.database;
+            this.pictureBoxLogo.Location = new System.Drawing.Point(0, 0);
+            this.pictureBoxLogo.Name = "pictureBoxLogo";
+            this.pictureBoxLogo.Size = new System.Drawing.Size(224, 100);
+            this.pictureBoxLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBoxLogo.TabIndex = 0;
+            this.pictureBoxLogo.TabStop = false;
+            // 
             // panelInstruments
             // 
             this.panelInstruments.BackColor = System.Drawing.SystemColors.ControlDark;
@@ -79,7 +91,7 @@
             this.panelInstruments.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelInstruments.Location = new System.Drawing.Point(0, 100);
             this.panelInstruments.Name = "panelInstruments";
-            this.panelInstruments.Size = new System.Drawing.Size(224, 964);
+            this.panelInstruments.Size = new System.Drawing.Size(224, 1011);
             this.panelInstruments.TabIndex = 1;
             // 
             // comboBoxOperationalData
@@ -120,7 +132,7 @@
             // 
             // buttonInformation
             // 
-            this.buttonInformation.Location = new System.Drawing.Point(12, 826);
+            this.buttonInformation.Location = new System.Drawing.Point(12, 780);
             this.buttonInformation.Name = "buttonInformation";
             this.buttonInformation.Size = new System.Drawing.Size(200, 52);
             this.buttonInformation.TabIndex = 3;
@@ -130,7 +142,7 @@
             // 
             // buttonExit
             // 
-            this.buttonExit.Location = new System.Drawing.Point(12, 884);
+            this.buttonExit.Location = new System.Drawing.Point(12, 838);
             this.buttonExit.Name = "buttonExit";
             this.buttonExit.Size = new System.Drawing.Size(200, 52);
             this.buttonExit.TabIndex = 2;
@@ -154,7 +166,7 @@
             this.panelForms.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelForms.Location = new System.Drawing.Point(224, 100);
             this.panelForms.Name = "panelForms";
-            this.panelForms.Size = new System.Drawing.Size(1615, 964);
+            this.panelForms.Size = new System.Drawing.Size(1615, 1011);
             this.panelForms.TabIndex = 2;
             // 
             // richTextBoxPrimeTime
@@ -165,23 +177,11 @@
             this.richTextBoxPrimeTime.TabIndex = 0;
             this.richTextBoxPrimeTime.Text = "Здесь будет\nЗагруженность отделения\n\n\nА могла бы быть ваша реклама\n";
             // 
-            // pictureBoxLogo
-            // 
-            this.pictureBoxLogo.BackColor = System.Drawing.Color.Gray;
-            this.pictureBoxLogo.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pictureBoxLogo.Image = global::AndreevNIR.Properties.Resources.database;
-            this.pictureBoxLogo.Location = new System.Drawing.Point(0, 0);
-            this.pictureBoxLogo.Name = "pictureBoxLogo";
-            this.pictureBoxLogo.Size = new System.Drawing.Size(224, 100);
-            this.pictureBoxLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBoxLogo.TabIndex = 0;
-            this.pictureBoxLogo.TabStop = false;
-            // 
             // FormIndex2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1839, 1064);
+            this.ClientSize = new System.Drawing.Size(1839, 1111);
             this.Controls.Add(this.panelForms);
             this.Controls.Add(this.panelInstruments);
             this.Controls.Add(this.panelHeader);
@@ -189,9 +189,9 @@
             this.Text = "FormIndex2";
             this.Load += new System.EventHandler(this.FormIndex2_Load);
             this.panelHeader.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).EndInit();
             this.panelInstruments.ResumeLayout(false);
             this.panelForms.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).EndInit();
             this.ResumeLayout(false);
 
         }

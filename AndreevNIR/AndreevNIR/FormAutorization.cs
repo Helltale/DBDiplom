@@ -13,7 +13,10 @@ namespace AndreevNIR
 {
     public partial class FormAutorization : Form
     {
-        Thread th; 
+        Thread th;
+
+        string connStr = "Host=localhost;Username=postgres;Password=youdontseethis;Database=postgres";
+
 
         public FormAutorization()
         {
@@ -29,6 +32,11 @@ namespace AndreevNIR
 
         private void buttonEnter_Click(object sender, EventArgs e)
         {
+            DBLogicConnection connetcionClass = new DBLogicConnection(connStr);
+            connetcionClass.ConnectToPostgres();
+
+
+
             if (textBoxLogin.Text == "admin" && textBoxPassword.Text == "123")
             {
                 this.Close();
@@ -39,6 +47,11 @@ namespace AndreevNIR
             else {
                 MessageBox.Show("Некорректные данные для входа");
             }
+        }
+
+        private void FormAutorization_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

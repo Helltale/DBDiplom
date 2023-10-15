@@ -216,6 +216,7 @@
             this.Controls.Add(this.tabControl1);
             this.Name = "FormAutorization";
             this.Text = "FormAutorization";
+            this.Load += new System.EventHandler(this.FormAutorization_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
