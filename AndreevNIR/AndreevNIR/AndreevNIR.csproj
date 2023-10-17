@@ -101,6 +101,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DBLogicConnection.cs" />
+    <Compile Include="Placeholders.cs" />
     <Compile Include="ReferenceData\FormAddStaff.cs">
       <SubType>Form</SubType>
     </Compile>

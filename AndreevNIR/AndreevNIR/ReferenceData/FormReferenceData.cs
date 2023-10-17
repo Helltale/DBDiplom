@@ -27,10 +27,17 @@ namespace AndreevNIR
             
             NpgsqlDataAdapter adapter = new NpgsqlDataAdapter("SELECT * FROM test1", dBLogicConnection._connectionString);
 
-            DataTable table = new DataTable();
-            adapter.Fill(table);
+            try
+            {
+                DataTable table = new DataTable();
+                adapter.Fill(table);
 
-            dataGridView2.DataSource = table;
+                dataGridView2.DataSource = table;
+            }
+            catch { 
+            }
+
+            
         }
 
 
