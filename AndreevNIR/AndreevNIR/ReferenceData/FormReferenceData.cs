@@ -7,15 +7,32 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+//using System.Data.SqlClient;
+using Npgsql;
 
 namespace AndreevNIR
 {
     public partial class FormReferenceData : Form
     {
+        DBLogicConnection dBLogicConnection = new DBLogicConnection();
+
+
         public FormReferenceData()
         {
             InitializeComponent();
+            LoadGridPersonal();
         }
+
+        public void LoadGridPersonal() {
+            
+            NpgsqlDataAdapter adapter = new NpgsqlDataAdapter("SELECT * FROM test1", dBLogicConnection._connectionString);
+
+            DataTable table = new DataTable();
+            adapter.Fill(table);
+
+            dataGridView2.DataSource = table;
+        }
+
 
         private void buttonBack_Click(object sender, EventArgs e)
         {

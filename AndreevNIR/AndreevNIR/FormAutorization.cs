@@ -15,7 +15,7 @@ namespace AndreevNIR
     {
         Thread th;
 
-        string connStr = "Host=localhost;Username=postgres;Password=youdontseethis;Database=postgres";
+        string connStr = "Host=localhost;Username=postgres;Password=64210369;Database=postgres";
 
 
         public FormAutorization()
@@ -32,7 +32,7 @@ namespace AndreevNIR
 
         private void buttonEnter_Click(object sender, EventArgs e)
         {
-            DBLogicConnection connetcionClass = new DBLogicConnection(connStr);
+            DBLogicConnection connetcionClass = new DBLogicConnection();
             connetcionClass.ConnectToPostgres();
 
 

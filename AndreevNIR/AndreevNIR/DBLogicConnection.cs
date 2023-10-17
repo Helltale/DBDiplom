@@ -10,12 +10,7 @@ namespace AndreevNIR
 {
     class DBLogicConnection
     {
-        private string _connectionString;
-
-        public DBLogicConnection(string connectionString)
-        {
-            _connectionString = connectionString;
-        }
+        public string _connectionString = "Host=localhost;Username=postgres;Password=;Database=postgres";
 
         public NpgsqlConnection ConnectToPostgres()
         {
