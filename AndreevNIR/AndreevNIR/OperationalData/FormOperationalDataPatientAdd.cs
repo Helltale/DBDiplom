@@ -19,19 +19,9 @@ namespace AndreevNIR
             FormBorderStyle = FormBorderStyle.Fixed3D;
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void button2_Click_1(object sender, EventArgs e)
         {
-
-        }
-
-        private void label16_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void FormOperationalDataPatientAdd_Load(object sender, EventArgs e)
-        {
-
+            this.Close();
         }
     }
 }

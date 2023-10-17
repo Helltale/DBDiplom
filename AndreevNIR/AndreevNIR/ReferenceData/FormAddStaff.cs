@@ -22,23 +22,18 @@ namespace AndreevNIR
         }
 
         Placeholders plch = new Placeholders();
-        string str1 = "Введите имя сотрудника";
-        string str2 = "Введите фамилию сотрудника";
-        string str3 = "Введите отчество сотрудника";
-        string str4 = "Введите серию паспотра";
-        string str5 = "Введите номер паспорта";
-        string str6 = "Введите дату выдачи паспорта";
-        string str7 = "Введите кем выдан паспорт";
-        string str8 = "Введите код подразделения";
+        string str1 = "Имя сотрудника";
+        string str2 = "Фамилия сотрудника";
+        string str3 = "Отчество сотрудника";
+        string str4 = "Серию паспотра";
+        string str5 = "Номер паспорта";
+        string str6 = "Выдачи паспорта";
+        string str7 = "Кем выдан паспорт";
+        string str8 = "Код подразделения";
         string str9 = "потерялось(";
-        string str10 = "Введите телефон персонала";
-        string str11 = "Введите личную почту сотрудника";
-        string str12 = "Введите корпоративную почту сотрудника";
-
-
-
-    
-
+        string str10 = "Телефон персонала";
+        string str11 = "Личную почту сотрудника";
+        string str12 = "Корпоративную почту сотрудника";
 
         private void textBox1_Enter(object sender, EventArgs e) {plch.PlaceholderHide(textBox1, str1);}  //паспортные данные
         private void textBox1_Leave(object sender, EventArgs e) {plch.PlaceholderShow(textBox1, str1);}
@@ -65,5 +60,6 @@ namespace AndreevNIR
         private void textBox11_Leave(object sender, EventArgs e) {plch.PlaceholderShow(textBox11, str11);}
         private void textBox12_Enter(object sender, EventArgs e) {plch.PlaceholderHide(textBox12, str12);}
         private void textBox12_Leave(object sender, EventArgs e) {plch.PlaceholderShow(textBox12, str12);}
+
     }
 }

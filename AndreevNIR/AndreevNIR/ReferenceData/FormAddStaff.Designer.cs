@@ -50,6 +50,12 @@ namespace AndreevNIR
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.radioButton16 = new System.Windows.Forms.RadioButton();
+            this.radioButton15 = new System.Windows.Forms.RadioButton();
+            this.radioButton14 = new System.Windows.Forms.RadioButton();
+            this.radioButton13 = new System.Windows.Forms.RadioButton();
+            this.radioButton12 = new System.Windows.Forms.RadioButton();
+            this.radioButton11 = new System.Windows.Forms.RadioButton();
             this.radioButton10 = new System.Windows.Forms.RadioButton();
             this.radioButton9 = new System.Windows.Forms.RadioButton();
             this.radioButton8 = new System.Windows.Forms.RadioButton();
@@ -57,6 +63,7 @@ namespace AndreevNIR
             this.radioButton7 = new System.Windows.Forms.RadioButton();
             this.radioButton6 = new System.Windows.Forms.RadioButton();
             this.radioButton5 = new System.Windows.Forms.RadioButton();
+            this.buttonAdd = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -221,10 +228,10 @@ namespace AndreevNIR
             this.radioButton4.AutoSize = true;
             this.radioButton4.Location = new System.Drawing.Point(7, 116);
             this.radioButton4.Name = "radioButton4";
-            this.radioButton4.Size = new System.Drawing.Size(126, 24);
+            this.radioButton4.Size = new System.Drawing.Size(156, 24);
             this.radioButton4.TabIndex = 3;
             this.radioButton4.TabStop = true;
-            this.radioButton4.Text = "radioButton4";
+            this.radioButton4.Text = "Администратор";
             this.radioButton4.UseVisualStyleBackColor = true;
             // 
             // radioButton3
@@ -232,10 +239,10 @@ namespace AndreevNIR
             this.radioButton3.AutoSize = true;
             this.radioButton3.Location = new System.Drawing.Point(7, 86);
             this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(126, 24);
+            this.radioButton3.Size = new System.Drawing.Size(72, 24);
             this.radioButton3.TabIndex = 2;
             this.radioButton3.TabStop = true;
-            this.radioButton3.Text = "radioButton3";
+            this.radioButton3.Text = "Врач";
             this.radioButton3.UseVisualStyleBackColor = true;
             // 
             // radioButton2
@@ -243,10 +250,10 @@ namespace AndreevNIR
             this.radioButton2.AutoSize = true;
             this.radioButton2.Location = new System.Drawing.Point(7, 56);
             this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(126, 24);
+            this.radioButton2.Size = new System.Drawing.Size(256, 24);
             this.radioButton2.TabIndex = 1;
             this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "radioButton2";
+            this.radioButton2.Text = "Мед сестра приёмного покоя";
             this.radioButton2.UseVisualStyleBackColor = true;
             // 
             // radioButton1
@@ -254,10 +261,10 @@ namespace AndreevNIR
             this.radioButton1.AutoSize = true;
             this.radioButton1.Location = new System.Drawing.Point(7, 26);
             this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(126, 24);
+            this.radioButton1.Size = new System.Drawing.Size(123, 24);
             this.radioButton1.TabIndex = 0;
             this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "radioButton1";
+            this.radioButton1.Text = "Мед сестра";
             this.radioButton1.UseVisualStyleBackColor = true;
             // 
             // groupBox4
@@ -266,32 +273,104 @@ namespace AndreevNIR
             this.groupBox4.Controls.Add(this.groupBox5);
             this.groupBox4.Location = new System.Drawing.Point(601, 342);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(582, 201);
+            this.groupBox4.Size = new System.Drawing.Size(582, 334);
             this.groupBox4.TabIndex = 11;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Место работы";
             // 
             // groupBox6
             // 
+            this.groupBox6.Controls.Add(this.radioButton16);
+            this.groupBox6.Controls.Add(this.radioButton15);
+            this.groupBox6.Controls.Add(this.radioButton14);
+            this.groupBox6.Controls.Add(this.radioButton13);
+            this.groupBox6.Controls.Add(this.radioButton12);
+            this.groupBox6.Controls.Add(this.radioButton11);
             this.groupBox6.Controls.Add(this.radioButton10);
             this.groupBox6.Controls.Add(this.radioButton9);
             this.groupBox6.Controls.Add(this.radioButton8);
             this.groupBox6.Location = new System.Drawing.Point(298, 26);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(277, 169);
+            this.groupBox6.Size = new System.Drawing.Size(277, 302);
             this.groupBox6.TabIndex = 1;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Отделение";
+            // 
+            // radioButton16
+            // 
+            this.radioButton16.AutoSize = true;
+            this.radioButton16.Location = new System.Drawing.Point(6, 270);
+            this.radioButton16.Name = "radioButton16";
+            this.radioButton16.Size = new System.Drawing.Size(134, 24);
+            this.radioButton16.TabIndex = 13;
+            this.radioButton16.TabStop = true;
+            this.radioButton16.Text = "Отделение 8";
+            this.radioButton16.UseVisualStyleBackColor = true;
+            // 
+            // radioButton15
+            // 
+            this.radioButton15.AutoSize = true;
+            this.radioButton15.Location = new System.Drawing.Point(6, 240);
+            this.radioButton15.Name = "radioButton15";
+            this.radioButton15.Size = new System.Drawing.Size(134, 24);
+            this.radioButton15.TabIndex = 12;
+            this.radioButton15.TabStop = true;
+            this.radioButton15.Text = "Отделение 7";
+            this.radioButton15.UseVisualStyleBackColor = true;
+            // 
+            // radioButton14
+            // 
+            this.radioButton14.AutoSize = true;
+            this.radioButton14.Location = new System.Drawing.Point(6, 210);
+            this.radioButton14.Name = "radioButton14";
+            this.radioButton14.Size = new System.Drawing.Size(134, 24);
+            this.radioButton14.TabIndex = 10;
+            this.radioButton14.TabStop = true;
+            this.radioButton14.Text = "Отделение 6";
+            this.radioButton14.UseVisualStyleBackColor = true;
+            // 
+            // radioButton13
+            // 
+            this.radioButton13.AutoSize = true;
+            this.radioButton13.Location = new System.Drawing.Point(6, 180);
+            this.radioButton13.Name = "radioButton13";
+            this.radioButton13.Size = new System.Drawing.Size(134, 24);
+            this.radioButton13.TabIndex = 9;
+            this.radioButton13.TabStop = true;
+            this.radioButton13.Text = "Отделение 5";
+            this.radioButton13.UseVisualStyleBackColor = true;
+            // 
+            // radioButton12
+            // 
+            this.radioButton12.AutoSize = true;
+            this.radioButton12.Location = new System.Drawing.Point(6, 150);
+            this.radioButton12.Name = "radioButton12";
+            this.radioButton12.Size = new System.Drawing.Size(134, 24);
+            this.radioButton12.TabIndex = 8;
+            this.radioButton12.TabStop = true;
+            this.radioButton12.Text = "Отделение 4";
+            this.radioButton12.UseVisualStyleBackColor = true;
+            // 
+            // radioButton11
+            // 
+            this.radioButton11.AutoSize = true;
+            this.radioButton11.Location = new System.Drawing.Point(6, 120);
+            this.radioButton11.Name = "radioButton11";
+            this.radioButton11.Size = new System.Drawing.Size(134, 24);
+            this.radioButton11.TabIndex = 7;
+            this.radioButton11.TabStop = true;
+            this.radioButton11.Text = "Отделение 3";
+            this.radioButton11.UseVisualStyleBackColor = true;
             // 
             // radioButton10
             // 
             this.radioButton10.AutoSize = true;
             this.radioButton10.Location = new System.Drawing.Point(6, 90);
             this.radioButton10.Name = "radioButton10";
-            this.radioButton10.Size = new System.Drawing.Size(135, 24);
+            this.radioButton10.Size = new System.Drawing.Size(134, 24);
             this.radioButton10.TabIndex = 6;
             this.radioButton10.TabStop = true;
-            this.radioButton10.Text = "radioButton10";
+            this.radioButton10.Text = "Отделение 3";
             this.radioButton10.UseVisualStyleBackColor = true;
             // 
             // radioButton9
@@ -299,10 +378,10 @@ namespace AndreevNIR
             this.radioButton9.AutoSize = true;
             this.radioButton9.Location = new System.Drawing.Point(6, 60);
             this.radioButton9.Name = "radioButton9";
-            this.radioButton9.Size = new System.Drawing.Size(126, 24);
+            this.radioButton9.Size = new System.Drawing.Size(134, 24);
             this.radioButton9.TabIndex = 5;
             this.radioButton9.TabStop = true;
-            this.radioButton9.Text = "radioButton9";
+            this.radioButton9.Text = "Отделение 2";
             this.radioButton9.UseVisualStyleBackColor = true;
             // 
             // radioButton8
@@ -310,10 +389,10 @@ namespace AndreevNIR
             this.radioButton8.AutoSize = true;
             this.radioButton8.Location = new System.Drawing.Point(6, 30);
             this.radioButton8.Name = "radioButton8";
-            this.radioButton8.Size = new System.Drawing.Size(126, 24);
+            this.radioButton8.Size = new System.Drawing.Size(134, 24);
             this.radioButton8.TabIndex = 4;
             this.radioButton8.TabStop = true;
-            this.radioButton8.Text = "radioButton8";
+            this.radioButton8.Text = "Отделение 1";
             this.radioButton8.UseVisualStyleBackColor = true;
             // 
             // groupBox5
@@ -333,10 +412,10 @@ namespace AndreevNIR
             this.radioButton7.AutoSize = true;
             this.radioButton7.Location = new System.Drawing.Point(6, 90);
             this.radioButton7.Name = "radioButton7";
-            this.radioButton7.Size = new System.Drawing.Size(126, 24);
+            this.radioButton7.Size = new System.Drawing.Size(130, 24);
             this.radioButton7.TabIndex = 3;
             this.radioButton7.TabStop = true;
-            this.radioButton7.Text = "radioButton7";
+            this.radioButton7.Text = "Стационар 3";
             this.radioButton7.UseVisualStyleBackColor = true;
             // 
             // radioButton6
@@ -344,10 +423,10 @@ namespace AndreevNIR
             this.radioButton6.AutoSize = true;
             this.radioButton6.Location = new System.Drawing.Point(6, 60);
             this.radioButton6.Name = "radioButton6";
-            this.radioButton6.Size = new System.Drawing.Size(126, 24);
+            this.radioButton6.Size = new System.Drawing.Size(130, 24);
             this.radioButton6.TabIndex = 2;
             this.radioButton6.TabStop = true;
-            this.radioButton6.Text = "radioButton6";
+            this.radioButton6.Text = "Стационар 2";
             this.radioButton6.UseVisualStyleBackColor = true;
             // 
             // radioButton5
@@ -355,11 +434,20 @@ namespace AndreevNIR
             this.radioButton5.AutoSize = true;
             this.radioButton5.Location = new System.Drawing.Point(6, 30);
             this.radioButton5.Name = "radioButton5";
-            this.radioButton5.Size = new System.Drawing.Size(126, 24);
+            this.radioButton5.Size = new System.Drawing.Size(130, 24);
             this.radioButton5.TabIndex = 1;
             this.radioButton5.TabStop = true;
-            this.radioButton5.Text = "radioButton5";
+            this.radioButton5.Text = "Стационар 1";
             this.radioButton5.UseVisualStyleBackColor = true;
+            // 
+            // buttonAdd
+            // 
+            this.buttonAdd.Location = new System.Drawing.Point(12, 549);
+            this.buttonAdd.Name = "buttonAdd";
+            this.buttonAdd.Size = new System.Drawing.Size(583, 71);
+            this.buttonAdd.TabIndex = 12;
+            this.buttonAdd.Text = "Добавить";
+            this.buttonAdd.UseVisualStyleBackColor = true;
             // 
             // FormAddStaff
             // 
@@ -367,6 +455,7 @@ namespace AndreevNIR
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1478, 894);
+            this.Controls.Add(this.buttonAdd);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -418,5 +507,12 @@ namespace AndreevNIR
         private System.Windows.Forms.RadioButton radioButton7;
         private System.Windows.Forms.RadioButton radioButton6;
         private System.Windows.Forms.RadioButton radioButton5;
+        private System.Windows.Forms.RadioButton radioButton16;
+        private System.Windows.Forms.RadioButton radioButton15;
+        private System.Windows.Forms.RadioButton radioButton14;
+        private System.Windows.Forms.RadioButton radioButton13;
+        private System.Windows.Forms.RadioButton radioButton12;
+        private System.Windows.Forms.RadioButton radioButton11;
+        private System.Windows.Forms.Button buttonAdd;
     }
 }

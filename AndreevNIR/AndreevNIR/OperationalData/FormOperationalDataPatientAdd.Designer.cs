@@ -423,7 +423,6 @@
             this.label16.Size = new System.Drawing.Size(96, 20);
             this.label16.TabIndex = 4;
             this.label16.Text = "Отделение";
-            this.label16.Click += new System.EventHandler(this.label16_Click);
             // 
             // textBox13
             // 
@@ -460,6 +459,7 @@
             this.button2.TabIndex = 1;
             this.button2.Text = "Отмена";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click_1);
             // 
             // button1
             // 
@@ -482,7 +482,6 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "FormOperationalDataPatientAdd";
             this.Text = "FormOperationalDataPatientAdd";
-            this.Load += new System.EventHandler(this.FormOperationalDataPatientAdd_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

@@ -20,9 +20,11 @@ namespace AndreevNIR
             panelInstruments.Size = new Size(150,800);
             MaximizeBox = false;
             FormBorderStyle = FormBorderStyle.Fixed3D;
-
-           
         }
+
+        //СОЗДАЛ ПЕРЕМЕННЫЕ ДЛЯ ВЫВОДА НА ГЛАВНЫЙ ЭКРАН!!!!! НЕ ЗАБЫТЬ!!!
+        private string tmpRole;
+        private string tmpJobTitle;
 
         private void buttonExit_Click(object sender, EventArgs e)
         {
