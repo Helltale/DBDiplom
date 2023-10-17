@@ -17,9 +17,11 @@ namespace AndreevNIR
             }
         }
 
-        public void PlaceholderHide(TextBox txtb) {
-            txtb.ForeColor = Color.Black;
-            txtb.Text = null;
+        public void PlaceholderHide(TextBox txtb, string text) {
+            if (txtb.Text == text) {
+                txtb.ForeColor = Color.Black;
+                txtb.Text = null;
+            }
         }
     }
 }
