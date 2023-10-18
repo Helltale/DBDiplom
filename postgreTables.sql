@@ -62,12 +62,30 @@ code_hir_department varchar(10) primary key,
 name_hir_department varchar(100) unique,
 adress_hir_department varchar(500) unique,
 boss_hir_department varchar(10) references Staff(id_staff),
-phone_hir_department varhcar(10) unique
+phone_hir_department varchar(10) unique
 )
 select * from Hir_hospital
 drop table Hir_hospital
 
 
+--отделение
+create table Department(
+code_hir_department varchar(10) references Hir_hospital(code_hir_department),
+id_department varchar(4) references Type_department(id_department),
+boss_department varchar(10),
+primary key(code_hir_department, id_department)
+)
+select * from Department
+drop table Department
 
 
+----установление связей (криво косо, но по дургому не будет подключаться)
+alter table Staff
+add constraint FK_Staff foreign key(code_hir_department, id_department) references Department(code_hir_department, id_department)
 
+alter table Department
+add constraint FK_Staff1 foreign key(boss_department) References Staff(id_staff)
+
+alter table Room
+add constraint FK_Room1 foreign key (code_hir_department, id_department) references Department(code_hir_department, id_department)
+----
