@@ -1,45 +1,48 @@
 --====================================создание таблиц
 
 --пациент
-create table Patient(
+drop table if exists patient;
+create table if not exists patient(
 omc varchar(16) primary key,
 diagnosis_enter varchar(500),
 snils varchar(16),
 full_name varchar(100)
-)
-select * from Patient
-drop table Patient
+);
+select * from patient
 
 
 --информация о уже имеющемся больничном листе
-create table Add_information_not_working_already(
-id_not_working_initial varchar(10) primary key,
-omc varchar(16) references patient(OMC),
+drop table if exists Add_information_not_working_already;
+create table if not exists Add_information_not_working_already(
+id_not_working_initial varchar(10),
+omc varchar(16) references patient(OMC) primary key,
 date_not_working date
-)
+);
 select * from Add_information_not_working_already
-drop table Add_information_not_working_already
+
+
+
 
 
 --доп информация
-create table Additional_information(
+drop table if exists Additional_information;
+create table if not exists Additional_information(
 omc varchar(16) references patient(OMC) primary key,
 allergy varchar(500),
 rh varchar(1),
 blood varchar(1),
 additional_info varchar(1000),
-adress_real varchar(200),
-id_not_working_initial varchar(10) references Add_information_not_working_already(id_not_working_initial)
-)
+adress_real varchar(200)
+);
 select * from AdditionalInformation
-drop table Additional_information
+
 
 
 --отделение
 create table Type_department(
 id_department varchar(10) primary key,
 name_department varchar(500)
-)
+);
 select * from Type_department
 drop table Type_department
 
@@ -52,7 +55,7 @@ id_department varchar(4),
 sit_empt varchar(2),
 sit_bisy varchar(2),
 primary key(number_room, code_hir_department, id_department)
-)
+);
 select * from Room
 drop table Room
 
@@ -65,7 +68,7 @@ phone varchar(10),
 id_department varchar(10),
 code_hir_department varchar(10),
 mail varchar(100)
-)
+);
 select * from Staff
 drop table Staff
 
@@ -76,7 +79,7 @@ id_staff varchar(10) references Staff(id_staff) primary key,
 login_user varchar(50),
 password_user varchar(50),
 role_user varchar(1)  --здесь будет буква или цифра, которая будет означать роль сотрудника при работе с бд
-)
+);
 select * from User_info
 drop table User_info
 
@@ -89,7 +92,7 @@ adress_hir_department varchar(500) unique,
 boss_hir_department varchar(10) references Staff(id_staff),
 phone_hir_department varchar(10) unique,
 ogrm_hir_department varchar(13) unique
-)
+);
 select * from Hir_hospital
 drop table Hir_hospital
 
@@ -100,22 +103,22 @@ code_hir_department varchar(10) references Hir_hospital(code_hir_department),
 id_department varchar(4) references Type_department(id_department),
 boss_department varchar(10),
 primary key(code_hir_department, id_department)
-)
+);
 select * from Department
 drop table Department
 
 
 ----установление связей (криво косо, но по дургому не будет подключаться)
 alter table Staff
---drop constraint FK_Staff
+drop constraint FK_Staff
 add constraint FK_Staff foreign key(code_hir_department, id_department) references Department(code_hir_department, id_department)
 
 alter table Department
---drop constraint FK_Staff1
+drop constraint FK_Staff1
 add constraint FK_Staff1 foreign key(boss_department) References Staff(id_staff)
 
 alter table Room
---drop constraint FK_Room1
+drop constraint FK_Room1
 add constraint FK_Room1 foreign key (code_hir_department, id_department) references Department(code_hir_department, id_department)
 ----
 

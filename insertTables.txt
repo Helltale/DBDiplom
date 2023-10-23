@@ -1,0 +1,24 @@
+последовательность заполнения бд при первом запуске с готовыми данными:
+
+1.	patient
+2.	add_information_not_working_already
+3.	additional information
+4.	type_department
+5.	room
+6.	staff
+7.	user_info
+8.	hir_hospital
+9.	department
+10.	passport
+11.	receptionist/guard_nurce/therapist
+12.	initial_inspection
+13.	patient_in_room
+14.	doc_patient
+15.	extract_document
+16.	list_not_working
+17.	operation
+18.	drug
+19.	procedures_
+20.	conservative
+21.	meetings
+
