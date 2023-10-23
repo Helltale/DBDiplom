@@ -11,12 +11,25 @@ select * from Patient
 drop table Patient
 
 
+--информация о уже имеющемся больничном листе
+create table Add_information_not_working_already(
+id_not_working_initial varchar(10) primary key,
+omc varchar(16) references patient(OMC),
+date_not_working date
+)
+select * from Add_information_not_working_already
+drop table Add_information_not_working_already
+
+
 --доп информация
 create table Additional_information(
 omc varchar(16) references patient(OMC) primary key,
 allergy varchar(500),
 rh varchar(1),
-blood varchar(1)
+blood varchar(1),
+additional_info varchar(1000),
+adress_real varchar(200),
+id_not_working_initial varchar(10) references Add_information_not_working_already(id_not_working_initial)
 )
 select * from AdditionalInformation
 drop table Additional_information
@@ -50,10 +63,22 @@ id_staff varchar(10) primary key,
 full_name varchar(500),
 phone varchar(10),
 id_department varchar(10),
-code_hir_department varchar(10)
+code_hir_department varchar(10),
+mail varchar(100)
 )
 select * from Staff
 drop table Staff
+
+
+--информация о пользователе БД
+create table User_info(
+id_staff varchar(10) references Staff(id_staff) primary key,
+login_user varchar(50),
+password_user varchar(50),
+role_user varchar(1)  --здесь будет буква или цифра, которая будет означать роль сотрудника при работе с бд
+)
+select * from User_info
+drop table User_info
 
 
 --хирургический стационар
@@ -62,7 +87,8 @@ code_hir_department varchar(10) primary key,
 name_hir_department varchar(100) unique,
 adress_hir_department varchar(500) unique,
 boss_hir_department varchar(10) references Staff(id_staff),
-phone_hir_department varchar(10) unique
+phone_hir_department varchar(10) unique,
+ogrm_hir_department varchar(13) unique
 )
 select * from Hir_hospital
 drop table Hir_hospital
@@ -81,12 +107,15 @@ drop table Department
 
 ----установление связей (криво косо, но по дургому не будет подключаться)
 alter table Staff
+--drop constraint FK_Staff
 add constraint FK_Staff foreign key(code_hir_department, id_department) references Department(code_hir_department, id_department)
 
 alter table Department
+--drop constraint FK_Staff1
 add constraint FK_Staff1 foreign key(boss_department) References Staff(id_staff)
 
 alter table Room
+--drop constraint FK_Room1
 add constraint FK_Room1 foreign key (code_hir_department, id_department) references Department(code_hir_department, id_department)
 ----
 
@@ -98,7 +127,7 @@ data_get date,
 number_pass varchar(6),
 who_give varchar(100),
 tally_pass varchar(4),
-adress_pass varchar(100),
+adress_pass varchar(200),
 id_staff varchar(10) references Staff(id_staff),
 omc varchar(16) references Patient(omc),
 unique(data_get, number_pass, who_give, tally_pass)
@@ -119,6 +148,10 @@ id_staff varchar(10) primary key references Staff(id_staff)
 )
 select * from Receptionist
 drop table Receptionist
+select * from Guard_nurse
+drop table Guard_nurse
+select * from Therapist
+drop table Therapist
 
 
 --первичный осмотр
@@ -145,8 +178,8 @@ constraint FK_PiR1 foreign key(number_room, code_hir_department, id_department) 
 constraint FK_PiR2 foreign key (omc, date_room) references Initial_inspection(omc, date_initial),
 unique (omc, code_hir_department, date_room, number_room, id_department)
 )
-select * from Patient_in_ward
-drop table Patient_in_ward
+select * from Patient_in_room
+drop table Patient_in_room
 
 
 --пациенты доктора
@@ -166,6 +199,8 @@ id_patient varchar(10),
 id_staff varchar(10),
 date_extract date,
 diagnosis_extract varchar(500),
+recomendations varchar(2000),
+death_mark varchar(1),
 constraint FK_Extract foreign key (id_patient, id_staff)References Doc_Patient(id_patient, id_staff),
 unique (id_patient, id_staff, date_extract)
 )
@@ -176,8 +211,10 @@ drop table Extract_document
 --листы о нетрудоспособности
 create table List_not_working(
 numb_extract varchar(10) references Extract_document(numb_extract) primary key,
-date_open_list date,
-date_close_list date
+date_in date,
+omc varchar(10),
+id_not_working_initial varchar(10) references add_information_not_working_already(id_not_working_initial),
+constraint FK_LNW1 foreign key (date_in, omc) references initial_inspection(date_initial, omc)
 )
 select * from List_not_working
 drop table List_not_working
@@ -187,30 +224,64 @@ drop table List_not_working
 create table Operation(
 id_operation varchar(10),
 date_operation date,
+time_operation time,
 id_staff varchar(10),
 id_patient varchar(10),
 name_operation varchar(500),
-discriptionary_operation varchar(1000),
-discriptionary_bad varchar(1000),
+discriptionary_operation varchar(5000),
+discriptionary_bad varchar(5000),
 constraint FK_Operation1 foreign key (id_patient, id_staff) references Doc_Patient(id_patient, id_staff),
-primary key(id_operation, date_operation, id_staff, id_patient)
+primary key(id_operation, date_operation, time_operation, id_staff, id_patient)
 )
 select * from Operation
 drop table Operation
 
 
+--таблица с препаратами
+create table drug(
+id_drug varchar(10) primary key,
+name_drug varchar(50)
+)
+select * from drug
+drop table drug
+
+
+--таблица с вариантами процедур
+create table procedures_(
+id_procedure varchar(10) primary key,
+id_drug varchar(10) references drug(id_drug),
+name_drocedure varchar(50),
+value_drug int
+)
+select * from procedures_
+drop table procedures_
+
+
 --кончервативное лечение
 Create Table Сonservative(
-id_staff varchar(10),
+id_staff varchar(10), --лечащий врач
 id_patient varchar(10),
-id_procedure varchar(10),
-id_staff_nurce varchar(10) references Guard_Nurse(id_staff),
-preparat varchar(1000),
-procedure_name varchar(1000),
-numbers_procedure smallint,
+id_procedure varchar(10) references procedures_(id_procedure),
+id_staff_nurce varchar(10) references Guard_Nurse(id_staff), --мед сестра, что делала
+date_procedure date,
+time_procedure time,
 constraint FK_Operation foreign key (id_patient, id_staff) references Doc_Patient(id_patient, id_staff),
 primary key(id_staff, id_patient)
 )
 select * from Сonservative
 drop table Сonservative
 
+
+--осмотры лечащим врачом пациента
+create table meetings(
+id_meeting varchar(10) primary key,
+id_staff varchar(10),
+id_patient varchar(10),
+discription_meeting varchar(5000),
+date_meeting date,
+time_meeting time, 
+operation_control varchar(5000),
+constraint FK_M foreign key (id_patient, id_staff) references Doc_Patient(id_patient, id_staff)
+)
+select * from meetings
+drop table meetings
