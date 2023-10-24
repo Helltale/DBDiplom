@@ -41,3 +41,28 @@ INSERT INTO Type_department (id_department, name_department) VALUES
 ('7', 'Endocrinology'),
 ('8', 'Dermatology'),
 ('9', 'Ophthalmology');
+
+INSERT INTO Room (number_room, code_hir_department, id_department, sit_empt, sit_bisy) VALUES 
+('101', '1234567890', '1', '5', '2'),
+('102', '1234567890', '1', '5', '2'),
+('103', '1234567890', '1', '5', '1'),
+('104', '1234567890', '1', '5', '3'),
+('105', '1234567890', '1', '5', '4'),
+('106', '1234567890', '1', '5', '5'),
+('107', '1234567890', '1', '5', '5'),
+('108', '1234567890', '1', '5', '4'),
+('109', '1234567890', '1', '5', '3'),
+('110', '1234567890', '1', '5', '4');
+
+INSERT INTO Staff (id_staff, full_name, phone, id_department, code_hir_department, mail) VALUES 
+('1234567890', 'John Smith1', 	'9376223112', '1', '1234567890', 'john.smith@example.com'),
+('2345678901', 'Jane Doe1', 	'9373453566', '2', '2345678901', 'jane.doe@example.com'),
+('3456789012', 'Bob Johnson1', 	'9371102334', '3', '3456789012', 'bob.johnson@example.com'),
+('4567890123', 'Alice Lee1', 	'9370012382', '4', '4567890123', 'alice.lee@example.com'),
+('5678901234', 'Tom Wilson1', 	'9374568945', '5', '5678901234', 'tom.wilson@example.com'),
+('6789012345', 'Sara Lee1', 	'9373453522', '6', '6789012345', 'ara.lee@example.com'),
+('7890123456', 'David Smith1', 	'9371111232', '7', '7890123456', 'david.smith@example.com'),
+('8901234567', 'Emily Doe1', 	'9377869696', '8', '8901234567', 'emily.doe@example.com'),
+('9012345678', 'Karen Johnson1','9372347179', '9', '9012345678', 'karen.johnson@example.com');
+
+

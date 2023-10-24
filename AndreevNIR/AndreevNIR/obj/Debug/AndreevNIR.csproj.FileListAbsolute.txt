@@ -117,3 +117,5 @@ D:\diplom\AndreevNIR\AndreevNIR\bin\Debug\System.Text.Json.xml
 D:\diplom\AndreevNIR\AndreevNIR\bin\Debug\System.Threading.Channels.xml
 D:\diplom\AndreevNIR\AndreevNIR\bin\Debug\System.Threading.Tasks.Extensions.xml
 D:\diplom\AndreevNIR\AndreevNIR\bin\Debug\System.ValueTuple.xml
+D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.Formtest.resources
+D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.FormAutorizationSettings.resources

@@ -15,9 +15,6 @@ namespace AndreevNIR
     {
         Thread th;
 
-        string connStr = "Host=localhost;Username=postgres;Password=64210369;Database=postgres";
-
-
         public FormAutorization()
         {
             InitializeComponent();
@@ -35,8 +32,6 @@ namespace AndreevNIR
             DBLogicConnection connetcionClass = new DBLogicConnection();
             connetcionClass.ConnectToPostgres();
 
-
-
             if (textBoxLogin.Text == "admin" && textBoxPassword.Text == "123")
             {
                 this.Close();
@@ -52,6 +47,12 @@ namespace AndreevNIR
         private void FormAutorization_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            FormAutorizationSettings setting = new FormAutorizationSettings();
+            setting.ShowDialog();
         }
     }
 }
