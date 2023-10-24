@@ -14,12 +14,12 @@ namespace AndreevNIR
     public partial class FormAutorization : Form
     {
         Thread th;
-
+        
         public FormAutorization()
         {
             InitializeComponent();
 
-            textBoxLogin.Text = "admin";
+            textBoxLogin.Text = "john.smith";
             textBoxPassword.Text = "123";
         }
 
@@ -29,10 +29,15 @@ namespace AndreevNIR
 
         private void buttonEnter_Click(object sender, EventArgs e)
         {
-            DBLogicConnection connetcionClass = new DBLogicConnection();
-            connetcionClass.ConnectToPostgres();
+            
 
-            if (textBoxLogin.Text == "admin" && textBoxPassword.Text == "123")
+            DBLogicConnection connetcionClass = new DBLogicConnection();
+            connetcionClass.OpenSQLConnection(connetcionClass._connectionString); //открывается подключение
+
+            connetcionClass.CreateQueryLogIn(textBoxLogin.Text, textBoxPassword.Text); //поиск пользователя
+            bool flag = connetcionClass.tmpFlag;
+
+            if (flag)
             {
                 this.Close();
                 th = new Thread(open);
@@ -41,7 +46,7 @@ namespace AndreevNIR
             }
             else {
                 MessageBox.Show("Некорректные данные для входа");
-            }
+            }        
         }
 
         private void FormAutorization_Load(object sender, EventArgs e)
