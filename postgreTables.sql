@@ -160,7 +160,6 @@ constraint FK_Extract foreign key (id_patient, id_staff)References Doc_Patient(i
 unique (id_patient, id_staff, date_extract)
 );
 
-
 --листы о нетрудоспособности
 create table List_not_working(
 numb_extract varchar(10) references Extract_document(numb_extract) primary key,
@@ -169,7 +168,6 @@ omc varchar(10),
 id_not_working_initial varchar(10) references add_information_not_working_already(id_not_working_initial),
 constraint FK_LNW1 foreign key (date_in, omc) references initial_inspection(date_initial, omc)
 );
-
 
 --оперативное лечение
 create table Operation(
@@ -185,13 +183,11 @@ constraint FK_Operation1 foreign key (id_patient, id_staff) references Doc_Patie
 primary key(id_operation, date_operation, time_operation, id_staff, id_patient)
 );
 
-
 --таблица с препаратами
 create table drug(
 id_drug varchar(10) primary key,
 name_drug varchar(50)
 );
-
 
 --таблица с вариантами процедур
 create table procedures_(
@@ -200,7 +196,6 @@ id_drug varchar(10) references drug(id_drug),
 name_drocedure varchar(50),
 value_drug int
 );
-
 
 --кончервативное лечение
 Create Table Сonservative(
@@ -213,7 +208,6 @@ time_procedure time,
 constraint FK_Operation foreign key (id_patient, id_staff) references Doc_Patient(id_patient, id_staff),
 primary key(id_staff, id_patient)
 );
-
 
 --осмотры лечащим врачом пациента
 create table meetings(

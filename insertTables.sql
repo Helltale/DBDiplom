@@ -118,6 +118,72 @@ Update Hir_hospital set boss_hir_department = '7890123456' where code_hir_depart
 Update Hir_hospital set boss_hir_department = '8901234567' where code_hir_department = '1008';
 Update Hir_hospital set boss_hir_department = '9012345678' where code_hir_department = '1009';
 
+--добавить персонал для начальников отделений (во всех отделениях один большой босс)
+Update Department set Boss_department = '9012345678' where Code_hir_department = '1001' and ID_department = '1';
+Update Department set Boss_department = '9012345678' where Code_hir_department = '1001' and ID_department = '2';
+Update Department set Boss_department = '9012345678' where Code_hir_department = '1002' and ID_department = '2';
+Update Department set Boss_department = '9012345678' where Code_hir_department = '1002' and ID_department = '3';
+Update Department set Boss_department = '9012345678' where Code_hir_department = '1003' and ID_department = '3';
+Update Department set Boss_department = '9012345678' where Code_hir_department = '1003' and ID_department = '4';
+Update Department set Boss_department = '9012345678' where Code_hir_department = '1004' and ID_department = '4';
+Update Department set Boss_department = '9012345678' where Code_hir_department = '1004' and ID_department = '5';
+Update Department set Boss_department = '9012345678' where Code_hir_department = '1005' and ID_department = '5';
+Update Department set Boss_department = '9012345678' where Code_hir_department = '1005' and ID_department = '6';
+Update Department set Boss_department = '9012345678' where Code_hir_department = '1006' and ID_department = '6';
+Update Department set Boss_department = '9012345678' where Code_hir_department = '1006' and ID_department = '7';
+Update Department set Boss_department = '9012345678' where Code_hir_department = '1007' and ID_department = '7';
+Update Department set Boss_department = '9012345678' where Code_hir_department = '1007' and ID_department = '8';
+Update Department set Boss_department = '9012345678' where Code_hir_department = '1008' and ID_department = '8';
+Update Department set Boss_department = '9012345678' where Code_hir_department = '1008' and ID_department = '9';
+Update Department set Boss_department = '9012345678' where Code_hir_department = '1009' and ID_department = '9';
+Update Department set Boss_department = '9012345678' where Code_hir_department = '1009' and ID_department = '1';
+
+INSERT INTO passport (сode_pass, data_get, number_pass, who_give, tally_pass, adress_pass, id_staff, omc)
+VALUES 
+('123456', '2021-01-01', '789012', 'МВД1', '123456', 'ул. Ленина, д. 10', 	null, 	'1234567890123456'),
+('234567', '2021-02-01', '890123', 'МВД2', '234567', 'ул. Пушкина, д. 20', 	null, 	'2345678901234567'),
+('345678', '2021-03-01', '901234', 'МВД3', '345678', 'ул. Ленина, д. 30', 	null, 	'3456789012345678'),
+('456789', '2021-04-01', '012345', 'МВД4', '456789', 'ул. Пушкина, д. 40', 	null, 	'4567890123456789'),
+('567890', '2021-05-01', '123456', 'МВД5', '567890', 'ул. Ленина, д. 50', 	null, 	'5678901234567890'),
+('678901', '2021-06-01', '234567', 'МВД6', '678901', 'ул. Пушкина, д. 60', 	null, 	'6789012345678901'),
+('789012', '2021-07-01', '345678', 'МВД7', '789012', 'ул. Ленина, д. 70', 	null, 	'7890123456789012'),
+('890123', '2021-08-01', '456789', 'МВД8', '890123', 'ул. Пушкина, д. 80', 	null, 	'8901234567890123'),
+('901234', '2021-09-01', '567890', 'МВД9', '901234', 'ул. Ленина, д. 90', 	null, 	'9012345678901234'),
+
+('123232', '2021-01-01', '445456', 'МВД1', '445456', 'ул. Ленина, д. 11', 	'1234567890', 	null),
+('112321', '2021-02-01', '534534', 'МВД2', '534534', 'ул. Пушкина, д. 21', 	'2345678901', 	null),
+('675675', '2021-03-01', '445393', 'МВД3', '445393', 'ул. Ленина, д. 31', 	'3456789012', 	null),
+('096845', '2021-04-01', '456456', 'МВД4', '456456', 'ул. Пушкина, д. 41', 	'4567890123', 	null),
+('567537', '2021-05-01', '212236', 'МВД5', '212236', 'ул. Ленина, д. 51', 	'5678901234', 	null),
+('897957', '2021-06-01', '780796', 'МВД6', '780796', 'ул. Пушкина, д. 61', 	'6789012345', 	null),
+('444575', '2021-07-01', '345344', 'МВД7', '345344', 'ул. Ленина, д. 71', 	'7890123456', 	null),
+('896954', '2021-08-01', '234806', 'МВД8', '234806', 'ул. Пушкина, д. 81', 	'8901234567', 	null),
+('564633', '2021-09-01', '564899', 'МВД9', '564899', 'ул. Ленина, д. 91', 	'9012345678', 	null);
+
+Insert into receptionist Values
+('1234567890'),('2345678901'),('3456789012');
+Insert into receptionist Values
+('6789012345'),('4567890123'),('5678901234');
+Insert into receptionist Values
+('7890123456'),('8901234567'),('9012345678');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
