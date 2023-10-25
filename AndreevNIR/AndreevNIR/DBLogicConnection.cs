@@ -66,32 +66,15 @@ namespace AndreevNIR
                 MessageBox.Show("Некорректные данные входа!");
             }
 
-
-            /*adapter.SelectCommand = command;
-            adapter.Fill(table);
-
-            if (table.Rows.Count > 0) { MessageBox.Show("Авторизация прошла успешно"); return true; }
-            else { MessageBox.Show("Ошибка авторизации"); return false; }*/
-
-
         }
 
-        public void SetNewConnectionString(string conHost_, string conUsername_, string conPassword_, string conDB_) { //переписать, не работают
-            _connectionString = "Host=" + conHost_ + ";Username=" + conUsername_ + ";Password=" + conPassword_ + ";Database=" + conDB_;
-            conHost = conHost_;
-            conUsername = conUsername_;
-            conPassword = conPassword_;
-            conDB = conDB_;
+        public string SetNewConnectionString(string host, string user, string password, string db) { //ручная настройка //всё ещё не работает
+            string connectionString = "Host="+ host + ";Username="+ user + ";Password="+ password + ";Database="+ db;
+            return connectionString;
         }
-        public void SetNewConnectionStringDefault() //переписать, не работают
+        public void SetNewConnectionStringDefault() //дефолт
         {
-            string defHost = "localhost";        conHost = defHost;
-            string defUserName = "postgres";     conUsername = defUserName;
-            string defPassword = "";             conPassword = defPassword;
-            string defDB = "postgres";           conDB = defDB;
-
-            _connectionString = "Host=" + conHost + ";Username=" + conUsername + ";Password=" + conPassword + ";Database=" + conDB;
-
+           
         }
     }
 }

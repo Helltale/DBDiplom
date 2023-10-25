@@ -21,6 +21,7 @@ namespace AndreevNIR
 
             textBoxLogin.Text = "john.smith";
             textBoxPassword.Text = "123";
+
         }
 
         public void open(object obj) { 
