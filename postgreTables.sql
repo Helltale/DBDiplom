@@ -113,7 +113,7 @@ id_staff varchar(10) primary key references Staff(id_staff)
 create table Guard_nurse(
 id_staff varchar(10) primary key references Staff(id_staff)
 );
-create table Therapist(
+	create table Therapist(
 id_staff varchar(10) primary key references Staff(id_staff)
 );
 
