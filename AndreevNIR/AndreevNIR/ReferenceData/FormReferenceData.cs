@@ -73,7 +73,7 @@ namespace AndreevNIR
         {
             
             switch (tabControl1.SelectedIndex) {
-                case 0:
+                case 0: //информация о персонале больницы
                     string str0 = "SELECT staff.full_name as ФИО, type_department.name_department Название_отделения, hir_hospital.name_hir_department Название_стационара, staff.phone Телефон, staff.mail Почта, user_info.role_user Уровень_доступа, " +
                         "department.boss_department Начальник_отделения, hir_hospital.boss_hir_department Начальник_стационара, case when guard_nurse.id_staff is not null then 'Постовая мед сестра' when therapist.id_staff is not null then 'Врач' " +
                         "when receptionist.id_staff is not null then 'Врач приёмного покоя' end as \"Должность\" FROM staff FULL OUTER JOIN user_info ON staff.id_staff = user_info.id_staff FULL OUTER JOIN receptionist ON receptionist.id_staff = " +
@@ -105,35 +105,90 @@ namespace AndreevNIR
                     break;
 
                 case 2:
-                    MessageBox.Show("Окно1");
-                    break;
+                    //пупупу
 
                 case 3:
-                    MessageBox.Show("Окно1");
+                    
                     break;
 
                 case 4:
-                    MessageBox.Show("Окно1");
+                    
                     break;
 
                 case 5:
-                    MessageBox.Show("Окно1");
+                    string str5 = "select staff.full_name ФИО, user_info.login_user Логин, user_info.role_user \"Уровень доступа\" from staff join user_info on staff.id_staff = user_info.id_staff";
+                    NpgsqlDataAdapter adapter5 = new NpgsqlDataAdapter(str5, dBLogicConnection._connectionString);
+                    try
+                    {
+                        DataTable table = new DataTable();
+                        adapter5.Fill(table);
+
+                        dataGridView5.DataSource = table;
+                    }
+                    catch (Exception ex) { MessageBox.Show("Ошибка: " + ex); }
+                    break;
                     break;
 
             }
         }
 
-        private void LoadGridRooms() {
-            NpgsqlDataAdapter adapter = new NpgsqlDataAdapter("SELECT * FROM test1", dBLogicConnection._connectionString);
+        private void dataGridView4_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
 
-            try
-            {
-                DataTable table = new DataTable();
-                adapter.Fill(table);
-                dataGridView2.DataSource = table;
-            }
-            catch
-            {
+        }
+
+        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (comboBox3.SelectedIndex) {
+                case 0:
+                    string str21 = "select * from initial_inspection";
+                    NpgsqlDataAdapter adapter21 = new NpgsqlDataAdapter(str21, dBLogicConnection._connectionString);
+                    try
+                    {
+                        DataTable table = new DataTable();
+                        adapter21.Fill(table);
+
+                        dataGridView4.DataSource = table;
+                    }
+                    catch (Exception ex) { MessageBox.Show("Ошибка: " + ex); }
+                    break;
+                case 1:
+                    string str22 = "select * from meetings";
+                    NpgsqlDataAdapter adapter22 = new NpgsqlDataAdapter(str22, dBLogicConnection._connectionString);
+                    try
+                    {
+                        DataTable table = new DataTable();
+                        adapter22.Fill(table);
+
+                        dataGridView4.DataSource = table;
+                    }
+                    catch (Exception ex) { MessageBox.Show("Ошибка: " + ex); }
+                    break;
+                case 2:
+                    string str23 = "select * from Сonservative";
+                    NpgsqlDataAdapter adapter23 = new NpgsqlDataAdapter(str23, dBLogicConnection._connectionString);
+                    try
+                    {
+                        DataTable table = new DataTable();
+                        adapter23.Fill(table);
+
+                        dataGridView4.DataSource = table;
+                    }
+                    catch (Exception ex) { MessageBox.Show("Ошибка: " + ex); }
+                    break;
+                case 3:
+                    string str24 = "select * from operation";
+                    NpgsqlDataAdapter adapter24 = new NpgsqlDataAdapter(str24, dBLogicConnection._connectionString);
+                    try
+                    {
+                        DataTable table = new DataTable();
+                        adapter24.Fill(table);
+
+                        dataGridView4.DataSource = table;
+                    }
+                    catch (Exception ex) { MessageBox.Show("Ошибка: " + ex); }
+                    break;
+
             }
         }
     }

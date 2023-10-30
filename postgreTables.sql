@@ -164,7 +164,7 @@ unique (id_patient, id_staff, date_extract)
 create table List_not_working(
 numb_extract varchar(10) references Extract_document(numb_extract) primary key,
 date_in date,
-omc varchar(10),
+omc varchar(16),
 id_not_working_initial varchar(10) references add_information_not_working_already(id_not_working_initial),
 constraint FK_LNW1 foreign key (date_in, omc) references initial_inspection(date_initial, omc)
 );
@@ -194,7 +194,8 @@ create table procedures_(
 id_procedure varchar(10) primary key,
 id_drug varchar(10) references drug(id_drug),
 name_drocedure varchar(50),
-value_drug int
+value_drug int,
+value_name varchar(25)
 );
 
 --кончервативное лечение
