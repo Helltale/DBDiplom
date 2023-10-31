@@ -150,12 +150,6 @@
     <Compile Include="FormAutorization.Designer.cs">
       <DependentUpon>FormAutorization.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormIndex.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormIndex.Designer.cs">
-      <DependentUpon>FormIndex.cs</DependentUpon>
-    </Compile>
     <Compile Include="FormIndex2.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -248,9 +242,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormAutorization.resx">
       <DependentUpon>FormAutorization.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormIndex.resx">
-      <DependentUpon>FormIndex.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormIndex2.resx">
       <DependentUpon>FormIndex2.cs</DependentUpon>

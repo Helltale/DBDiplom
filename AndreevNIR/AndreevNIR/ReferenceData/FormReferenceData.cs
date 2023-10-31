@@ -19,26 +19,7 @@ namespace AndreevNIR
         public FormReferenceData()
         {
             InitializeComponent();
-            LoadGridPersonal();
         }
-
-        public void LoadGridPersonal() {
-            
-            NpgsqlDataAdapter adapter = new NpgsqlDataAdapter("SELECT * FROM test1", dBLogicConnection._connectionString);
-
-            try
-            {
-                DataTable table = new DataTable();
-                adapter.Fill(table);
-
-                dataGridView2.DataSource = table;
-            }
-            catch { 
-            }
-
-            
-        }
-
 
         private void buttonBack_Click(object sender, EventArgs e)
         {
@@ -46,21 +27,6 @@ namespace AndreevNIR
             formIndex2.richTextBoxPrimeTime.Show();
             this.Hide();
             
-        }
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void FormReferenceData_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -74,11 +40,28 @@ namespace AndreevNIR
             
             switch (tabControl1.SelectedIndex) {
                 case 0: //информация о персонале больницы
-                    string str0 = "SELECT staff.full_name as ФИО, type_department.name_department Название_отделения, hir_hospital.name_hir_department Название_стационара, staff.phone Телефон, staff.mail Почта, user_info.role_user Уровень_доступа, " +
-                        "department.boss_department Начальник_отделения, hir_hospital.boss_hir_department Начальник_стационара, case when guard_nurse.id_staff is not null then 'Постовая мед сестра' when therapist.id_staff is not null then 'Врач' " +
-                        "when receptionist.id_staff is not null then 'Врач приёмного покоя' end as \"Должность\" FROM staff FULL OUTER JOIN user_info ON staff.id_staff = user_info.id_staff FULL OUTER JOIN receptionist ON receptionist.id_staff = " +
-                        "staff.id_staff FULL OUTER JOIN guard_nurse ON guard_nurse.id_staff = staff.id_staff FULL OUTER JOIN therapist ON therapist.id_staff = staff.id_staff FULL OUTER JOIN department ON department.id_department = staff.id_department " +
-                        "FULL OUTER JOIN type_department ON department.id_department = type_department.id_department FULL OUTER JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department;";
+                    string str0 = @"SELECT staff.full_name AS ""ФИО"", " +
+                    @"CASE " +
+                    @"WHEN guard_nurse.id_staff IS NOT NULL THEN 'Постовая мед сестра' " +
+                    @"WHEN therapist.id_staff IS NOT NULL THEN 'Врач' " +
+                    @"WHEN receptionist.id_staff IS NOT NULL THEN 'Врач приёмного покоя' " +
+                    @"END AS ""Должность"", " +
+                    @"type_department.name_department AS ""Название отделения"", " +
+                    @"hir_hospital.name_hir_department AS ""Название стационара"", " +
+                    @"staff.phone AS ""Телефон"", " +
+                    @"staff.mail AS ""Почта"", " +
+                    @"user_info.role_user AS ""Уровень доступа"", " +
+                    @"(SELECT full_name FROM staff WHERE id_staff = department.boss_department) AS ""Начальник отделения"", " +
+                    @"(SELECT full_name FROM staff WHERE id_staff = hir_hospital.boss_hir_department) AS ""Начальник стационара"" " +
+                    @"FROM staff " +
+                    @"FULL OUTER JOIN user_info ON staff.id_staff = user_info.id_staff " +
+                    @"FULL OUTER JOIN receptionist ON receptionist.id_staff = staff.id_staff " +
+                    @"FULL OUTER JOIN guard_nurse ON guard_nurse.id_staff = staff.id_staff " +
+                    @"FULL OUTER JOIN therapist ON therapist.id_staff = staff.id_staff " +
+                    @"FULL OUTER JOIN department ON department.id_department = staff.id_department " +
+                    @"FULL OUTER JOIN type_department ON department.id_department = type_department.id_department " +
+                    @"FULL OUTER JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department";
+
                     NpgsqlDataAdapter adapter0 = new NpgsqlDataAdapter(str0, dBLogicConnection._connectionString);
                     try
                     {
@@ -91,9 +74,11 @@ namespace AndreevNIR
                     break;
 
                 case 1: //структура больницы, id поменять на фио докторов, через подзапрос
-                    string str1 = "SELECT name_department, boss_department, name_hir_department, adress_hir_department, boss_hir_department, phone_hir_department, " +
-                        "ogrm_hir_department, number_room FROM type_department JOIN department ON type_department.id_department = department.id_department JOIN hir_hospital ON department.code_hir_department = " +
-                        "hir_hospital.code_hir_department JOIN room ON department.id_department = room.id_department";
+                    string str1 = "SELECT name_hir_department as \"Стационар\", adress_hir_department as \"Адрес стационара\", phone_hir_department as \"Телефон регистратуры\", ogrm_hir_department as \"ОГРМ\", " +
+                        "(select full_name from staff where id_staff = hir_hospital.boss_hir_department) as \"Главный врач\",name_department as \"Отделение\", " +
+                        "(select full_name from staff where id_staff = department.boss_department) as \"Заведующий отделением\", number_room as \"Палата\" " +
+                        "FROM type_department JOIN department ON type_department.id_department = department.id_department JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department " +
+                        "JOIN room ON department.id_department = room.id_department join staff on hir_hospital.boss_hir_department = staff.id_staff;";
                     NpgsqlDataAdapter adapter1 = new NpgsqlDataAdapter(str1, dBLogicConnection._connectionString);
                     try{
                         DataTable table = new DataTable();
@@ -105,11 +90,11 @@ namespace AndreevNIR
                     break;
 
                 case 2:
-                    comboBox3.SelectedIndex = 0;
+                    comboBox3.SelectedIndex = 0; //логика в 3 комбобокс
                     break;
 
                 case 3:
-                    comboBox4.SelectedIndex = 0;
+                    comboBox4.SelectedIndex = 0; //логика в 4 комбобокс
                     break;
 
                 case 4: 
@@ -140,16 +125,14 @@ namespace AndreevNIR
             }
         }
 
-        private void dataGridView4_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (comboBox3.SelectedIndex) {
                 case 0:
-                    string str21 = "select * from initial_inspection";
+                    string str21 = "select s.full_name as \"ФИО врача\", pa.full_name as \"ФИО пациента\", me.date_meeting as \"Дата проведения\", " +
+                        "me.time_meeting as \"Время проведения\", me.discription_meeting as \"Описание осмотра\", me.operation_control as \"Послеоперационный осмотр\" " +
+                        "from meetings me inner join patient_in_room pai on me.id_patient = pai.id_patient inner join patient pa on pa.omc = pai.omc inner " +
+                        "join staff s on s.id_staff = me.id_staff";
                     NpgsqlDataAdapter adapter21 = new NpgsqlDataAdapter(str21, dBLogicConnection._connectionString);
                     try
                     {
@@ -161,7 +144,7 @@ namespace AndreevNIR
                     catch (Exception ex) { MessageBox.Show("Ошибка: " + ex); }
                     break;
                 case 1:
-                    string str22 = "select * from meetings";
+                    string str22 = "select * from Сonservative";
                     NpgsqlDataAdapter adapter22 = new NpgsqlDataAdapter(str22, dBLogicConnection._connectionString);
                     try
                     {
@@ -173,7 +156,7 @@ namespace AndreevNIR
                     catch (Exception ex) { MessageBox.Show("Ошибка: " + ex); }
                     break;
                 case 2:
-                    string str23 = "select * from Сonservative";
+                    string str23 = "select * from operation";
                     NpgsqlDataAdapter adapter23 = new NpgsqlDataAdapter(str23, dBLogicConnection._connectionString);
                     try
                     {
@@ -184,25 +167,10 @@ namespace AndreevNIR
                     }
                     catch (Exception ex) { MessageBox.Show("Ошибка: " + ex); }
                     break;
-                case 3:
-                    string str24 = "select * from operation";
-                    NpgsqlDataAdapter adapter24 = new NpgsqlDataAdapter(str24, dBLogicConnection._connectionString);
-                    try
-                    {
-                        DataTable table = new DataTable();
-                        adapter24.Fill(table);
-
-                        dataGridView4.DataSource = table;
-                    }
-                    catch (Exception ex) { MessageBox.Show("Ошибка: " + ex); }
+                default:
+                    MessageBox.Show("Ошибка выбора");
                     break;
-
             }
-        }
-
-        private void dataGridView6_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
         }
 
         private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
@@ -248,5 +216,6 @@ namespace AndreevNIR
                     break;
             }
         }
+
     }
 }

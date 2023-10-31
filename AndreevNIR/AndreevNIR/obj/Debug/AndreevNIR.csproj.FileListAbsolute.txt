@@ -64,7 +64,6 @@ D:\diplom\AndreevNIR\AndreevNIR\bin\Debug\ShockwaveFlashObjects.dll
 D:\diplom\AndreevNIR\AndreevNIR\bin\Debug\stdole.dll
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.csproj.AssemblyReference.cache
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.FormAutorization.resources
-D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.FormIndex.resources
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.FormIndex2.resources
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.FormOperationalDataHistory.resources
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.FormOperationalDataHistoryAdd.resources
