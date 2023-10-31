@@ -121,6 +121,7 @@ id_staff varchar(10) primary key references Staff(id_staff)
 create table Initial_inspection(
 omc varchar(16) references Patient(omc),
 date_initial date,
+time_initial time,
 doc_receptinoist varchar(10) references Receptionist(id_staff),
 diagnosis varchar(500),
 primary Key(omc, date_initial)
@@ -153,6 +154,7 @@ numb_extract varchar(10) primary key,
 id_patient varchar(10),
 id_staff varchar(10),
 date_extract date,
+time_extract time,
 diagnosis_extract varchar(500),
 recomendations varchar(2000),
 death_mark varchar(1),
@@ -164,6 +166,7 @@ unique (id_patient, id_staff, date_extract)
 create table List_not_working(
 numb_extract varchar(10) references Extract_document(numb_extract) primary key,
 date_in date,
+date_extract_to date,
 omc varchar(16),
 id_not_working_initial varchar(10) references add_information_not_working_already(id_not_working_initial),
 constraint FK_LNW1 foreign key (date_in, omc) references initial_inspection(date_initial, omc)
