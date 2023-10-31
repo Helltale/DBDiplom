@@ -144,7 +144,11 @@ namespace AndreevNIR
                     catch (Exception ex) { MessageBox.Show("Ошибка: " + ex); }
                     break;
                 case 1:
-                    string str22 = "select * from Сonservative";
+                    string str22 = "SELECT pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врач\", pr.name_drocedure as \"Название процедуры\", " +
+                        "n.full_name as \"ФИО мед сестры\", co.date_procedure as \"Дата проведения\", co.time_procedure as \"Время проведения\" " +
+                        "FROM Сonservative co JOIN staff s ON co.id_staff = s.id_staff JOIN staff n ON n.id_staff = co.id_staff_nurce " +
+                        "JOIN patient_in_room pai ON pai.id_patient = co.id_patient JOIN patient pa ON pa.omc = pai.omc " +
+                        "JOIN procedures_ pr ON pr.id_procedure = co.id_procedure JOIN guard_nurse gn ON gn.id_staff = co.id_staff_nurce;";
                     NpgsqlDataAdapter adapter22 = new NpgsqlDataAdapter(str22, dBLogicConnection._connectionString);
                     try
                     {
@@ -156,7 +160,10 @@ namespace AndreevNIR
                     catch (Exception ex) { MessageBox.Show("Ошибка: " + ex); }
                     break;
                 case 2:
-                    string str23 = "select * from operation";
+                    string str23 = " select pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врача\", o.name_operation as \"Название операции\", " +
+                        "o.date_operation as \"Дата проведения\", o.time_operation as \"Время проведения\", o.discriptionary_operation as \"Описание\", " +
+                        "o.discriptionary_bad as \"Описание осложнений\" from operation o join staff s on s.id_staff = o.id_staff " +
+                        "join patient_in_room dir on dir.id_patient = o.id_patient join patient pa on pa.omc = dir.omc";
                     NpgsqlDataAdapter adapter23 = new NpgsqlDataAdapter(str23, dBLogicConnection._connectionString);
                     try
                     {
@@ -177,7 +184,10 @@ namespace AndreevNIR
         {
             switch (comboBox4.SelectedIndex) {
                 case 0:
-                    string str31 = "select * from extract_document";
+                    string str31 = "select e.numb_extract as \"Номер выписки\", pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врача\", e.date_extract as " +
+                        "\"Дата выписки\", e.diagnosis_extract as \"Диагноз\", e.recomendations as \"Рекомендации\", e.death_mark as \"Летальный исход\" " +
+                        "from extract_document e join staff s on s.id_staff = e.id_staff join patient_in_room pai on pai.id_patient = e.id_patient join patient pa on " +
+                        "pa.omc = pai.omc";
                     NpgsqlDataAdapter adapter31 = new NpgsqlDataAdapter(str31, dBLogicConnection._connectionString);
                     try
                     {
@@ -190,7 +200,8 @@ namespace AndreevNIR
                     break;
 
                 case 1:
-                    string str32 = "select * from initial_inspection";
+                    string str32 = "select pa.full_name as \"ФИО пациента\", i.date_initial as \"Дата первичного осмотра\", s.full_name as \"ФИО врача приёмного покоя\", " +
+                        "i.diagnosis as \"Диагноз\" from initial_inspection i join patient pa on pa.omc = i.omc join staff s on s.id_staff = i.doc_receptinoist;";
                     NpgsqlDataAdapter adapter32 = new NpgsqlDataAdapter(str32, dBLogicConnection._connectionString);
                     try
                     {
@@ -203,7 +214,8 @@ namespace AndreevNIR
                     break;
 
                 case 2:
-                    string str33 = "select * from list_not_working";
+                    string str33 = "select l.numb_extract as \"Номер выписки\", pa.full_name as \"ФИО пациента\", l.date_in as \"Дата поступления\" from list_not_working l " +
+                        "join patient pa on pa.omc = l.omc";
                     NpgsqlDataAdapter adapter33 = new NpgsqlDataAdapter(str33, dBLogicConnection._connectionString);
                     try
                     {
