@@ -42,8 +42,10 @@ namespace AndreevNIR
         }
 
         public void CreateQueryLogIn(string login_, string password_) {
-            string queryLogIn = "select id_staff, login_user, password_user, role_user " +
-                "from User_info where login_user = @l and password_user = @p";
+            string queryLogIn = "select u.id_staff, login_user, password_user, role_user, full_name " +
+                "from User_info u " +
+                "join staff s on s.id_staff = u.id_staff " +
+                "where login_user = @l and password_user = @p";
             NpgsqlCommand command = new NpgsqlCommand(queryLogIn, connection);
 
             command.Parameters.Add("@l", NpgsqlTypes.NpgsqlDbType.Varchar).Value = login_;
@@ -54,13 +56,15 @@ namespace AndreevNIR
             {
                 string idStaff = reader["id_staff"].ToString();
                 string roleStaff = reader["role_user"].ToString();
-                MessageBox.Show("Добро пожаловать!\nID сотрудника: " + idStaff);
+                string nameStaff = reader["full_name"].ToString();
+                MessageBox.Show("Добро пожаловать "+ nameStaff + "!\nID сотрудника: " + idStaff);
                 FormAutorization form = new FormAutorization();
                 tmpFlag = true;
 
                 SessionInformation si = new SessionInformation();
                 si.userID = idStaff;
                 si.userRole = roleStaff;
+                si.userName = nameStaff;
             }
             else {
                 MessageBox.Show("Некорректные данные входа!");

@@ -10,7 +10,7 @@ namespace AndreevNIR
     {
         public string userID;
         public string userRole;
-
+        public string userName;
 
 
 
