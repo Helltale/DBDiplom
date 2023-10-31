@@ -105,14 +105,24 @@ namespace AndreevNIR
                     break;
 
                 case 2:
-                    //пупупу
-
-                case 3:
-                    
+                    comboBox3.SelectedIndex = 0;
                     break;
 
-                case 4:
-                    
+                case 3:
+                    comboBox4.SelectedIndex = 0;
+                    break;
+
+                case 4: 
+                    string str4 = "select procedures_.name_drocedure \"Название процедуры\", drug.name_drug \"Название препарата\", procedures_.value_drug \"Количество\", procedures_.value_name \"Тип\" from procedures_ join drug on procedures_.id_drug = drug.id_drug";
+                    NpgsqlDataAdapter adapter4 = new NpgsqlDataAdapter(str4, dBLogicConnection._connectionString);
+                    try
+                    {
+                        DataTable table = new DataTable();
+                        adapter4.Fill(table);
+
+                        dataGridView6.DataSource = table;
+                    }
+                    catch (Exception ex) { MessageBox.Show("Ошибка: " + ex); }
                     break;
 
                 case 5:
@@ -127,8 +137,6 @@ namespace AndreevNIR
                     }
                     catch (Exception ex) { MessageBox.Show("Ошибка: " + ex); }
                     break;
-                    break;
-
             }
         }
 
@@ -189,6 +197,55 @@ namespace AndreevNIR
                     catch (Exception ex) { MessageBox.Show("Ошибка: " + ex); }
                     break;
 
+            }
+        }
+
+        private void dataGridView6_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (comboBox4.SelectedIndex) {
+                case 0:
+                    string str31 = "select * from extract_document";
+                    NpgsqlDataAdapter adapter31 = new NpgsqlDataAdapter(str31, dBLogicConnection._connectionString);
+                    try
+                    {
+                        DataTable table = new DataTable();
+                        adapter31.Fill(table);
+
+                        dataGridView1.DataSource = table;
+                    }
+                    catch (Exception ex) { MessageBox.Show("Ошибка: " + ex); }
+                    break;
+
+                case 1:
+                    string str32 = "select * from initial_inspection";
+                    NpgsqlDataAdapter adapter32 = new NpgsqlDataAdapter(str32, dBLogicConnection._connectionString);
+                    try
+                    {
+                        DataTable table = new DataTable();
+                        adapter32.Fill(table);
+
+                        dataGridView1.DataSource = table;
+                    }
+                    catch (Exception ex) { MessageBox.Show("Ошибка: " + ex); }
+                    break;
+
+                case 2:
+                    string str33 = "select * from list_not_working";
+                    NpgsqlDataAdapter adapter33 = new NpgsqlDataAdapter(str33, dBLogicConnection._connectionString);
+                    try
+                    {
+                        DataTable table = new DataTable();
+                        adapter33.Fill(table);
+
+                        dataGridView1.DataSource = table;
+                    }
+                    catch (Exception ex) { MessageBox.Show("Ошибка: " + ex); }
+                    break;
             }
         }
     }

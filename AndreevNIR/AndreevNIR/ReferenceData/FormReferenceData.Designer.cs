@@ -34,6 +34,7 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
             this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.dataGridView4 = new System.Windows.Forms.DataGridView();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -56,7 +57,7 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.buttonBack = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.comboBox4 = new System.Windows.Forms.ComboBox();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -146,19 +147,34 @@
             this.tabPage6.Text = "Вид лечения";
             this.tabPage6.UseVisualStyleBackColor = true;
             // 
+            // comboBox3
+            // 
+            this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.Items.AddRange(new object[] {
+            "Первичные осмотры",
+            "Плановые осмотры",
+            "Консервативное лечение",
+            "Операции"});
+            this.comboBox3.Location = new System.Drawing.Point(7, 553);
+            this.comboBox3.Name = "comboBox3";
+            this.comboBox3.Size = new System.Drawing.Size(398, 28);
+            this.comboBox3.TabIndex = 2;
+            this.comboBox3.SelectedIndexChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
+            // 
             // dataGridView4
             // 
             this.dataGridView4.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView4.Location = new System.Drawing.Point(0, 3);
+            this.dataGridView4.Location = new System.Drawing.Point(0, 0);
             this.dataGridView4.Name = "dataGridView4";
             this.dataGridView4.RowHeadersWidth = 62;
             this.dataGridView4.RowTemplate.Height = 28;
-            this.dataGridView4.Size = new System.Drawing.Size(1545, 544);
+            this.dataGridView4.Size = new System.Drawing.Size(1542, 544);
             this.dataGridView4.TabIndex = 1;
             this.dataGridView4.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView4_CellContentClick);
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.comboBox4);
             this.tabPage4.Controls.Add(this.dataGridView1);
             this.tabPage4.Location = new System.Drawing.Point(4, 29);
             this.tabPage4.Name = "tabPage4";
@@ -170,12 +186,11 @@
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 62;
             this.dataGridView1.RowTemplate.Height = 28;
-            this.dataGridView1.Size = new System.Drawing.Size(1545, 601);
+            this.dataGridView1.Size = new System.Drawing.Size(1545, 544);
             this.dataGridView1.TabIndex = 2;
             // 
             // tabPage5
@@ -198,6 +213,7 @@
             this.dataGridView6.RowTemplate.Height = 28;
             this.dataGridView6.Size = new System.Drawing.Size(1545, 601);
             this.dataGridView6.TabIndex = 1;
+            this.dataGridView6.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView6_CellContentClick);
             // 
             // tabPage1
             // 
@@ -370,19 +386,18 @@
             this.button6.Text = "button6";
             this.button6.UseVisualStyleBackColor = true;
             // 
-            // comboBox3
+            // comboBox4
             // 
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Items.AddRange(new object[] {
-            "Первичные осмотры",
-            "Плановые осмотры",
-            "Консервативное лечение",
-            "Операции"});
-            this.comboBox3.Location = new System.Drawing.Point(7, 553);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(398, 28);
-            this.comboBox3.TabIndex = 2;
-            this.comboBox3.SelectedIndexChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
+            this.comboBox4.FormattingEnabled = true;
+            this.comboBox4.Items.AddRange(new object[] {
+            "Выписка",
+            "Первичный осмотр",
+            "Справка о нетрудоспособности"});
+            this.comboBox4.Location = new System.Drawing.Point(7, 553);
+            this.comboBox4.Name = "comboBox4";
+            this.comboBox4.Size = new System.Drawing.Size(398, 28);
+            this.comboBox4.TabIndex = 3;
+            this.comboBox4.SelectedIndexChanged += new System.EventHandler(this.comboBox4_SelectedIndexChanged);
             // 
             // FormReferenceData
             // 
@@ -450,5 +465,6 @@
         private System.Windows.Forms.DataGridView dataGridView6;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.ComboBox comboBox4;
     }
 }
