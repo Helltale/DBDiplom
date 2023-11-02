@@ -16,10 +16,10 @@ namespace AndreevNIR
         public FormOperationalDataPatient()
         {
             InitializeComponent();
-            DGV();
+            OperationalDataPatient();
         }
 
-        public void DGV() {
+        public void OperationalDataPatient() {
             DBLogicConnection dBLogicConnection = new DBLogicConnection();
 
             string str1 = " select pa.full_name as \"ФИО пациента\", pai.date_room as \"Дата попадания\", pai.number_room as \"Номер палаты\", td.name_department " +
@@ -31,12 +31,10 @@ namespace AndreevNIR
             {
                 DataTable table = new DataTable();
                 adapter1.Fill(table);
-
                 dataGridView1.DataSource = table;
             }
             catch (Exception ex) { MessageBox.Show("Ошибка: " + ex); }
         }
-
 
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
