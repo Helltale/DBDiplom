@@ -16,6 +16,7 @@ namespace AndreevNIR
         public FormOperationalDataList()
         {
             InitializeComponent();
+            OperationalDataExtract();
         }
 
         private void button10_Click(object sender, EventArgs e)
@@ -24,11 +25,12 @@ namespace AndreevNIR
             add.ShowDialog();
         }
 
-        public void DGV()
+        public void OperationalDataExtract()
         {
             DBLogicConnection dBLogicConnection = new DBLogicConnection();
-
-            string str1 = "";
+            string str1 = "select numb_extract as \"Номер эпикриза\", pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО сотрудника\", e.date_extract as " +
+                "\"Дата создания\", e.time_extract as \"Время создания\", e.diagnosis_extract as \"Диагноз при выписке\" from extract_document e join staff s on s.id_staff " +
+                "= e.id_staff join patient_in_room pai on pai.id_patient = e.id_patient join patient pa on pa.omc = pai.omc";
             NpgsqlDataAdapter adapter1 = new NpgsqlDataAdapter(str1, dBLogicConnection._connectionString);
             try
             {
