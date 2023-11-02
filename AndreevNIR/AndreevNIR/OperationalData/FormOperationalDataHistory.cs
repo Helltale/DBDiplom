@@ -17,7 +17,6 @@ namespace AndreevNIR
         {
             InitializeComponent();
             DGVList();
-            DGV();
         }
 
         public string currentName;
@@ -27,7 +26,7 @@ namespace AndreevNIR
 
         }
 
-        public void DGV() {
+        /*public void DGV() {
 
             DBLogicConnection dBLogicConnection = new DBLogicConnection();
 
@@ -56,7 +55,7 @@ namespace AndreevNIR
                 dataGridView1.DataSource = table;
             }
             catch (Exception ex) { MessageBox.Show("Ошибка: " + ex); }
-        }
+        }*/
 
         public void DGVList()
         {
@@ -85,6 +84,8 @@ namespace AndreevNIR
         {
             var currentName_ = dataGridView2.CurrentCell.Value;
             currentName = currentName_.ToString();
+            DBLogicConnection dBLogicConnection = new DBLogicConnection();
+            dBLogicConnection.Test(currentName, dataGridView1);
         }
 
         private void buttonBack_Click(object sender, EventArgs e)

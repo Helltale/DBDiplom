@@ -36,7 +36,7 @@ namespace AndreevNIR
             {
                 connection = new NpgsqlConnection(connStr);
                 connection.Open();
-                MessageBox.Show("Подключение к PostgreSQL успешно установлено.");
+                //MessageBox.Show("Подключение к PostgreSQL успешно установлено.");
             }
             catch(Exception ex) { MessageBox.Show($"Ошибка при подключении к PostgreSQL: \n{ex.Message}"); }
         }
@@ -70,6 +70,81 @@ namespace AndreevNIR
                 MessageBox.Show("Некорректные данные входа!");
             }
 
+        }
+
+        private NpgsqlConnection GetConnection() {
+            return new NpgsqlConnection(_connectionString);
+        }
+
+        public void Test(string name, DataGridView dgv) {
+            using (var con = GetConnection()) {
+                string queryCommand = "select 'Первичный осмотр' as \"Мероприятие\", pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врача\", i.date_initial as " +
+            "\"Дата проведения\", i.time_initial as \"Время проведения\" from initial_inspection i join patient pa on pa.omc = i.omc join staff s on s.id_staff = " +
+            "i.doc_receptinoist where pa.full_name = @name union all select 'Плановый осмотр' as \"Мероприятие\", pa.full_name as \"ФИО пациента\", s.full_name as " +
+            "\"ФИО врача\", me.date_meeting as \"Дата проведения\", me.time_meeting as \"Время проведения\" from meetings me join staff s on s.id_staff = me.id_staff " +
+            "join patient_in_room pai on me.id_patient = pai.id_patient join patient pa on pa.omc = pai.omc where pa.full_name = @name union all select 'Консервативное лечение' " +
+            "as \"Мероприятие\", pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врача\", co.date_procedure as \"Дата проведения\", co.time_procedure as " +
+            "\"Время проведения\" from Сonservative co join patient_in_room pai on pai.id_patient = co.id_patient join patient pa on pa.omc = pai.omc join staff s on " +
+            "s.id_staff = co.id_staff where pa.full_name = @name union all select 'Оперативное лечение' as \"Мероприятие\", pa.full_name as \"ФИО пациента\", s.full_name as " +
+            "\"ФИО врача\", op.date_operation as \"Дата проведения\", op.time_operation as \"Время проведения\" from operation op join patient_in_room pai on pai.id_patient = " +
+            "op.id_patient join patient pa on pa.omc = pai.omc join staff s on s.id_staff = op.id_staff where pa.full_name = @name union all select 'Эпикриз' as \"Мероприятие\", " +
+            "pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врача\", e.date_extract as \"Дата проведения\", e.time_extract as \"Время проведения\" from extract_document " +
+            "e join patient_in_room pai on pai.id_patient = e.id_patient join patient pa on pa.omc = pai.omc join staff s on s.id_staff = e.id_staff where pa.full_name = " +
+            "@name union all select 'Лист о нетрудоспособности' as \"Мероприятие\", pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врача\", e.date_extract as " +
+            "\"Дата проведения\", e.time_extract as \"Время проведения\" from list_not_working l join patient pa on l.omc = pa.omc join extract_document e on " +
+            "e.numb_extract = l.numb_extract join staff s on s.id_staff = e.id_staff where pa.full_name = @name";
+
+                con.Open();
+                NpgsqlCommand cmd = new NpgsqlCommand(queryCommand, con);
+                cmd.Parameters.AddWithValue("name", name);
+                    
+                NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(cmd);
+                DataTable table = new DataTable();
+                adapter.Fill(table);
+
+                dgv.DataSource = table.DefaultView;
+            }
+        }
+
+        public void OperationalHistory(string name, DataGridView dgv)
+        {
+            
+
+
+
+
+
+
+
+                string queryCommand = "select 'Первичный осмотр' as \"Мероприятие\", pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врача\", i.date_initial as " +
+                    "\"Дата проведения\", i.time_initial as \"Время проведения\" from initial_inspection i join patient pa on pa.omc = i.omc join staff s on s.id_staff = " +
+                    "i.doc_receptinoist where pa.full_name = '@name' union all select 'Плановый осмотр' as \"Мероприятие\", pa.full_name as \"ФИО пациента\", s.full_name as " +
+                    "\"ФИО врача\", me.date_meeting as \"Дата проведения\", me.time_meeting as \"Время проведения\" from meetings me join staff s on s.id_staff = me.id_staff " +
+                    "join patient_in_room pai on me.id_patient = pai.id_patient join patient pa on pa.omc = pai.omc where pa.full_name = '@name' union all select 'Консервативное лечение' " +
+                    "as \"Мероприятие\", pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врача\", co.date_procedure as \"Дата проведения\", co.time_procedure as " +
+                    "\"Время проведения\" from Сonservative co join patient_in_room pai on pai.id_patient = co.id_patient join patient pa on pa.omc = pai.omc join staff s on " +
+                    "s.id_staff = co.id_staff where pa.full_name = '@name' union all select 'Оперативное лечение' as \"Мероприятие\", pa.full_name as \"ФИО пациента\", s.full_name as " +
+                    "\"ФИО врача\", op.date_operation as \"Дата проведения\", op.time_operation as \"Время проведения\" from operation op join patient_in_room pai on pai.id_patient = " +
+                    "op.id_patient join patient pa on pa.omc = pai.omc join staff s on s.id_staff = op.id_staff where pa.full_name = '@name' union all select 'Эпикриз' as \"Мероприятие\", " +
+                    "pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врача\", e.date_extract as \"Дата проведения\", e.time_extract as \"Время проведения\" from extract_document " +
+                    "e join patient_in_room pai on pai.id_patient = e.id_patient join patient pa on pa.omc = pai.omc join staff s on s.id_staff = e.id_staff where pa.full_name = " +
+                    "'@name' union all select 'Лист о нетрудоспособности' as \"Мероприятие\", pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врача\", e.date_extract as " +
+                    "\"Дата проведения\", e.time_extract as \"Время проведения\" from list_not_working l join patient pa on l.omc = pa.omc join extract_document e on " +
+                    "e.numb_extract = l.numb_extract join staff s on s.id_staff = e.id_staff where pa.full_name = '@name'";
+            NpgsqlCommand command = new NpgsqlCommand(queryCommand, connection);
+
+            command.Parameters.Add("@n", NpgsqlTypes.NpgsqlDbType.Varchar).Value = name;
+            NpgsqlDataAdapter adapter1 = new NpgsqlDataAdapter(command.ToString(), connection);
+
+                try
+                {
+                    DataTable table = new DataTable();
+                    adapter1.Fill(table);
+
+                    dgv.DataSource = table;
+                }
+                catch (Exception ex) { MessageBox.Show("Ошибка: " + ex); }
+           
         }
 
         public string SetNewConnectionString(string host, string user, string password, string db) { //ручная настройка //всё ещё не работает
