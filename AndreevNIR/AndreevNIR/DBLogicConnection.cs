@@ -61,7 +61,9 @@ namespace AndreevNIR
                 FormAutorization form = new FormAutorization();
                 tmpFlag = true;
 
+                FormIndex2 f2 = new FormIndex2();
                 SessionInformation si = new SessionInformation();
+                f2.GetLabelData(nameStaff, idStaff);
                 si.userID = idStaff;
                 si.userRole = roleStaff;
                 si.userName = nameStaff;

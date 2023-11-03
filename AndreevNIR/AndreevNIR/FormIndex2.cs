@@ -22,9 +22,14 @@ namespace AndreevNIR
             FormBorderStyle = FormBorderStyle.Fixed3D;
         }
 
+        public void GetLabelData(string newName, string newID) {
+            tmpName = newName;
+            tmpJobID = newID;
+        }
+
         //СОЗДАЛ ПЕРЕМЕННЫЕ ДЛЯ ВЫВОДА НА ГЛАВНЫЙ ЭКРАН!!!!! НЕ ЗАБЫТЬ!!!
-        private string tmpRole;
-        private string tmpJobTitle;
+        public string tmpName;
+        public string tmpJobID;
 
         private void buttonExit_Click(object sender, EventArgs e)
         {
@@ -58,11 +63,6 @@ namespace AndreevNIR
             formRequests.FormBorderStyle = FormBorderStyle.None;
             panelForms.Controls.Add(formRequests);
             formRequests.Show();
-        }
-
-        private void FormIndex2_Load(object sender, EventArgs e)
-        {
-
         }
 
         private void buttonReport_Click(object sender, EventArgs e)

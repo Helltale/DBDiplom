@@ -15,7 +15,6 @@ namespace AndreevNIR
     {
         DBLogicConnection dBLogicConnection = new DBLogicConnection();
 
-
         public FormReferenceData()
         {
             InitializeComponent();
@@ -33,6 +32,18 @@ namespace AndreevNIR
         {
             FormReferenceDataAdd add = new FormReferenceDataAdd();
             add.ShowDialog();
+        }
+
+        private void ShowDGV(string strQuery, DataGridView dgv, string connStr) {
+            NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(strQuery, connStr);
+            try
+            {
+                DataTable table = new DataTable();
+                adapter.Fill(table);
+
+                dgv.DataSource = table;
+            }
+            catch (Exception ex) { MessageBox.Show("Ошибка: " + ex); }
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -61,16 +72,7 @@ namespace AndreevNIR
                     @"FULL OUTER JOIN department ON department.id_department = staff.id_department " +
                     @"FULL OUTER JOIN type_department ON department.id_department = type_department.id_department " +
                     @"FULL OUTER JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department";
-
-                    NpgsqlDataAdapter adapter0 = new NpgsqlDataAdapter(str0, dBLogicConnection._connectionString);
-                    try
-                    {
-                        DataTable table = new DataTable();
-                        adapter0.Fill(table);
-
-                        dataGridView2.DataSource = table;
-                    }
-                    catch (Exception ex) { MessageBox.Show("Ошибка: " + ex); }
+                    ShowDGV(str0, dataGridView2, dBLogicConnection._connectionString);
                     break;
 
                 case 1: //структура больницы, id поменять на фио докторов, через подзапрос
@@ -79,14 +81,7 @@ namespace AndreevNIR
                         "(select full_name from staff where id_staff = department.boss_department) as \"Заведующий отделением\", number_room as \"Палата\" " +
                         "FROM type_department JOIN department ON type_department.id_department = department.id_department JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department " +
                         "JOIN room ON department.id_department = room.id_department join staff on hir_hospital.boss_hir_department = staff.id_staff;";
-                    NpgsqlDataAdapter adapter1 = new NpgsqlDataAdapter(str1, dBLogicConnection._connectionString);
-                    try{
-                        DataTable table = new DataTable();
-                        adapter1.Fill(table);
-
-                        dataGridView3.DataSource = table;
-                    }
-                    catch(Exception ex) { MessageBox.Show("Ошибка: "+ ex); }
+                    ShowDGV(str1, dataGridView3, dBLogicConnection._connectionString);
                     break;
 
                 case 2:
@@ -99,28 +94,12 @@ namespace AndreevNIR
 
                 case 4: 
                     string str4 = "select procedures_.name_drocedure \"Название процедуры\", drug.name_drug \"Название препарата\", procedures_.value_drug \"Количество\", procedures_.value_name \"Тип\" from procedures_ join drug on procedures_.id_drug = drug.id_drug";
-                    NpgsqlDataAdapter adapter4 = new NpgsqlDataAdapter(str4, dBLogicConnection._connectionString);
-                    try
-                    {
-                        DataTable table = new DataTable();
-                        adapter4.Fill(table);
-
-                        dataGridView6.DataSource = table;
-                    }
-                    catch (Exception ex) { MessageBox.Show("Ошибка: " + ex); }
+                    ShowDGV(str4, dataGridView6, dBLogicConnection._connectionString);
                     break;
 
                 case 5:
                     string str5 = "select staff.full_name ФИО, user_info.login_user Логин, user_info.role_user \"Уровень доступа\" from staff join user_info on staff.id_staff = user_info.id_staff";
-                    NpgsqlDataAdapter adapter5 = new NpgsqlDataAdapter(str5, dBLogicConnection._connectionString);
-                    try
-                    {
-                        DataTable table = new DataTable();
-                        adapter5.Fill(table);
-
-                        dataGridView5.DataSource = table;
-                    }
-                    catch (Exception ex) { MessageBox.Show("Ошибка: " + ex); }
+                    ShowDGV(str5, dataGridView5, dBLogicConnection._connectionString);
                     break;
             }
         }
@@ -133,15 +112,8 @@ namespace AndreevNIR
                         "me.time_meeting as \"Время проведения\", me.discription_meeting as \"Описание осмотра\", me.operation_control as \"Послеоперационный осмотр\" " +
                         "from meetings me inner join patient_in_room pai on me.id_patient = pai.id_patient inner join patient pa on pa.omc = pai.omc inner " +
                         "join staff s on s.id_staff = me.id_staff";
-                    NpgsqlDataAdapter adapter21 = new NpgsqlDataAdapter(str21, dBLogicConnection._connectionString);
-                    try
-                    {
-                        DataTable table = new DataTable();
-                        adapter21.Fill(table);
 
-                        dataGridView4.DataSource = table;
-                    }
-                    catch (Exception ex) { MessageBox.Show("Ошибка: " + ex); }
+                    ShowDGV(str21, dataGridView4, dBLogicConnection._connectionString);
                     break;
                 case 1:
                     string str22 = "SELECT pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врач\", pr.name_drocedure as \"Название процедуры\", " +
@@ -149,30 +121,14 @@ namespace AndreevNIR
                         "FROM Сonservative co JOIN staff s ON co.id_staff = s.id_staff JOIN staff n ON n.id_staff = co.id_staff_nurce " +
                         "JOIN patient_in_room pai ON pai.id_patient = co.id_patient JOIN patient pa ON pa.omc = pai.omc " +
                         "JOIN procedures_ pr ON pr.id_procedure = co.id_procedure JOIN guard_nurse gn ON gn.id_staff = co.id_staff_nurce;";
-                    NpgsqlDataAdapter adapter22 = new NpgsqlDataAdapter(str22, dBLogicConnection._connectionString);
-                    try
-                    {
-                        DataTable table = new DataTable();
-                        adapter22.Fill(table);
-
-                        dataGridView4.DataSource = table;
-                    }
-                    catch (Exception ex) { MessageBox.Show("Ошибка: " + ex); }
+                    ShowDGV(str22, dataGridView4, dBLogicConnection._connectionString);
                     break;
                 case 2:
                     string str23 = " select pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врача\", o.name_operation as \"Название операции\", " +
                         "o.date_operation as \"Дата проведения\", o.time_operation as \"Время проведения\", o.discriptionary_operation as \"Описание\", " +
                         "o.discriptionary_bad as \"Описание осложнений\" from operation o join staff s on s.id_staff = o.id_staff " +
                         "join patient_in_room dir on dir.id_patient = o.id_patient join patient pa on pa.omc = dir.omc";
-                    NpgsqlDataAdapter adapter23 = new NpgsqlDataAdapter(str23, dBLogicConnection._connectionString);
-                    try
-                    {
-                        DataTable table = new DataTable();
-                        adapter23.Fill(table);
-
-                        dataGridView4.DataSource = table;
-                    }
-                    catch (Exception ex) { MessageBox.Show("Ошибка: " + ex); }
+                    ShowDGV(str23, dataGridView4, dBLogicConnection._connectionString);
                     break;
                 default:
                     MessageBox.Show("Ошибка выбора");
@@ -188,43 +144,19 @@ namespace AndreevNIR
                         "\"Дата выписки\", e.diagnosis_extract as \"Диагноз\", e.recomendations as \"Рекомендации\", e.death_mark as \"Летальный исход\" " +
                         "from extract_document e join staff s on s.id_staff = e.id_staff join patient_in_room pai on pai.id_patient = e.id_patient join patient pa on " +
                         "pa.omc = pai.omc";
-                    NpgsqlDataAdapter adapter31 = new NpgsqlDataAdapter(str31, dBLogicConnection._connectionString);
-                    try
-                    {
-                        DataTable table = new DataTable();
-                        adapter31.Fill(table);
-
-                        dataGridView1.DataSource = table;
-                    }
-                    catch (Exception ex) { MessageBox.Show("Ошибка: " + ex); }
+                    ShowDGV(str31, dataGridView1, dBLogicConnection._connectionString);
                     break;
 
                 case 1:
                     string str32 = "select pa.full_name as \"ФИО пациента\", i.date_initial as \"Дата первичного осмотра\", s.full_name as \"ФИО врача приёмного покоя\", " +
                         "i.diagnosis as \"Диагноз\" from initial_inspection i join patient pa on pa.omc = i.omc join staff s on s.id_staff = i.doc_receptinoist;";
-                    NpgsqlDataAdapter adapter32 = new NpgsqlDataAdapter(str32, dBLogicConnection._connectionString);
-                    try
-                    {
-                        DataTable table = new DataTable();
-                        adapter32.Fill(table);
-
-                        dataGridView1.DataSource = table;
-                    }
-                    catch (Exception ex) { MessageBox.Show("Ошибка: " + ex); }
+                    ShowDGV(str32, dataGridView1, dBLogicConnection._connectionString);
                     break;
 
                 case 2:
                     string str33 = "select l.numb_extract as \"Номер выписки\", pa.full_name as \"ФИО пациента\", l.date_in as \"Дата поступления\" from list_not_working l " +
                         "join patient pa on pa.omc = l.omc";
-                    NpgsqlDataAdapter adapter33 = new NpgsqlDataAdapter(str33, dBLogicConnection._connectionString);
-                    try
-                    {
-                        DataTable table = new DataTable();
-                        adapter33.Fill(table);
-
-                        dataGridView1.DataSource = table;
-                    }
-                    catch (Exception ex) { MessageBox.Show("Ошибка: " + ex); }
+                    ShowDGV(str33, dataGridView1, dBLogicConnection._connectionString);
                     break;
             }
         }

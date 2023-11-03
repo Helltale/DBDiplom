@@ -187,7 +187,6 @@
             this.Controls.Add(this.panelHeader);
             this.Name = "FormIndex2";
             this.Text = "FormIndex2";
-            this.Load += new System.EventHandler(this.FormIndex2_Load);
             this.panelHeader.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).EndInit();
             this.panelInstruments.ResumeLayout(false);

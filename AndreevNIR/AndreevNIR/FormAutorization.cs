@@ -44,15 +44,12 @@ namespace AndreevNIR
                 th = new Thread(open);
                 th.SetApartmentState(ApartmentState.STA);
                 th.Start();
+
+
             }
             else {
                 MessageBox.Show("Некорректные данные для входа");
             }        
-        }
-
-        private void FormAutorization_Load(object sender, EventArgs e)
-        {
-
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
