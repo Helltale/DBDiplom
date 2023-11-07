@@ -32,8 +32,17 @@ namespace AndreevNIR
                 DataTable table = new DataTable();
                 adapter1.Fill(table);
                 dataGridView1.DataSource = table;
+
+                List<string> list = new List<string>();
+                list.Add("ФИО пациента"); list.Add("Номер палаты"); list.Add("Отделение"); list.Add("Хирургический стационар");
+                FillComboBox(comboBox2, list);
             }
             catch (Exception ex) { MessageBox.Show("Ошибка: " + ex); }
+        }
+
+        private void FillComboBox(ComboBox cb, List<string> li) {
+            cb.DataSource = li;
+            cb.Text = "Параметр";
         }
 
         private void checkBox2_CheckedChanged(object sender, EventArgs e)

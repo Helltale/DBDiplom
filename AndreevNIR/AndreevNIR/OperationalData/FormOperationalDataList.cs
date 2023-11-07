@@ -25,6 +25,11 @@ namespace AndreevNIR
             add.ShowDialog();
         }
 
+        private void FillComboBox(ComboBox cb, List<string> li) {
+            cb.DataSource = li;
+            cb.Text = "Параметр";
+        }
+
         public void OperationalDataExtract()
         {
             DBLogicConnection dBLogicConnection = new DBLogicConnection();
@@ -38,6 +43,10 @@ namespace AndreevNIR
                 adapter1.Fill(table);
 
                 dataGridView1.DataSource = table;
+
+                List<string> list = new List<string>();
+                list.Add("Номер эпикриза"); list.Add("ФИО пациента"); list.Add("ФИО сотрудника"); list.Add("Время создания"); list.Add("Диагнох при выписке");
+                FillComboBox(comboBox2, list);
             }
             catch (Exception ex) { MessageBox.Show("Ошибка: " + ex); }
         }

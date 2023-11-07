@@ -79,6 +79,11 @@ namespace AndreevNIR
         }
 
 
+        private void FillComboBox(ComboBox cb, List<string> li) {
+            cb.DataSource = li;
+            cb.Text = "Параметр";
+        }
+            
         private void button10_Click(object sender, EventArgs e)
         {
             FormOperationalDataHistoryAdd add = new FormOperationalDataHistoryAdd();
@@ -90,6 +95,10 @@ namespace AndreevNIR
             var currentName_ = dataGridView2.CurrentCell.Value;
             currentName = currentName_.ToString();
             OperationalDataHistory(currentName, dataGridView1);
+
+            List<string> list= new List<string>();
+            list.Add("Мероприятие"); list.Add("ФИО врача"); list.Add("Время проведения");
+            FillComboBox(comboBox2, list);
         }
 
         private void buttonBack_Click(object sender, EventArgs e)
