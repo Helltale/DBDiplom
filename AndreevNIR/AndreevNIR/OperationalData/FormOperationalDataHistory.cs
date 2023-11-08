@@ -78,7 +78,6 @@ namespace AndreevNIR
             }
         }
 
-
         private void FillComboBox(ComboBox cb, List<string> li) {
             cb.DataSource = li;
             cb.Text = "Параметр";

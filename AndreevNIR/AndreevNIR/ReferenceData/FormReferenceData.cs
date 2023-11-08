@@ -14,10 +14,13 @@ namespace AndreevNIR
     public partial class FormReferenceData : Form
     {
         DBLogicConnection dBLogicConnection = new DBLogicConnection();
+        Placeholders pl = new Placeholders();
+        string strPlc = "Значение для фильтра";
 
         public FormReferenceData()
         {
             InitializeComponent();
+            pl.PlaceholderShow(textBox1, strPlc);
         }
 
         private void buttonBack_Click(object sender, EventArgs e)
@@ -55,7 +58,7 @@ namespace AndreevNIR
         {
             
             switch (tabControl1.SelectedIndex) {
-                case 0: //информация о персонале больницы
+                case 0: //персонал
                     string str0 = "SELECT staff.full_name AS \"ФИО\", CASE WHEN guard_nurse.id_staff IS NOT NULL THEN 'Постовая мед сестра' WHEN therapist.id_staff IS NOT NULL THEN 'Врач' " +
                     "WHEN receptionist.id_staff IS NOT NULL THEN 'Врач приёмного покоя' END AS \"Должность\", type_department.name_department AS \"Название отделения\", " +
                     "hir_hospital.name_hir_department AS \"Название стационара\", staff.phone AS \"Телефон\", staff.mail AS \"Почта\", user_info.role_user AS \"Уровень доступа\", " +
@@ -91,14 +94,14 @@ namespace AndreevNIR
                     break;
 
                 case 2:
-                    comboBox3.SelectedIndex = 0; //логика в 3 комбобокс
+                    comboBox3.SelectedIndex = 0; //вид лечения (логика в 3 комбобокс)
                     break;
 
                 case 3:
-                    comboBox4.SelectedIndex = 0; //логика в 4 комбобокс
+                    comboBox4.SelectedIndex = 0; //вид документов (логика в 4 комбобокс)
                     break;
 
-                case 4: 
+                case 4: //вид процедур
                     string str4 = "select procedures_.name_drocedure \"Название процедуры\", drug.name_drug \"Название препарата\", procedures_.value_drug \"Количество\", procedures_.value_name \"Тип\" from procedures_ join drug on procedures_.id_drug = drug.id_drug";
                     ShowDGV(str4, dataGridView6, dBLogicConnection._connectionString);
 
@@ -107,7 +110,7 @@ namespace AndreevNIR
                     FillComboBox(comboBox1, list4);
                     break;
 
-                case 5:
+                case 5: //роли
                     string str5 = "select staff.full_name ФИО, user_info.login_user Логин, user_info.role_user \"Уровень доступа\" from staff join user_info on staff.id_staff = user_info.id_staff";
                     ShowDGV(str5, dataGridView5, dBLogicConnection._connectionString);
 
@@ -202,5 +205,262 @@ namespace AndreevNIR
             }
         }
 
+        private void textBox1_Enter(object sender, EventArgs e) { pl.PlaceholderHide(textBox1, strPlc); }
+
+        private void textBox1_Leave(object sender, EventArgs e) { pl.PlaceholderShow(textBox1, strPlc); }
+
+        private void FilterGrid() { //NOSONAR
+            
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            switch (tabControl1.SelectedIndex) {
+                case 0: //персонал
+                    switch (comboBox1.SelectedIndex) {
+                        case 0: //фио
+                            using (var con = dBLogicConnection.GetConnection()) {
+                                string queryCommand = "SELECT staff.full_name AS \"ФИО\", CASE WHEN guard_nurse.id_staff IS NOT NULL THEN 'Постовая мед сестра' WHEN therapist.id_staff IS NOT NULL THEN 'Врач' " +
+                                "WHEN receptionist.id_staff IS NOT NULL THEN 'Врач приёмного покоя' END AS \"Должность\", type_department.name_department AS \"Название отделения\", " +
+                                "hir_hospital.name_hir_department AS \"Название стационара\", staff.phone AS \"Телефон\", staff.mail AS \"Почта\", user_info.role_user AS \"Уровень доступа\", " +
+                                "(SELECT full_name FROM staff WHERE id_staff = department.boss_department) AS \"Начальник отделения\", " +
+                                "(SELECT full_name FROM staff WHERE id_staff = hir_hospital.boss_hir_department) AS \"Начальник стационара\" FROM staff " +
+                                "FULL OUTER JOIN user_info ON staff.id_staff = user_info.id_staff FULL OUTER JOIN receptionist ON receptionist.id_staff = staff.id_staff " +
+                                "FULL OUTER JOIN guard_nurse ON guard_nurse.id_staff = staff.id_staff FULL OUTER JOIN therapist ON therapist.id_staff = staff.id_staff " +
+                                "FULL OUTER JOIN department ON department.id_department = staff.id_department FULL OUTER JOIN type_department ON department.id_department = type_department.id_department " +
+                                "FULL OUTER JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department where staff.full_name = @find";
+                                con.Open();
+                                try
+                                {
+                                    NpgsqlCommand cmd = new NpgsqlCommand(queryCommand, con);
+                                    cmd.Parameters.AddWithValue("find", textBox1.Text);
+                                    NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(cmd);
+                                    DataTable table = new DataTable();
+                                    adapter.Fill(table);
+                                    dataGridView2.DataSource = table.DefaultView;
+                                }
+                                catch (Exception ex) { MessageBox.Show("Непредвиденная ошибка: "+ ex);  }
+                            }
+                            break;
+                        case 1: //должность
+                            using (var con = dBLogicConnection.GetConnection())
+                            {
+                                string tmpTable = "";
+                                
+                                con.Open();
+                                try
+                                {
+                                    switch (textBox1.Text) {
+                                        case "Врач":
+                                            tmpTable = "therapist.id_staff";
+                                            break;
+
+                                        case "Постовая мед сестра":
+                                            tmpTable = "guard_nurse.id_staff";
+                                            break;
+
+                                        case "Врач приёмного покоя":
+                                            tmpTable = "receptionist.id_staff";
+                                            break;
+                                    }
+                                    string queryCommand = $"SELECT staff.full_name AS \"ФИО\", CASE WHEN guard_nurse.id_staff IS NOT NULL THEN 'Постовая мед сестра' WHEN therapist.id_staff IS NOT NULL THEN 'Врач' " +
+                                    "WHEN receptionist.id_staff IS NOT NULL THEN 'Врач приёмного покоя' END AS \"Должность\", type_department.name_department AS \"Название отделения\", " +
+                                    "hir_hospital.name_hir_department AS \"Название стационара\", staff.phone AS \"Телефон\", staff.mail AS \"Почта\", user_info.role_user AS \"Уровень доступа\", " +
+                                    "(SELECT full_name FROM staff WHERE id_staff = department.boss_department) AS \"Начальник отделения\", " +
+                                    "(SELECT full_name FROM staff WHERE id_staff = hir_hospital.boss_hir_department) AS \"Начальник стационара\" FROM staff " +
+                                    "FULL OUTER JOIN user_info ON staff.id_staff = user_info.id_staff FULL OUTER JOIN receptionist ON receptionist.id_staff = staff.id_staff " +
+                                    "FULL OUTER JOIN guard_nurse ON guard_nurse.id_staff = staff.id_staff FULL OUTER JOIN therapist ON therapist.id_staff = staff.id_staff " +
+                                    "FULL OUTER JOIN department ON department.id_department = staff.id_department FULL OUTER JOIN type_department ON department.id_department = type_department.id_department " +
+                                    $"FULL OUTER JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department where {tmpTable} IS NOT NULL";
+
+                                    NpgsqlCommand cmd = new NpgsqlCommand(queryCommand, con);
+                                    NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(cmd);
+                                    DataTable table = new DataTable();
+                                    adapter.Fill(table);
+                                    dataGridView2.DataSource = table.DefaultView;
+                                }
+                                catch (Exception ex) { MessageBox.Show("Непредвиденная ошибка: " + ex); }
+                            }
+                            break;
+                        case 2: //название отделения
+                            using (var con = dBLogicConnection.GetConnection())
+                            {
+                                string queryCommand = "SELECT staff.full_name AS \"ФИО\", CASE WHEN guard_nurse.id_staff IS NOT NULL THEN 'Постовая мед сестра' WHEN therapist.id_staff IS NOT NULL THEN 'Врач' " +
+                                "WHEN receptionist.id_staff IS NOT NULL THEN 'Врач приёмного покоя' END AS \"Должность\", type_department.name_department AS \"Название отделения\", " +
+                                "hir_hospital.name_hir_department AS \"Название стационара\", staff.phone AS \"Телефон\", staff.mail AS \"Почта\", user_info.role_user AS \"Уровень доступа\", " +
+                                "(SELECT full_name FROM staff WHERE id_staff = department.boss_department) AS \"Начальник отделения\", " +
+                                "(SELECT full_name FROM staff WHERE id_staff = hir_hospital.boss_hir_department) AS \"Начальник стационара\" FROM staff " +
+                                "FULL OUTER JOIN user_info ON staff.id_staff = user_info.id_staff FULL OUTER JOIN receptionist ON receptionist.id_staff = staff.id_staff " +
+                                "FULL OUTER JOIN guard_nurse ON guard_nurse.id_staff = staff.id_staff FULL OUTER JOIN therapist ON therapist.id_staff = staff.id_staff " +
+                                "FULL OUTER JOIN department ON department.id_department = staff.id_department FULL OUTER JOIN type_department ON department.id_department = type_department.id_department " +
+                                "FULL OUTER JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department where type_department.name_department = @find";
+                                con.Open();
+                                try
+                                {
+                                    NpgsqlCommand cmd = new NpgsqlCommand(queryCommand, con);
+                                    cmd.Parameters.AddWithValue("find", textBox1.Text);
+                                    NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(cmd);
+                                    DataTable table = new DataTable();
+                                    adapter.Fill(table);
+                                    dataGridView2.DataSource = table.DefaultView;
+                                }
+                                catch (Exception ex) { MessageBox.Show("Непредвиденная ошибка: " + ex); }
+                            }
+                            break;
+                        case 3: //название стационара
+                            using (var con = dBLogicConnection.GetConnection())
+                            {
+                                string queryCommand = "SELECT staff.full_name AS \"ФИО\", CASE WHEN guard_nurse.id_staff IS NOT NULL THEN 'Постовая мед сестра' WHEN therapist.id_staff IS NOT NULL THEN 'Врач' " +
+                                "WHEN receptionist.id_staff IS NOT NULL THEN 'Врач приёмного покоя' END AS \"Должность\", type_department.name_department AS \"Название отделения\", " +
+                                "hir_hospital.name_hir_department AS \"Название стационара\", staff.phone AS \"Телефон\", staff.mail AS \"Почта\", user_info.role_user AS \"Уровень доступа\", " +
+                                "(SELECT full_name FROM staff WHERE id_staff = department.boss_department) AS \"Начальник отделения\", " +
+                                "(SELECT full_name FROM staff WHERE id_staff = hir_hospital.boss_hir_department) AS \"Начальник стационара\" FROM staff " +
+                                "FULL OUTER JOIN user_info ON staff.id_staff = user_info.id_staff FULL OUTER JOIN receptionist ON receptionist.id_staff = staff.id_staff " +
+                                "FULL OUTER JOIN guard_nurse ON guard_nurse.id_staff = staff.id_staff FULL OUTER JOIN therapist ON therapist.id_staff = staff.id_staff " +
+                                "FULL OUTER JOIN department ON department.id_department = staff.id_department FULL OUTER JOIN type_department ON department.id_department = type_department.id_department " +
+                                "FULL OUTER JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department where hir_hospital.name_hir_department = @find";
+                                con.Open();
+                                try
+                                {
+                                    NpgsqlCommand cmd = new NpgsqlCommand(queryCommand, con);
+                                    cmd.Parameters.AddWithValue("find", textBox1.Text);
+                                    NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(cmd);
+                                    DataTable table = new DataTable();
+                                    adapter.Fill(table);
+                                    dataGridView2.DataSource = table.DefaultView;
+                                }
+                                catch (Exception ex) { MessageBox.Show("Непредвиденная ошибка: " + ex); }
+                            }
+                            break;
+                        case 4: //телефон сотрудника
+                            using (var con = dBLogicConnection.GetConnection())
+                            {
+                                string queryCommand = "SELECT staff.full_name AS \"ФИО\", CASE WHEN guard_nurse.id_staff IS NOT NULL THEN 'Постовая мед сестра' WHEN therapist.id_staff IS NOT NULL THEN 'Врач' " +
+                                "WHEN receptionist.id_staff IS NOT NULL THEN 'Врач приёмного покоя' END AS \"Должность\", type_department.name_department AS \"Название отделения\", " +
+                                "hir_hospital.name_hir_department AS \"Название стационара\", staff.phone AS \"Телефон\", staff.mail AS \"Почта\", user_info.role_user AS \"Уровень доступа\", " +
+                                "(SELECT full_name FROM staff WHERE id_staff = department.boss_department) AS \"Начальник отделения\", " +
+                                "(SELECT full_name FROM staff WHERE id_staff = hir_hospital.boss_hir_department) AS \"Начальник стационара\" FROM staff " +
+                                "FULL OUTER JOIN user_info ON staff.id_staff = user_info.id_staff FULL OUTER JOIN receptionist ON receptionist.id_staff = staff.id_staff " +
+                                "FULL OUTER JOIN guard_nurse ON guard_nurse.id_staff = staff.id_staff FULL OUTER JOIN therapist ON therapist.id_staff = staff.id_staff " +
+                                "FULL OUTER JOIN department ON department.id_department = staff.id_department FULL OUTER JOIN type_department ON department.id_department = type_department.id_department " +
+                                "FULL OUTER JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department where staff.phone = @find";
+                                con.Open();
+                                try
+                                {
+                                    NpgsqlCommand cmd = new NpgsqlCommand(queryCommand, con);
+                                    cmd.Parameters.AddWithValue("find", textBox1.Text);
+                                    NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(cmd);
+                                    DataTable table = new DataTable();
+                                    adapter.Fill(table);
+                                    dataGridView2.DataSource = table.DefaultView;
+                                }
+                                catch (Exception ex) { MessageBox.Show("Непредвиденная ошибка: " + ex); }
+                            }
+                            break;
+                        case 5: //почта сотрудника
+                            using (var con = dBLogicConnection.GetConnection())
+                            {
+                                string queryCommand = "SELECT staff.full_name AS \"ФИО\", CASE WHEN guard_nurse.id_staff IS NOT NULL THEN 'Постовая мед сестра' WHEN therapist.id_staff IS NOT NULL THEN 'Врач' " +
+                                "WHEN receptionist.id_staff IS NOT NULL THEN 'Врач приёмного покоя' END AS \"Должность\", type_department.name_department AS \"Название отделения\", " +
+                                "hir_hospital.name_hir_department AS \"Название стационара\", staff.phone AS \"Телефон\", staff.mail AS \"Почта\", user_info.role_user AS \"Уровень доступа\", " +
+                                "(SELECT full_name FROM staff WHERE id_staff = department.boss_department) AS \"Начальник отделения\", " +
+                                "(SELECT full_name FROM staff WHERE id_staff = hir_hospital.boss_hir_department) AS \"Начальник стационара\" FROM staff " +
+                                "FULL OUTER JOIN user_info ON staff.id_staff = user_info.id_staff FULL OUTER JOIN receptionist ON receptionist.id_staff = staff.id_staff " +
+                                "FULL OUTER JOIN guard_nurse ON guard_nurse.id_staff = staff.id_staff FULL OUTER JOIN therapist ON therapist.id_staff = staff.id_staff " +
+                                "FULL OUTER JOIN department ON department.id_department = staff.id_department FULL OUTER JOIN type_department ON department.id_department = type_department.id_department " +
+                                "FULL OUTER JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department where staff.mail = @find";
+                                con.Open();
+                                try
+                                {
+                                    NpgsqlCommand cmd = new NpgsqlCommand(queryCommand, con);
+                                    cmd.Parameters.AddWithValue("find", textBox1.Text);
+                                    NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(cmd);
+                                    DataTable table = new DataTable();
+                                    adapter.Fill(table);
+                                    dataGridView2.DataSource = table.DefaultView;
+                                }
+                                catch (Exception ex) { MessageBox.Show("Непредвиденная ошибка: " + ex); }
+                            }
+                            break;
+                        case 6: //уровень доступа
+                            using (var con = dBLogicConnection.GetConnection())
+                            {
+                                string queryCommand = "SELECT staff.full_name AS \"ФИО\", CASE WHEN guard_nurse.id_staff IS NOT NULL THEN 'Постовая мед сестра' WHEN therapist.id_staff IS NOT NULL THEN 'Врач' " +
+                                "WHEN receptionist.id_staff IS NOT NULL THEN 'Врач приёмного покоя' END AS \"Должность\", type_department.name_department AS \"Название отделения\", " +
+                                "hir_hospital.name_hir_department AS \"Название стационара\", staff.phone AS \"Телефон\", staff.mail AS \"Почта\", user_info.role_user AS \"Уровень доступа\", " +
+                                "(SELECT full_name FROM staff WHERE id_staff = department.boss_department) AS \"Начальник отделения\", " +
+                                "(SELECT full_name FROM staff WHERE id_staff = hir_hospital.boss_hir_department) AS \"Начальник стационара\" FROM staff " +
+                                "FULL OUTER JOIN user_info ON staff.id_staff = user_info.id_staff FULL OUTER JOIN receptionist ON receptionist.id_staff = staff.id_staff " +
+                                "FULL OUTER JOIN guard_nurse ON guard_nurse.id_staff = staff.id_staff FULL OUTER JOIN therapist ON therapist.id_staff = staff.id_staff " +
+                                "FULL OUTER JOIN department ON department.id_department = staff.id_department FULL OUTER JOIN type_department ON department.id_department = type_department.id_department " +
+                                "FULL OUTER JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department where user_info.role_user = @find";
+                                con.Open();
+                                try
+                                {
+                                    NpgsqlCommand cmd = new NpgsqlCommand(queryCommand, con);
+                                    cmd.Parameters.AddWithValue("find", textBox1.Text);
+                                    NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(cmd);
+                                    DataTable table = new DataTable();
+                                    adapter.Fill(table);
+                                    dataGridView2.DataSource = table.DefaultView;
+                                }
+                                catch (Exception ex) { MessageBox.Show("Непредвиденная ошибка: " + ex); }
+                            }
+                            break;
+                        case 7: //начальник отделения
+                            using (var con = dBLogicConnection.GetConnection())
+                            {
+                                string queryCommand = "SELECT staff.full_name AS \"ФИО\", CASE WHEN guard_nurse.id_staff IS NOT NULL THEN 'Постовая мед сестра' WHEN therapist.id_staff IS NOT NULL THEN 'Врач' " +
+                                "WHEN receptionist.id_staff IS NOT NULL THEN 'Врач приёмного покоя' END AS \"Должность\", type_department.name_department AS \"Название отделения\", " +
+                                "hir_hospital.name_hir_department AS \"Название стационара\", staff.phone AS \"Телефон\", staff.mail AS \"Почта\", user_info.role_user AS \"Уровень доступа\", " +
+                                "(SELECT full_name FROM staff WHERE id_staff = department.boss_department) AS \"Начальник отделения\", " +
+                                "(SELECT full_name FROM staff WHERE id_staff = hir_hospital.boss_hir_department) AS \"Начальник стационара\" FROM staff " +
+                                "FULL OUTER JOIN user_info ON staff.id_staff = user_info.id_staff FULL OUTER JOIN receptionist ON receptionist.id_staff = staff.id_staff " +
+                                "FULL OUTER JOIN guard_nurse ON guard_nurse.id_staff = staff.id_staff FULL OUTER JOIN therapist ON therapist.id_staff = staff.id_staff " +
+                                "FULL OUTER JOIN department ON department.id_department = staff.id_department FULL OUTER JOIN type_department ON department.id_department = type_department.id_department " +
+                                "FULL OUTER JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department WHERE department.boss_department = (SELECT id_staff FROM staff WHERE full_name = @find);";
+                                con.Open();
+                                try
+                                {
+                                    NpgsqlCommand cmd = new NpgsqlCommand(queryCommand, con);
+                                    cmd.Parameters.AddWithValue("find", textBox1.Text);
+                                    NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(cmd);
+                                    DataTable table = new DataTable();
+                                    adapter.Fill(table);
+                                    dataGridView2.DataSource = table.DefaultView;
+                                }
+                                catch (Exception ex) { MessageBox.Show("Непредвиденная ошибка: " + ex); }
+                            }
+                            break;
+                        case 8: //начальник стационара
+                            using (var con = dBLogicConnection.GetConnection())
+                            {
+                                string queryCommand = "SELECT staff.full_name AS \"ФИО\", CASE WHEN guard_nurse.id_staff IS NOT NULL THEN 'Постовая мед сестра' WHEN therapist.id_staff IS NOT NULL THEN 'Врач' " +
+                                "WHEN receptionist.id_staff IS NOT NULL THEN 'Врач приёмного покоя' END AS \"Должность\", type_department.name_department AS \"Название отделения\", " +
+                                "hir_hospital.name_hir_department AS \"Название стационара\", staff.phone AS \"Телефон\", staff.mail AS \"Почта\", user_info.role_user AS \"Уровень доступа\", " +
+                                "(SELECT full_name FROM staff WHERE id_staff = department.boss_department) AS \"Начальник отделения\", " +
+                                "(SELECT full_name FROM staff WHERE id_staff = hir_hospital.boss_hir_department) AS \"Начальник стационара\" FROM staff " +
+                                "FULL OUTER JOIN user_info ON staff.id_staff = user_info.id_staff FULL OUTER JOIN receptionist ON receptionist.id_staff = staff.id_staff " +
+                                "FULL OUTER JOIN guard_nurse ON guard_nurse.id_staff = staff.id_staff FULL OUTER JOIN therapist ON therapist.id_staff = staff.id_staff " +
+                                "FULL OUTER JOIN department ON department.id_department = staff.id_department FULL OUTER JOIN type_department ON department.id_department = type_department.id_department " +
+                                "FULL OUTER JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department WHERE hir_hospital.boss_hir_department = (SELECT id_staff FROM staff WHERE full_name = @find);";
+                                con.Open();
+                                try
+                                {
+                                    NpgsqlCommand cmd = new NpgsqlCommand(queryCommand, con);
+                                    cmd.Parameters.AddWithValue("find", textBox1.Text);
+                                    NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(cmd);
+                                    DataTable table = new DataTable();
+                                    adapter.Fill(table);
+                                    dataGridView2.DataSource = table.DefaultView;
+                                }
+                                catch (Exception ex) { MessageBox.Show("Непредвиденная ошибка: " + ex); }
+                            }
+                            break;
+                    }
+
+                    break;
+            }
+        }
     }
 }
