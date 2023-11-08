@@ -54,10 +54,9 @@ namespace AndreevNIR
             cb.Text = "Параметр";        
         }
 
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            
-            switch (tabControl1.SelectedIndex) {
+        private void OpenTabControl() {
+            switch (tabControl1.SelectedIndex)
+            {
                 case 0: //персонал
                     string str0 = "SELECT staff.full_name AS \"ФИО\", CASE WHEN guard_nurse.id_staff IS NOT NULL THEN 'Постовая мед сестра' WHEN therapist.id_staff IS NOT NULL THEN 'Врач' " +
                     "WHEN receptionist.id_staff IS NOT NULL THEN 'Врач приёмного покоя' END AS \"Должность\", type_department.name_department AS \"Название отделения\", " +
@@ -118,6 +117,11 @@ namespace AndreevNIR
             }
         }
 
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            OpenTabControl();
+        }
+
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (comboBox3.SelectedIndex) {
@@ -126,7 +130,6 @@ namespace AndreevNIR
                         "me.time_meeting as \"Время проведения\", me.discription_meeting as \"Описание осмотра\", me.operation_control as \"Послеоперационный осмотр\" " +
                         "from meetings me inner join patient_in_room pai on me.id_patient = pai.id_patient inner join patient pa on pa.omc = pai.omc inner " +
                         "join staff s on s.id_staff = me.id_staff";
-
                     ShowDGV(str21, dataGridView4, dBLogicConnection._connectionString);
 
                     List<string> list21 = new List<string>();
@@ -148,7 +151,7 @@ namespace AndreevNIR
 
                     break;
                 case 2:
-                    string str23 = " select pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врача\", o.name_operation as \"Название операции\", " +
+                    string str23 = "select pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врача\", o.name_operation as \"Название операции\", " +
                         "o.date_operation as \"Дата проведения\", o.time_operation as \"Время проведения\", o.discriptionary_operation as \"Описание\", " +
                         "o.discriptionary_bad as \"Описание осложнений\" from operation o join staff s on s.id_staff = o.id_staff " +
                         "join patient_in_room dir on dir.id_patient = o.id_patient join patient pa on pa.omc = dir.omc";
@@ -206,7 +209,7 @@ namespace AndreevNIR
 
         private void textBox1_Leave(object sender, EventArgs e) { pl.PlaceholderShow(textBox1, strPlc); }
 
-        private void FilterGrid1(string queryCommandNEW, DataGridView dgv, string find)
+        private void FilterGridCore(string queryCommandNEW, DataGridView dgv, string find)
         { 
             using (var con = dBLogicConnection.GetConnection())
             {
@@ -227,7 +230,35 @@ namespace AndreevNIR
             }
         }
 
-        private string FilterGrid2(string queryCommandNEW, DataGridView dgv, string textTxtBox) {
+        private void FilterGridTime(string queryCommandNEW, DataGridView dgv, string find) {
+            //DateTime dt = DateTime.ParseExact(find, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+            //string formattedDate = dt.ToString("yyyy-MM-dd");
+
+            string[] tmps = find.Split('/');
+            var new_tmp = tmps[2] + "-" + tmps[1] + "-" + tmps[0]; 
+
+            using (var con = dBLogicConnection.GetConnection())
+            {
+                string queryCommand = "";
+                queryCommand = queryCommandNEW;
+
+                con.Open();
+                try
+                {
+                    NpgsqlCommand cmd = new NpgsqlCommand(queryCommand, con);
+                    cmd.Parameters.Add(new_tmp, NpgsqlTypes.NpgsqlDbType.Date, 10); // передача объекта DateTime в качестве параметра
+                    NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(cmd);
+                    DataTable table = new DataTable();
+                    adapter.Fill(table);
+                    dgv.DataSource = table.DefaultView;
+                }
+                catch (Exception ex) { MessageBox.Show("Непредвиденная ошибка: " + ex); }
+            }
+        }
+
+        private void FilterGridDate() { }
+
+        private string FilterGrid2(string queryCommandNEW, DataGridView dgv, string textTxtBox) { //NOSONAR
             using (var con = dBLogicConnection.GetConnection())
             {
                 string tmpTable ="";
@@ -278,7 +309,7 @@ namespace AndreevNIR
                                 "FULL OUTER JOIN guard_nurse ON guard_nurse.id_staff = staff.id_staff FULL OUTER JOIN therapist ON therapist.id_staff = staff.id_staff " +
                                 "FULL OUTER JOIN department ON department.id_department = staff.id_department FULL OUTER JOIN type_department ON department.id_department = type_department.id_department " +
                                 "FULL OUTER JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department where staff.full_name = @find";
-                                FilterGrid1(queryCommand, dataGridView2, textBox1.Text);
+                                FilterGridCore(queryCommand, dataGridView2, textBox1.Text);
                             }
                             break;
                         case 1: //должность
@@ -332,7 +363,7 @@ namespace AndreevNIR
                                 "FULL OUTER JOIN guard_nurse ON guard_nurse.id_staff = staff.id_staff FULL OUTER JOIN therapist ON therapist.id_staff = staff.id_staff " +
                                 "FULL OUTER JOIN department ON department.id_department = staff.id_department FULL OUTER JOIN type_department ON department.id_department = type_department.id_department " +
                                 "FULL OUTER JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department where type_department.name_department = @find";
-                                FilterGrid1(queryCommand, dataGridView2, textBox1.Text);
+                                FilterGridCore(queryCommand, dataGridView2, textBox1.Text);
                             }
                             break;
                         case 3: //название стационара
@@ -346,7 +377,7 @@ namespace AndreevNIR
                                 "FULL OUTER JOIN guard_nurse ON guard_nurse.id_staff = staff.id_staff FULL OUTER JOIN therapist ON therapist.id_staff = staff.id_staff " +
                                 "FULL OUTER JOIN department ON department.id_department = staff.id_department FULL OUTER JOIN type_department ON department.id_department = type_department.id_department " +
                                 "FULL OUTER JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department where hir_hospital.name_hir_department = @find";
-                                FilterGrid1(queryCommand, dataGridView2, textBox1.Text);
+                                FilterGridCore(queryCommand, dataGridView2, textBox1.Text);
                             }
                             break;
                         case 4: //телефон сотрудника
@@ -360,7 +391,7 @@ namespace AndreevNIR
                                 "FULL OUTER JOIN guard_nurse ON guard_nurse.id_staff = staff.id_staff FULL OUTER JOIN therapist ON therapist.id_staff = staff.id_staff " +
                                 "FULL OUTER JOIN department ON department.id_department = staff.id_department FULL OUTER JOIN type_department ON department.id_department = type_department.id_department " +
                                 "FULL OUTER JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department where staff.phone = @find";
-                                FilterGrid1(queryCommand, dataGridView2, textBox1.Text);
+                                FilterGridCore(queryCommand, dataGridView2, textBox1.Text);
                             }
                             break;
                         case 5: //почта сотрудника
@@ -374,7 +405,7 @@ namespace AndreevNIR
                                     "FULL OUTER JOIN guard_nurse ON guard_nurse.id_staff = staff.id_staff FULL OUTER JOIN therapist ON therapist.id_staff = staff.id_staff " +
                                     "FULL OUTER JOIN department ON department.id_department = staff.id_department FULL OUTER JOIN type_department ON department.id_department = type_department.id_department " +
                                     "FULL OUTER JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department where staff.mail = @find";
-                                FilterGrid1(queryCommand, dataGridView2, textBox1.Text);
+                                FilterGridCore(queryCommand, dataGridView2, textBox1.Text);
                             }
                             break;
                         case 6: //уровень доступа
@@ -388,7 +419,7 @@ namespace AndreevNIR
                                 "FULL OUTER JOIN guard_nurse ON guard_nurse.id_staff = staff.id_staff FULL OUTER JOIN therapist ON therapist.id_staff = staff.id_staff " +
                                 "FULL OUTER JOIN department ON department.id_department = staff.id_department FULL OUTER JOIN type_department ON department.id_department = type_department.id_department " +
                                 "FULL OUTER JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department where user_info.role_user = @find";
-                                FilterGrid1(queryCommand, dataGridView2, textBox1.Text);
+                                FilterGridCore(queryCommand, dataGridView2, textBox1.Text);
                             }
                             break;
                         case 7: //начальник отделения
@@ -402,7 +433,7 @@ namespace AndreevNIR
                                 "FULL OUTER JOIN guard_nurse ON guard_nurse.id_staff = staff.id_staff FULL OUTER JOIN therapist ON therapist.id_staff = staff.id_staff " +
                                 "FULL OUTER JOIN department ON department.id_department = staff.id_department FULL OUTER JOIN type_department ON department.id_department = type_department.id_department " +
                                 "FULL OUTER JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department WHERE department.boss_department = (SELECT id_staff FROM staff WHERE full_name = @find);";
-                                FilterGrid1(queryCommand, dataGridView2, textBox1.Text);
+                                FilterGridCore(queryCommand, dataGridView2, textBox1.Text);
                             }
                             break;
                         case 8: //начальник стационара
@@ -416,32 +447,234 @@ namespace AndreevNIR
                                 "FULL OUTER JOIN guard_nurse ON guard_nurse.id_staff = staff.id_staff FULL OUTER JOIN therapist ON therapist.id_staff = staff.id_staff " +
                                 "FULL OUTER JOIN department ON department.id_department = staff.id_department FULL OUTER JOIN type_department ON department.id_department = type_department.id_department " +
                                 "FULL OUTER JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department WHERE hir_hospital.boss_hir_department = (SELECT id_staff FROM staff WHERE full_name = @find);";
-                                FilterGrid1(queryCommand, dataGridView2, textBox1.Text);
+                                FilterGridCore(queryCommand, dataGridView2, textBox1.Text);
                             }
                             break;
                     }
-
+                    break;
+                case 1: //структура больницы
+                    switch (comboBox1.SelectedIndex) {
+                        case 0: //название стационара
+                            {
+                                string queryCommand = "SELECT name_hir_department as \"Стационар\", adress_hir_department as \"Адрес стационара\", phone_hir_department as \"Телефон регистратуры\", ogrm_hir_department as \"ОГРМ\", (select full_name from staff where id_staff = hir_hospital.boss_hir_department) as \"Главный врач\",name_department as \"Отделение\", (select full_name from staff where id_staff = department.boss_department) as \"Заведующий отделением\", number_room as \"Палата\" FROM type_department JOIN department ON type_department.id_department = department.id_department JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department JOIN room ON department.id_department = room.id_department join staff on hir_hospital.boss_hir_department = staff.id_staff where name_hir_department = @find;";
+                                FilterGridCore(queryCommand, dataGridView3, textBox1.Text);
+                            }
+                            break;
+                        case 1: //адрес стационара
+                            {
+                                string queryCommand = "SELECT name_hir_department as \"Стационар\", adress_hir_department as \"Адрес стационара\", phone_hir_department as \"Телефон регистратуры\", ogrm_hir_department as \"ОГРМ\", (select full_name from staff where id_staff = hir_hospital.boss_hir_department) as \"Главный врач\",name_department as \"Отделение\", (select full_name from staff where id_staff = department.boss_department) as \"Заведующий отделением\", number_room as \"Палата\" FROM type_department JOIN department ON type_department.id_department = department.id_department JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department JOIN room ON department.id_department = room.id_department join staff on hir_hospital.boss_hir_department = staff.id_staff where adress_hir_department = @find;";
+                                FilterGridCore(queryCommand, dataGridView3, textBox1.Text);
+                            }
+                            break;
+                        case 2: //телефон регистратуры
+                            {
+                                string queryCommand = "SELECT name_hir_department as \"Стационар\", adress_hir_department as \"Адрес стационара\", phone_hir_department as \"Телефон регистратуры\", ogrm_hir_department as \"ОГРМ\", (select full_name from staff where id_staff = hir_hospital.boss_hir_department) as \"Главный врач\",name_department as \"Отделение\", (select full_name from staff where id_staff = department.boss_department) as \"Заведующий отделением\", number_room as \"Палата\" FROM type_department JOIN department ON type_department.id_department = department.id_department JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department JOIN room ON department.id_department = room.id_department join staff on hir_hospital.boss_hir_department = staff.id_staff where phone_hir_department = @find;";
+                                FilterGridCore(queryCommand, dataGridView3, textBox1.Text);
+                            }
+                            break;
+                        case 3: //ОГРМ
+                            {
+                                string queryCommand = "SELECT name_hir_department as \"Стационар\", adress_hir_department as \"Адрес стационара\", phone_hir_department as \"Телефон регистратуры\", ogrm_hir_department as \"ОГРМ\", (select full_name from staff where id_staff = hir_hospital.boss_hir_department) as \"Главный врач\",name_department as \"Отделение\", (select full_name from staff where id_staff = department.boss_department) as \"Заведующий отделением\", number_room as \"Палата\" FROM type_department JOIN department ON type_department.id_department = department.id_department JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department JOIN room ON department.id_department = room.id_department join staff on hir_hospital.boss_hir_department = staff.id_staff where ogrm_hir_department = @find;";
+                                FilterGridCore(queryCommand, dataGridView3, textBox1.Text);
+                            }
+                            break;
+                        case 4: //главный врач
+                            {
+                                string queryCommand = "SELECT name_hir_department as \"Стационар\", adress_hir_department as \"Адрес стационара\", phone_hir_department as \"Телефон регистратуры\", ogrm_hir_department as \"ОГРМ\", (select full_name from staff where id_staff = hir_hospital.boss_hir_department) as \"Главный врач\",name_department as \"Отделение\", (select full_name from staff where id_staff = department.boss_department) as \"Заведующий отделением\", number_room as \"Палата\" FROM type_department JOIN department ON type_department.id_department = department.id_department JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department JOIN room ON department.id_department = room.id_department join staff on hir_hospital.boss_hir_department = staff.id_staff WHERE hir_hospital.boss_hir_department = (SELECT id_staff FROM staff WHERE full_name = @find);";
+                                FilterGridCore(queryCommand, dataGridView3, textBox1.Text);
+                            }
+                            break;
+                        case 5: //отделение
+                            {
+                                string queryCommand = "SELECT name_hir_department as \"Стационар\", adress_hir_department as \"Адрес стационара\", phone_hir_department as \"Телефон регистратуры\", ogrm_hir_department as \"ОГРМ\", (select full_name from staff where id_staff = hir_hospital.boss_hir_department) as \"Главный врач\",name_department as \"Отделение\", (select full_name from staff where id_staff = department.boss_department) as \"Заведующий отделением\", number_room as \"Палата\" FROM type_department JOIN department ON type_department.id_department = department.id_department JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department JOIN room ON department.id_department = room.id_department join staff on hir_hospital.boss_hir_department = staff.id_staff where name_department = @find;";
+                                FilterGridCore(queryCommand, dataGridView3, textBox1.Text);
+                            }
+                            break;
+                        case 6: //заведущий отделением
+                            {
+                                string queryCommand = "SELECT name_hir_department as \"Стационар\", adress_hir_department as \"Адрес стационара\", phone_hir_department as \"Телефон регистратуры\", ogrm_hir_department as \"ОГРМ\", (select full_name from staff where id_staff = hir_hospital.boss_hir_department) as \"Главный врач\",name_department as \"Отделение\", (select full_name from staff where id_staff = department.boss_department) as \"Заведующий отделением\", number_room as \"Палата\" FROM type_department JOIN department ON type_department.id_department = department.id_department JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department JOIN room ON department.id_department = room.id_department join staff on hir_hospital.boss_hir_department = staff.id_staff WHERE department.boss_department = (SELECT id_staff FROM staff WHERE full_name = @find);";
+                                FilterGridCore(queryCommand, dataGridView3, textBox1.Text);
+                            }
+                            break;
+                        case 7:
+                            {
+                                string queryCommand = "SELECT name_hir_department as \"Стационар\", adress_hir_department as \"Адрес стационара\", phone_hir_department as \"Телефон регистратуры\", ogrm_hir_department as \"ОГРМ\", (select full_name from staff where id_staff = hir_hospital.boss_hir_department) as \"Главный врач\",name_department as \"Отделение\", (select full_name from staff where id_staff = department.boss_department) as \"Заведующий отделением\", number_room as \"Палата\" FROM type_department JOIN department ON type_department.id_department = department.id_department JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department JOIN room ON department.id_department = room.id_department join staff on hir_hospital.boss_hir_department = staff.id_staff where number_room = @find;";
+                                FilterGridCore(queryCommand, dataGridView3, textBox1.Text);
+                            }
+                            break;
+                    }
+                    break;
+                case 2: //вид лечения
+                    switch (comboBox3.SelectedIndex) {
+                        case 0: //плановые осмотры
+                            switch (comboBox1.SelectedIndex) {
+                                case 0: //фио врача
+                                    {
+                                        string queryCommand = "select s.full_name as \"ФИО врача\", pa.full_name as \"ФИО пациента\", me.date_meeting as \"Дата проведения\", me.time_meeting as \"Время проведения\", me.discription_meeting as \"Описание осмотра\", me.operation_control as \"Послеоперационный осмотр\" from meetings me inner join patient_in_room pai on me.id_patient = pai.id_patient inner join patient pa on pa.omc = pai.omc inner join staff s on s.id_staff = me.id_staff where s.full_name = @find";
+                                        FilterGridCore(queryCommand, dataGridView4, textBox1.Text);
+                                    }
+                                    break;
+                                case 1: //фио пациента
+                                    {
+                                        string queryCommand = "select s.full_name as \"ФИО врача\", pa.full_name as \"ФИО пациента\", me.date_meeting as \"Дата проведения\", me.time_meeting as \"Время проведения\", me.discription_meeting as \"Описание осмотра\", me.operation_control as \"Послеоперационный осмотр\" from meetings me inner join patient_in_room pai on me.id_patient = pai.id_patient inner join patient pa on pa.omc = pai.omc inner join staff s on s.id_staff = me.id_staff where pa.full_name = @find";
+                                        FilterGridCore(queryCommand, dataGridView4, textBox1.Text);
+                                    }
+                                    break;
+                                case 2: //дата проведения
+                                    {
+                                        string queryCommand = "select s.full_name as \"ФИО врача\", pa.full_name as \"ФИО пациента\", me.date_meeting as \"Дата проведения\", me.time_meeting as \"Время проведения\", me.discription_meeting as \"Описание осмотра\", me.operation_control as \"Послеоперационный осмотр\" from meetings me inner join patient_in_room pai on me.id_patient = pai.id_patient inner join patient pa on pa.omc = pai.omc inner join staff s on s.id_staff = me.id_staff where me.date_meeting = @find";
+                                        FilterGridCore(queryCommand, dataGridView4, textBox1.Text);
+                                    }
+                                    break;
+                                case 3: //время проведения
+                                    {
+                                        string queryCommand = "select s.full_name as \"ФИО врача\", pa.full_name as \"ФИО пациента\", me.date_meeting as \"Дата проведения\", me.time_meeting as \"Время проведения\", me.discription_meeting as \"Описание осмотра\", me.operation_control as \"Послеоперационный осмотр\" from meetings me inner join patient_in_room pai on me.id_patient = pai.id_patient inner join patient pa on pa.omc = pai.omc inner join staff s on s.id_staff = me.id_staff where me.time_meeting = @find";
+                                        FilterGridCore(queryCommand, dataGridView4, textBox1.Text);
+                                    }
+                                    break;
+                            }
+                            break;
+                        case 1: //консервативное лечение
+                            switch (comboBox1.SelectedIndex) {
+                                case 0: //фио пациента
+                                    {
+                                        string queryCommand = "SELECT pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врач\", pr.name_drocedure as \"Название процедуры\", n.full_name as \"ФИО мед сестры\", co.date_procedure as \"Дата проведения\", co.time_procedure as \"Время проведения\" FROM Сonservative co JOIN staff s ON co.id_staff = s.id_staff JOIN staff n ON n.id_staff = co.id_staff_nurce JOIN patient_in_room pai ON pai.id_patient = co.id_patient JOIN patient pa ON pa.omc = pai.omc JOIN procedures_ pr ON pr.id_procedure = co.id_procedure JOIN guard_nurse gn ON gn.id_staff = co.id_staff_nurce where pa.full_name = @find;";
+                                        FilterGridCore(queryCommand, dataGridView4, textBox1.Text);
+                                    }
+                                    break;
+                                case 1: //фио врача
+                                    {
+                                        string queryCommand = "SELECT pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врач\", pr.name_drocedure as \"Название процедуры\", n.full_name as \"ФИО мед сестры\", co.date_procedure as \"Дата проведения\", co.time_procedure as \"Время проведения\" FROM Сonservative co JOIN staff s ON co.id_staff = s.id_staff JOIN staff n ON n.id_staff = co.id_staff_nurce JOIN patient_in_room pai ON pai.id_patient = co.id_patient JOIN patient pa ON pa.omc = pai.omc JOIN procedures_ pr ON pr.id_procedure = co.id_procedure JOIN guard_nurse gn ON gn.id_staff = co.id_staff_nurce where s.full_name = @find;";
+                                        FilterGridCore(queryCommand, dataGridView4, textBox1.Text);
+                                    }
+                                    break;
+                                case 2: //дата проведения
+                                    {
+                                        string queryCommand = "SELECT pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врач\", pr.name_drocedure as \"Название процедуры\", n.full_name as \"ФИО мед сестры\", co.date_procedure as \"Дата проведения\", co.time_procedure as \"Время проведения\" FROM Сonservative co JOIN staff s ON co.id_staff = s.id_staff JOIN staff n ON n.id_staff = co.id_staff_nurce JOIN patient_in_room pai ON pai.id_patient = co.id_patient JOIN patient pa ON pa.omc = pai.omc JOIN procedures_ pr ON pr.id_procedure = co.id_procedure JOIN guard_nurse gn ON gn.id_staff = co.id_staff_nurce where co.date_procedure = @find;";
+                                        FilterGridCore(queryCommand, dataGridView4, textBox1.Text);
+                                    }
+                                    break;
+                                case 3: //время проведения
+                                    {
+                                        string queryCommand = "SELECT pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врач\", pr.name_drocedure as \"Название процедуры\", n.full_name as \"ФИО мед сестры\", co.date_procedure as \"Дата проведения\", co.time_procedure as \"Время проведения\" FROM Сonservative co JOIN staff s ON co.id_staff = s.id_staff JOIN staff n ON n.id_staff = co.id_staff_nurce JOIN patient_in_room pai ON pai.id_patient = co.id_patient JOIN patient pa ON pa.omc = pai.omc JOIN procedures_ pr ON pr.id_procedure = co.id_procedure JOIN guard_nurse gn ON gn.id_staff = co.id_staff_nurce where co.time_procedure = @find;";
+                                        FilterGridCore(queryCommand, dataGridView4, textBox1.Text);
+                                    }
+                                    break;
+                                case 4: //название процедуры
+                                    {
+                                        string queryCommand = "SELECT pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врач\", pr.name_drocedure as \"Название процедуры\", n.full_name as \"ФИО мед сестры\", co.date_procedure as \"Дата проведения\", co.time_procedure as \"Время проведения\" FROM Сonservative co JOIN staff s ON co.id_staff = s.id_staff JOIN staff n ON n.id_staff = co.id_staff_nurce JOIN patient_in_room pai ON pai.id_patient = co.id_patient JOIN patient pa ON pa.omc = pai.omc JOIN procedures_ pr ON pr.id_procedure = co.id_procedure JOIN guard_nurse gn ON gn.id_staff = co.id_staff_nurce where pr.name_drocedure = @find;";
+                                        FilterGridCore(queryCommand, dataGridView4, textBox1.Text);
+                                    }
+                                    break;
+                                case 5: //фио мед сестры
+                                    {
+                                        string queryCommand = "SELECT pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врач\", pr.name_drocedure as \"Название процедуры\", n.full_name as \"ФИО мед сестры\", co.date_procedure as \"Дата проведения\", co.time_procedure as \"Время проведения\" FROM Сonservative co JOIN staff s ON co.id_staff = s.id_staff JOIN staff n ON n.id_staff = co.id_staff_nurce JOIN patient_in_room pai ON pai.id_patient = co.id_patient JOIN patient pa ON pa.omc = pai.omc JOIN procedures_ pr ON pr.id_procedure = co.id_procedure JOIN guard_nurse gn ON gn.id_staff = co.id_staff_nurce where n.full_name = @find;";
+                                        FilterGridCore(queryCommand, dataGridView4, textBox1.Text);
+                                    }
+                                    break;
+                            }
+                            break;
+                        case 2: //операции --переделать
+                            switch (comboBox1.SelectedIndex) {
+                                case 0:
+                                    { //фио пациента
+                                        string queryCommand = "select pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врача\", o.name_operation as \"Название операции\", o.date_operation as \"Дата проведения\", o.time_operation as \"Время проведения\", o.discriptionary_operation as \"Описание\", o.discriptionary_bad as \"Описание осложнений\" from operation o join staff s on s.id_staff = o.id_staff join patient_in_room dir on dir.id_patient = o.id_patient join patient pa on pa.omc = dir.omc where pa.full_name = @find";
+                                        FilterGridCore(queryCommand, dataGridView4, textBox1.Text);
+                                    }
+                                    break;
+                                case 1: //фио врача
+                                    {
+                                        string queryCommand = "select pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врача\", o.name_operation as \"Название операции\", o.date_operation as \"Дата проведения\", o.time_operation as \"Время проведения\", o.discriptionary_operation as \"Описание\", o.discriptionary_bad as \"Описание осложнений\" from operation o join staff s on s.id_staff = o.id_staff join patient_in_room dir on dir.id_patient = o.id_patient join patient pa on pa.omc = dir.omc where s.full_name = @find";
+                                        FilterGridCore(queryCommand, dataGridView4, textBox1.Text);
+                                    }
+                                    break;
+                                case 2: //дата проведения
+                                    {
+                                        string queryCommand = "select pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врача\", o.name_operation as \"Название операции\", o.date_operation as \"Дата проведения\", o.time_operation as \"Время проведения\", o.discriptionary_operation as \"Описание\", o.discriptionary_bad as \"Описание осложнений\" from operation o join staff s on s.id_staff = o.id_staff join patient_in_room dir on dir.id_patient = o.id_patient join patient pa on pa.omc = dir.omc where o.date_operation = @find";
+                                        FilterGridCore(queryCommand, dataGridView4, textBox1.Text);
+                                    }
+                                    break;
+                                case 3: //время проведения
+                                    {
+                                        string queryCommand = "select pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врача\", o.name_operation as \"Название операции\", o.date_operation as \"Дата проведения\", o.time_operation as \"Время проведения\", o.discriptionary_operation as \"Описание\", o.discriptionary_bad as \"Описание осложнений\" from operation o join staff s on s.id_staff = o.id_staff join patient_in_room dir on dir.id_patient = o.id_patient join patient pa on pa.omc = dir.omc where o.time_operation = @find";
+                                        FilterGridCore(queryCommand, dataGridView4, textBox1.Text);
+                                    }
+                                    break;
+                                case 4: //название операции
+                                    {
+                                        string queryCommand = "select pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врача\", o.name_operation as \"Название операции\", o.date_operation as \"Дата проведения\", o.time_operation as \"Время проведения\", o.discriptionary_operation as \"Описание\", o.discriptionary_bad as \"Описание осложнений\" from operation o join staff s on s.id_staff = o.id_staff join patient_in_room dir on dir.id_patient = o.id_patient join patient pa on pa.omc = dir.omc where o.name_operation = @find";
+                                        FilterGridCore(queryCommand, dataGridView4, textBox1.Text);
+                                    }
+                                    break;
+                            }
+                            break;
+                    }
+                    break;
+                case 3: //вид документов
+                    break;
+                case 4: //вид процедур
+                    break;
+                case 5: //роли
                     break;
             }
         }
 
-        private void button2_Click(object sender, EventArgs e) //кривой, но для отладки подойдёт пока
+        private void button2_Click(object sender, EventArgs e) //сброс фильтров
         {
-            string str0 = "SELECT staff.full_name AS \"ФИО\", CASE WHEN guard_nurse.id_staff IS NOT NULL THEN 'Постовая мед сестра' WHEN therapist.id_staff IS NOT NULL THEN 'Врач' " +
-                    "WHEN receptionist.id_staff IS NOT NULL THEN 'Врач приёмного покоя' END AS \"Должность\", type_department.name_department AS \"Название отделения\", " +
-                    "hir_hospital.name_hir_department AS \"Название стационара\", staff.phone AS \"Телефон\", staff.mail AS \"Почта\", user_info.role_user AS \"Уровень доступа\", " +
-                    "(SELECT full_name FROM staff WHERE id_staff = department.boss_department) AS \"Начальник отделения\", " +
-                    "(SELECT full_name FROM staff WHERE id_staff = hir_hospital.boss_hir_department) AS \"Начальник стационара\" FROM staff " +
-                    "FULL OUTER JOIN user_info ON staff.id_staff = user_info.id_staff FULL OUTER JOIN receptionist ON receptionist.id_staff = staff.id_staff " +
-                    "FULL OUTER JOIN guard_nurse ON guard_nurse.id_staff = staff.id_staff FULL OUTER JOIN therapist ON therapist.id_staff = staff.id_staff " +
-                    "FULL OUTER JOIN department ON department.id_department = staff.id_department FULL OUTER JOIN type_department ON department.id_department = type_department.id_department " +
-                    "FULL OUTER JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department";
-            ShowDGV(str0, dataGridView2, dBLogicConnection._connectionString);
-
-            List<string> list = new List<string>();
-            list.Add("ФИО"); list.Add("Должность"); list.Add("Название отделения"); list.Add("Название стационара"); list.Add("Телефон сотрудника"); list.Add("Почта сотрудника");
-            list.Add("Уровень доступа"); list.Add("Начальник отделения"); list.Add("Начальник стационара");
-            FillComboBox(comboBox1, list);
+            switch (tabControl1.SelectedIndex) {
+                case 2: //вид лечения
+                    switch (comboBox3.SelectedIndex) {
+                        case 0://
+                            string str21 = "select s.full_name as \"ФИО врача\", pa.full_name as \"ФИО пациента\", me.date_meeting as \"Дата проведения\", " +
+                            "me.time_meeting as \"Время проведения\", me.discription_meeting as \"Описание осмотра\", me.operation_control as \"Послеоперационный осмотр\" " +
+                            "from meetings me inner join patient_in_room pai on me.id_patient = pai.id_patient inner join patient pa on pa.omc = pai.omc inner " +
+                            "join staff s on s.id_staff = me.id_staff";
+                            ShowDGV(str21, dataGridView4, dBLogicConnection._connectionString);
+                            break;
+                        case 1:
+                            string str22 = "SELECT pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врач\", pr.name_drocedure as \"Название процедуры\", " +
+                            "n.full_name as \"ФИО мед сестры\", co.date_procedure as \"Дата проведения\", co.time_procedure as \"Время проведения\" " +
+                            "FROM Сonservative co JOIN staff s ON co.id_staff = s.id_staff JOIN staff n ON n.id_staff = co.id_staff_nurce " +
+                            "JOIN patient_in_room pai ON pai.id_patient = co.id_patient JOIN patient pa ON pa.omc = pai.omc " +
+                            "JOIN procedures_ pr ON pr.id_procedure = co.id_procedure JOIN guard_nurse gn ON gn.id_staff = co.id_staff_nurce;";
+                            ShowDGV(str22, dataGridView4, dBLogicConnection._connectionString);
+                            break;
+                        case 2:
+                            string str23 = "select pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врача\", o.name_operation as \"Название операции\", " +
+                            "o.date_operation as \"Дата проведения\", o.time_operation as \"Время проведения\", o.discriptionary_operation as \"Описание\", " +
+                            "o.discriptionary_bad as \"Описание осложнений\" from operation o join staff s on s.id_staff = o.id_staff " +
+                            "join patient_in_room dir on dir.id_patient = o.id_patient join patient pa on pa.omc = dir.omc";
+                            ShowDGV(str23, dataGridView4, dBLogicConnection._connectionString);
+                            break;
+                    }
+                    break;
+                case 3: //вид документов
+                    switch (comboBox4.SelectedIndex) {
+                        case 0:
+                            string str31 = "select e.numb_extract as \"Номер выписки\", pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врача\", e.date_extract as " +
+                            "\"Дата выписки\", e.diagnosis_extract as \"Диагноз\", e.recomendations as \"Рекомендации\", e.death_mark as \"Летальный исход\" " +
+                            "from extract_document e join staff s on s.id_staff = e.id_staff join patient_in_room pai on pai.id_patient = e.id_patient join patient pa on " +
+                            "pa.omc = pai.omc";
+                            ShowDGV(str31, dataGridView1, dBLogicConnection._connectionString);
+                            break;
+                        case 1:
+                            string str32 = "select pa.full_name as \"ФИО пациента\", i.date_initial as \"Дата первичного осмотра\", s.full_name as \"ФИО врача приёмного покоя\", " +
+                            "i.diagnosis as \"Диагноз\" from initial_inspection i join patient pa on pa.omc = i.omc join staff s on s.id_staff = i.doc_receptinoist;";
+                            ShowDGV(str32, dataGridView1, dBLogicConnection._connectionString);
+                            break;
+                        case 2:
+                            string str33 = "select l.numb_extract as \"Номер выписки\", pa.full_name as \"ФИО пациента\", l.date_in as \"Дата поступления\" from list_not_working l " +
+                            "join patient pa on pa.omc = l.omc";
+                            ShowDGV(str33, dataGridView1, dBLogicConnection._connectionString);
+                            break;
+                    }
+                    break;
+                default: //всё остальное
+                    OpenTabControl();
+                    break;
+            }
+            
+            
         }
     }
 }
