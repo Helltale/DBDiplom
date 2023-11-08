@@ -611,10 +611,148 @@ namespace AndreevNIR
                     }
                     break;
                 case 3: //вид документов
+                    switch (comboBox4.SelectedIndex) {
+                        case 0: //выписка
+                            switch (comboBox1.SelectedIndex) {
+                                case 0: //номер выписки
+                                    {
+                                        string queryCommand = "select e.numb_extract as \"Номер выписки\", pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врача\", e.date_extract as \"Дата выписки\", e.diagnosis_extract as \"Диагноз\", e.recomendations as \"Рекомендации\", e.death_mark as \"Летальный исход\" from extract_document e join staff s on s.id_staff = e.id_staff join patient_in_room pai on pai.id_patient = e.id_patient join patient pa on pa.omc = pai.omc where e.numb_extract = @find";
+                                        FilterGridCore(queryCommand, dataGridView1, textBox1.Text);
+                                    }
+                                    break;
+                                case 1: //фио пациента
+                                    {
+                                        string queryCommand = "select e.numb_extract as \"Номер выписки\", pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врача\", e.date_extract as \"Дата выписки\", e.diagnosis_extract as \"Диагноз\", e.recomendations as \"Рекомендации\", e.death_mark as \"Летальный исход\" from extract_document e join staff s on s.id_staff = e.id_staff join patient_in_room pai on pai.id_patient = e.id_patient join patient pa on pa.omc = pai.omc where pa.full_name = @find";
+                                        FilterGridCore(queryCommand, dataGridView1, textBox1.Text);
+                                    }
+                                    break;
+                                case 2: //фио врача
+                                    {
+                                        string queryCommand = "select e.numb_extract as \"Номер выписки\", pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врача\", e.date_extract as \"Дата выписки\", e.diagnosis_extract as \"Диагноз\", e.recomendations as \"Рекомендации\", e.death_mark as \"Летальный исход\" from extract_document e join staff s on s.id_staff = e.id_staff join patient_in_room pai on pai.id_patient = e.id_patient join patient pa on pa.omc = pai.omc where s.full_name = @find";
+                                        FilterGridCore(queryCommand, dataGridView1, textBox1.Text);
+                                    }
+                                    break;
+                                case 3: //дата выписки
+                                    {
+                                        string queryCommand = "select e.numb_extract as \"Номер выписки\", pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врача\", e.date_extract as \"Дата выписки\", e.diagnosis_extract as \"Диагноз\", e.recomendations as \"Рекомендации\", e.death_mark as \"Летальный исход\" from extract_document e join staff s on s.id_staff = e.id_staff join patient_in_room pai on pai.id_patient = e.id_patient join patient pa on pa.omc = pai.omc where e.date_extract = @find";
+                                        FilterGridCore(queryCommand, dataGridView1, textBox1.Text);
+                                    }
+                                    break;
+                                case 4: //диагноз при выписке
+                                    {
+                                        string queryCommand = "select e.numb_extract as \"Номер выписки\", pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врача\", e.date_extract as \"Дата выписки\", e.diagnosis_extract as \"Диагноз\", e.recomendations as \"Рекомендации\", e.death_mark as \"Летальный исход\" from extract_document e join staff s on s.id_staff = e.id_staff join patient_in_room pai on pai.id_patient = e.id_patient join patient pa on pa.omc = pai.omc where e.diagnosis_extract = @find";
+                                        FilterGridCore(queryCommand, dataGridView1, textBox1.Text);
+                                    }
+                                    break;
+                                case 5: //летальность
+                                    {
+                                        string queryCommand = "select e.numb_extract as \"Номер выписки\", pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врача\", e.date_extract as \"Дата выписки\", e.diagnosis_extract as \"Диагноз\", e.recomendations as \"Рекомендации\", e.death_mark as \"Летальный исход\" from extract_document e join staff s on s.id_staff = e.id_staff join patient_in_room pai on pai.id_patient = e.id_patient join patient pa on pa.omc = pai.omc where e.death_mark = @find";
+                                        FilterGridCore(queryCommand, dataGridView1, textBox1.Text);
+                                    }
+                                    break;
+                            }
+                            break;
+                        case 1: //первичный осмотр
+                            switch (comboBox1.SelectedIndex) {
+                                case 0: //фио пациента
+                                    {
+                                        string queryCommand = "select pa.full_name as \"ФИО пациента\", i.date_initial as \"Дата первичного осмотра\", s.full_name as \"ФИО врача приёмного покоя\", i.diagnosis as \"Диагноз\" from initial_inspection i join patient pa on pa.omc = i.omc join staff s on s.id_staff = i.doc_receptinoist where pa.full_name = @find;";
+                                        FilterGridCore(queryCommand, dataGridView1, textBox1.Text);
+                                    }
+                                    break;
+                                case 1: //дата первичного осмотра
+                                    {
+                                        string queryCommand = "select pa.full_name as \"ФИО пациента\", i.date_initial as \"Дата первичного осмотра\", s.full_name as \"ФИО врача приёмного покоя\", i.diagnosis as \"Диагноз\" from initial_inspection i join patient pa on pa.omc = i.omc join staff s on s.id_staff = i.doc_receptinoist where i.date_initial = @find;";
+                                        FilterGridCore(queryCommand, dataGridView1, textBox1.Text);
+                                    }
+                                    break;
+                                case 2: //фио врача приёмного покоя
+                                    {
+                                        string queryCommand = "select pa.full_name as \"ФИО пациента\", i.date_initial as \"Дата первичного осмотра\", s.full_name as \"ФИО врача приёмного покоя\", i.diagnosis as \"Диагноз\" from initial_inspection i join patient pa on pa.omc = i.omc join staff s on s.id_staff = i.doc_receptinoist where s.full_name = @find;";
+                                        FilterGridCore(queryCommand, dataGridView1, textBox1.Text);
+                                    }
+                                    break;
+                                case 3: //диагноз
+                                    {
+                                        string queryCommand = "select pa.full_name as \"ФИО пациента\", i.date_initial as \"Дата первичного осмотра\", s.full_name as \"ФИО врача приёмного покоя\", i.diagnosis as \"Диагноз\" from initial_inspection i join patient pa on pa.omc = i.omc join staff s on s.id_staff = i.doc_receptinoist where i.diagnosis = @find;";
+                                        FilterGridCore(queryCommand, dataGridView1, textBox1.Text);
+                                    }
+                                    break;
+                            }
+                            break;
+                        case 2: //нетрудоспособность
+                            switch (comboBox1.SelectedIndex) {
+                                case 0: //фио пациента
+                                    {
+                                        string queryCommand = "select l.numb_extract as \"Номер выписки\", pa.full_name as \"ФИО пациента\", l.date_in as \"Дата поступления\" from list_not_working l join patient pa on pa.omc = l.omc where pa.full_name = @find";
+                                        FilterGridCore(queryCommand, dataGridView1, textBox1.Text);
+                                    }
+                                    break;
+                                case 1: //номер выписки
+                                    {
+                                        string queryCommand = "select l.numb_extract as \"Номер выписки\", pa.full_name as \"ФИО пациента\", l.date_in as \"Дата поступления\" from list_not_working l join patient pa on pa.omc = l.omc where l.numb_extract = @find";
+                                        FilterGridCore(queryCommand, dataGridView1, textBox1.Text);
+                                    }
+                                    break;
+                                case 2: //дата поступления
+                                    {
+                                        string queryCommand = "select l.numb_extract as \"Номер выписки\", pa.full_name as \"ФИО пациента\", l.date_in as \"Дата поступления\" from list_not_working l join patient pa on pa.omc = l.omc where l.date_in = @find";
+                                        FilterGridCore(queryCommand, dataGridView1, textBox1.Text);
+                                    }
+                                    break;
+                            }
+                            break;
+                    }
                     break;
                 case 4: //вид процедур
+                    switch (comboBox1.SelectedIndex) {
+                        case 0: //название процедуры
+                            {
+                                string queryCommand = "select procedures_.name_drocedure \"Название процедуры\", drug.name_drug \"Название препарата\", procedures_.value_drug \"Количество\", procedures_.value_name \"Тип\" from procedures_ join drug on procedures_.id_drug = drug.id_drug where procedures_.name_drocedure = @find";
+                                FilterGridCore(queryCommand, dataGridView6, textBox1.Text);
+                            }
+                            break;
+                        case 1: //название препарата
+                            {
+                                string queryCommand = "select procedures_.name_drocedure \"Название процедуры\", drug.name_drug \"Название препарата\", procedures_.value_drug \"Количество\", procedures_.value_name \"Тип\" from procedures_ join drug on procedures_.id_drug = drug.id_drug where drug.name_drug = @find";
+                                FilterGridCore(queryCommand, dataGridView6, textBox1.Text);
+                            }
+                            break;
+                        case 2: //количество препарата
+                            {
+                                string queryCommand = "select procedures_.name_drocedure \"Название процедуры\", drug.name_drug \"Название препарата\", procedures_.value_drug \"Количество\", procedures_.value_name \"Тип\" from procedures_ join drug on procedures_.id_drug = drug.id_drug where procedures_.value_drug = @find";
+                                FilterGridCore(queryCommand, dataGridView6, textBox1.Text);
+                            }
+                            break;
+                        case 3: //тип значения
+                            {
+                                string queryCommand = "select procedures_.name_drocedure \"Название процедуры\", drug.name_drug \"Название препарата\", procedures_.value_drug \"Количество\", procedures_.value_name \"Тип\" from procedures_ join drug on procedures_.id_drug = drug.id_drug where procedures_.value_name = @find";
+                                FilterGridCore(queryCommand, dataGridView6, textBox1.Text);
+                            }
+                            break;
+                    }
                     break;
                 case 5: //роли
+                    switch (comboBox1.SelectedIndex) {
+                        case 0: //фио сотрудника
+                            {
+                                string queryCommand = "select staff.full_name ФИО, user_info.login_user Логин, user_info.role_user \"Уровень доступа\" from staff join user_info on staff.id_staff = user_info.id_staff where staff.full_name = @find";
+                                FilterGridCore(queryCommand, dataGridView6, textBox1.Text);
+                            }
+                            break;
+                        case 1: //логин
+                            {
+                                string queryCommand = "select staff.full_name ФИО, user_info.login_user Логин, user_info.role_user \"Уровень доступа\" from staff join user_info on staff.id_staff = user_info.id_staff where user_info.login_user = @find";
+                                FilterGridCore(queryCommand, dataGridView6, textBox1.Text);
+                            }
+                            break;
+                        case 2: //уровень доступа
+                            {
+                                string queryCommand = "select staff.full_name ФИО, user_info.login_user Логин, user_info.role_user \"Уровень доступа\" from staff join user_info on staff.id_staff = user_info.id_staff where user_info.role_user = @find";
+                                FilterGridCore(queryCommand, dataGridView6, textBox1.Text);
+                            }
+                            break;
+                    }
                     break;
             }
         }
