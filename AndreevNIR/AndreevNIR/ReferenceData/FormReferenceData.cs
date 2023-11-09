@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -230,12 +231,14 @@ namespace AndreevNIR
             }
         }
 
-        private void FilterGridTime(string queryCommandNEW, DataGridView dgv, string find) {
-            //DateTime dt = DateTime.ParseExact(find, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
-            //string formattedDate = dt.ToString("yyyy-MM-dd");
+        private void FilterGridTime() {
+            
+        }
 
-            string[] tmps = find.Split('/');
-            var new_tmp = tmps[2] + "-" + tmps[1] + "-" + tmps[0]; 
+        private void FilterGridDate(string queryCommandNEW, DataGridView dgv, string date) {
+            
+            string formattedDate = DateTime.ParseExact(date, "d/M/yyyy", CultureInfo.InvariantCulture).ToString("yyyy-dd-MM");
+            DateTime completedate = Convert.ToDateTime(formattedDate);
 
             using (var con = dBLogicConnection.GetConnection())
             {
@@ -246,7 +249,7 @@ namespace AndreevNIR
                 try
                 {
                     NpgsqlCommand cmd = new NpgsqlCommand(queryCommand, con);
-                    cmd.Parameters.Add(new_tmp, NpgsqlTypes.NpgsqlDbType.Date, 10); // передача объекта DateTime в качестве параметра
+                    cmd.Parameters.Add("find", NpgsqlTypes.NpgsqlDbType.Date).Value = completedate;
                     NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(cmd);
                     DataTable table = new DataTable();
                     adapter.Fill(table);
@@ -255,8 +258,6 @@ namespace AndreevNIR
                 catch (Exception ex) { MessageBox.Show("Непредвиденная ошибка: " + ex); }
             }
         }
-
-        private void FilterGridDate() { }
 
         private string FilterGrid2(string queryCommandNEW, DataGridView dgv, string textTxtBox) { //NOSONAR
             using (var con = dBLogicConnection.GetConnection())
@@ -523,7 +524,7 @@ namespace AndreevNIR
                                 case 2: //дата проведения
                                     {
                                         string queryCommand = "select s.full_name as \"ФИО врача\", pa.full_name as \"ФИО пациента\", me.date_meeting as \"Дата проведения\", me.time_meeting as \"Время проведения\", me.discription_meeting as \"Описание осмотра\", me.operation_control as \"Послеоперационный осмотр\" from meetings me inner join patient_in_room pai on me.id_patient = pai.id_patient inner join patient pa on pa.omc = pai.omc inner join staff s on s.id_staff = me.id_staff where me.date_meeting = @find";
-                                        FilterGridCore(queryCommand, dataGridView4, textBox1.Text);
+                                        FilterGridDate(queryCommand, dataGridView4, textBox1.Text);
                                     }
                                     break;
                                 case 3: //время проведения
