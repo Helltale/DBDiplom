@@ -395,49 +395,49 @@ namespace AndreevNIR
                     switch (comboBox1.SelectedIndex) {
                         case 0: //название стационара
                             {
-                                string queryCommand = "SELECT name_hir_department as \"Стационар\", adress_hir_department as \"Адрес стационара\", phone_hir_department as \"Телефон регистратуры\", ogrm_hir_department as \"ОГРМ\", (select full_name from staff where id_staff = hir_hospital.boss_hir_department) as \"Главный врач\",name_department as \"Отделение\", (select full_name from staff where id_staff = department.boss_department) as \"Заведующий отделением\", number_room as \"Палата\" FROM type_department JOIN department ON type_department.id_department = department.id_department JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department JOIN room ON department.id_department = room.id_department join staff on hir_hospital.boss_hir_department = staff.id_staff where name_hir_department = @find;";
+                                string queryCommand = sgs.OpenReferenseQueryList(9);
                                 FilterGridCore(queryCommand, dataGridView3, textBox1.Text);
                             }
                             break;
                         case 1: //адрес стационара
                             {
-                                string queryCommand = "SELECT name_hir_department as \"Стационар\", adress_hir_department as \"Адрес стационара\", phone_hir_department as \"Телефон регистратуры\", ogrm_hir_department as \"ОГРМ\", (select full_name from staff where id_staff = hir_hospital.boss_hir_department) as \"Главный врач\",name_department as \"Отделение\", (select full_name from staff where id_staff = department.boss_department) as \"Заведующий отделением\", number_room as \"Палата\" FROM type_department JOIN department ON type_department.id_department = department.id_department JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department JOIN room ON department.id_department = room.id_department join staff on hir_hospital.boss_hir_department = staff.id_staff where adress_hir_department = @find;";
+                                string queryCommand = sgs.OpenReferenseQueryList(10);
                                 FilterGridCore(queryCommand, dataGridView3, textBox1.Text);
                             }
                             break;
                         case 2: //телефон регистратуры
                             {
-                                string queryCommand = "SELECT name_hir_department as \"Стационар\", adress_hir_department as \"Адрес стационара\", phone_hir_department as \"Телефон регистратуры\", ogrm_hir_department as \"ОГРМ\", (select full_name from staff where id_staff = hir_hospital.boss_hir_department) as \"Главный врач\",name_department as \"Отделение\", (select full_name from staff where id_staff = department.boss_department) as \"Заведующий отделением\", number_room as \"Палата\" FROM type_department JOIN department ON type_department.id_department = department.id_department JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department JOIN room ON department.id_department = room.id_department join staff on hir_hospital.boss_hir_department = staff.id_staff where phone_hir_department = @find;";
+                                string queryCommand = sgs.OpenReferenseQueryList(11);
                                 FilterGridCore(queryCommand, dataGridView3, textBox1.Text);
                             }
                             break;
                         case 3: //ОГРМ
                             {
-                                string queryCommand = "SELECT name_hir_department as \"Стационар\", adress_hir_department as \"Адрес стационара\", phone_hir_department as \"Телефон регистратуры\", ogrm_hir_department as \"ОГРМ\", (select full_name from staff where id_staff = hir_hospital.boss_hir_department) as \"Главный врач\",name_department as \"Отделение\", (select full_name from staff where id_staff = department.boss_department) as \"Заведующий отделением\", number_room as \"Палата\" FROM type_department JOIN department ON type_department.id_department = department.id_department JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department JOIN room ON department.id_department = room.id_department join staff on hir_hospital.boss_hir_department = staff.id_staff where ogrm_hir_department = @find;";
+                                string queryCommand = sgs.OpenReferenseQueryList(12);
                                 FilterGridCore(queryCommand, dataGridView3, textBox1.Text);
                             }
                             break;
                         case 4: //главный врач
                             {
-                                string queryCommand = "SELECT name_hir_department as \"Стационар\", adress_hir_department as \"Адрес стационара\", phone_hir_department as \"Телефон регистратуры\", ogrm_hir_department as \"ОГРМ\", (select full_name from staff where id_staff = hir_hospital.boss_hir_department) as \"Главный врач\",name_department as \"Отделение\", (select full_name from staff where id_staff = department.boss_department) as \"Заведующий отделением\", number_room as \"Палата\" FROM type_department JOIN department ON type_department.id_department = department.id_department JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department JOIN room ON department.id_department = room.id_department join staff on hir_hospital.boss_hir_department = staff.id_staff WHERE hir_hospital.boss_hir_department = (SELECT id_staff FROM staff WHERE full_name = @find);";
+                                string queryCommand = sgs.OpenReferenseQueryList(13);
                                 FilterGridCore(queryCommand, dataGridView3, textBox1.Text);
                             }
                             break;
                         case 5: //отделение
                             {
-                                string queryCommand = "SELECT name_hir_department as \"Стационар\", adress_hir_department as \"Адрес стационара\", phone_hir_department as \"Телефон регистратуры\", ogrm_hir_department as \"ОГРМ\", (select full_name from staff where id_staff = hir_hospital.boss_hir_department) as \"Главный врач\",name_department as \"Отделение\", (select full_name from staff where id_staff = department.boss_department) as \"Заведующий отделением\", number_room as \"Палата\" FROM type_department JOIN department ON type_department.id_department = department.id_department JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department JOIN room ON department.id_department = room.id_department join staff on hir_hospital.boss_hir_department = staff.id_staff where name_department = @find;";
+                                string queryCommand = sgs.OpenReferenseQueryList(14);
                                 FilterGridCore(queryCommand, dataGridView3, textBox1.Text);
                             }
                             break;
                         case 6: //заведущий отделением
                             {
-                                string queryCommand = "SELECT name_hir_department as \"Стационар\", adress_hir_department as \"Адрес стационара\", phone_hir_department as \"Телефон регистратуры\", ogrm_hir_department as \"ОГРМ\", (select full_name from staff where id_staff = hir_hospital.boss_hir_department) as \"Главный врач\",name_department as \"Отделение\", (select full_name from staff where id_staff = department.boss_department) as \"Заведующий отделением\", number_room as \"Палата\" FROM type_department JOIN department ON type_department.id_department = department.id_department JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department JOIN room ON department.id_department = room.id_department join staff on hir_hospital.boss_hir_department = staff.id_staff WHERE department.boss_department = (SELECT id_staff FROM staff WHERE full_name = @find);";
+                                string queryCommand = sgs.OpenReferenseQueryList(15);
                                 FilterGridCore(queryCommand, dataGridView3, textBox1.Text);
                             }
                             break;
-                        case 7:
+                        case 7: //комната
                             {
-                                string queryCommand = "SELECT name_hir_department as \"Стационар\", adress_hir_department as \"Адрес стационара\", phone_hir_department as \"Телефон регистратуры\", ogrm_hir_department as \"ОГРМ\", (select full_name from staff where id_staff = hir_hospital.boss_hir_department) as \"Главный врач\",name_department as \"Отделение\", (select full_name from staff where id_staff = department.boss_department) as \"Заведующий отделением\", number_room as \"Палата\" FROM type_department JOIN department ON type_department.id_department = department.id_department JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department JOIN room ON department.id_department = room.id_department join staff on hir_hospital.boss_hir_department = staff.id_staff where number_room = @find;";
+                                string queryCommand = sgs.OpenReferenseQueryList(16);
                                 FilterGridCore(queryCommand, dataGridView3, textBox1.Text);
                             }
                             break;
@@ -449,25 +449,25 @@ namespace AndreevNIR
                             switch (comboBox1.SelectedIndex) {
                                 case 0: //фио врача
                                     {
-                                        string queryCommand = "select s.full_name as \"ФИО врача\", pa.full_name as \"ФИО пациента\", me.date_meeting as \"Дата проведения\", me.time_meeting as \"Время проведения\", me.discription_meeting as \"Описание осмотра\", me.operation_control as \"Послеоперационный осмотр\" from meetings me inner join patient_in_room pai on me.id_patient = pai.id_patient inner join patient pa on pa.omc = pai.omc inner join staff s on s.id_staff = me.id_staff where s.full_name = @find";
+                                        string queryCommand = sgs.OpenReferenseQueryList(17);
                                         FilterGridCore(queryCommand, dataGridView4, textBox1.Text);
                                     }
                                     break;
                                 case 1: //фио пациента
                                     {
-                                        string queryCommand = "select s.full_name as \"ФИО врача\", pa.full_name as \"ФИО пациента\", me.date_meeting as \"Дата проведения\", me.time_meeting as \"Время проведения\", me.discription_meeting as \"Описание осмотра\", me.operation_control as \"Послеоперационный осмотр\" from meetings me inner join patient_in_room pai on me.id_patient = pai.id_patient inner join patient pa on pa.omc = pai.omc inner join staff s on s.id_staff = me.id_staff where pa.full_name = @find";
+                                        string queryCommand = sgs.OpenReferenseQueryList(18);
                                         FilterGridCore(queryCommand, dataGridView4, textBox1.Text);
                                     }
                                     break;
                                 case 2: //дата проведения
                                     {
-                                        string queryCommand = "select s.full_name as \"ФИО врача\", pa.full_name as \"ФИО пациента\", me.date_meeting as \"Дата проведения\", me.time_meeting as \"Время проведения\", me.discription_meeting as \"Описание осмотра\", me.operation_control as \"Послеоперационный осмотр\" from meetings me inner join patient_in_room pai on me.id_patient = pai.id_patient inner join patient pa on pa.omc = pai.omc inner join staff s on s.id_staff = me.id_staff where me.date_meeting = @find";
+                                        string queryCommand = sgs.OpenReferenseQueryList(19);
                                         FilterGridDate(queryCommand, dataGridView4, textBox1.Text);
                                     }
                                     break;
                                 case 3: //время проведения
                                     {
-                                        string queryCommand = "select s.full_name as \"ФИО врача\", pa.full_name as \"ФИО пациента\", me.date_meeting as \"Дата проведения\", me.time_meeting as \"Время проведения\", me.discription_meeting as \"Описание осмотра\", me.operation_control as \"Послеоперационный осмотр\" from meetings me inner join patient_in_room pai on me.id_patient = pai.id_patient inner join patient pa on pa.omc = pai.omc inner join staff s on s.id_staff = me.id_staff where me.time_meeting = @find";
+                                        string queryCommand = sgs.OpenReferenseQueryList(20);
                                         FilterGridTime(queryCommand, dataGridView4, textBox1.Text);
                                     }
                                     break;
@@ -477,37 +477,37 @@ namespace AndreevNIR
                             switch (comboBox1.SelectedIndex) {
                                 case 0: //фио пациента
                                     {
-                                        string queryCommand = "SELECT pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врач\", pr.name_drocedure as \"Название процедуры\", n.full_name as \"ФИО мед сестры\", co.date_procedure as \"Дата проведения\", co.time_procedure as \"Время проведения\" FROM Сonservative co JOIN staff s ON co.id_staff = s.id_staff JOIN staff n ON n.id_staff = co.id_staff_nurce JOIN patient_in_room pai ON pai.id_patient = co.id_patient JOIN patient pa ON pa.omc = pai.omc JOIN procedures_ pr ON pr.id_procedure = co.id_procedure JOIN guard_nurse gn ON gn.id_staff = co.id_staff_nurce where pa.full_name = @find;";
+                                        string queryCommand = sgs.OpenReferenseQueryList(21);
                                         FilterGridCore(queryCommand, dataGridView4, textBox1.Text);
                                     }
                                     break;
                                 case 1: //фио врача
                                     {
-                                        string queryCommand = "SELECT pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врач\", pr.name_drocedure as \"Название процедуры\", n.full_name as \"ФИО мед сестры\", co.date_procedure as \"Дата проведения\", co.time_procedure as \"Время проведения\" FROM Сonservative co JOIN staff s ON co.id_staff = s.id_staff JOIN staff n ON n.id_staff = co.id_staff_nurce JOIN patient_in_room pai ON pai.id_patient = co.id_patient JOIN patient pa ON pa.omc = pai.omc JOIN procedures_ pr ON pr.id_procedure = co.id_procedure JOIN guard_nurse gn ON gn.id_staff = co.id_staff_nurce where s.full_name = @find;";
+                                        string queryCommand = sgs.OpenReferenseQueryList(22);
                                         FilterGridCore(queryCommand, dataGridView4, textBox1.Text);
                                     }
                                     break;
                                 case 2: //дата проведения
                                     {
-                                        string queryCommand = "SELECT pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врач\", pr.name_drocedure as \"Название процедуры\", n.full_name as \"ФИО мед сестры\", co.date_procedure as \"Дата проведения\", co.time_procedure as \"Время проведения\" FROM Сonservative co JOIN staff s ON co.id_staff = s.id_staff JOIN staff n ON n.id_staff = co.id_staff_nurce JOIN patient_in_room pai ON pai.id_patient = co.id_patient JOIN patient pa ON pa.omc = pai.omc JOIN procedures_ pr ON pr.id_procedure = co.id_procedure JOIN guard_nurse gn ON gn.id_staff = co.id_staff_nurce where co.date_procedure = @find;";
+                                        string queryCommand = sgs.OpenReferenseQueryList(23);
                                         FilterGridDate(queryCommand, dataGridView4, textBox1.Text);
                                     }
                                     break;
                                 case 3: //время проведения
                                     {
-                                        string queryCommand = "SELECT pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врач\", pr.name_drocedure as \"Название процедуры\", n.full_name as \"ФИО мед сестры\", co.date_procedure as \"Дата проведения\", co.time_procedure as \"Время проведения\" FROM Сonservative co JOIN staff s ON co.id_staff = s.id_staff JOIN staff n ON n.id_staff = co.id_staff_nurce JOIN patient_in_room pai ON pai.id_patient = co.id_patient JOIN patient pa ON pa.omc = pai.omc JOIN procedures_ pr ON pr.id_procedure = co.id_procedure JOIN guard_nurse gn ON gn.id_staff = co.id_staff_nurce where co.time_procedure = @find;";
+                                        string queryCommand = sgs.OpenReferenseQueryList(24);
                                         FilterGridTime(queryCommand, dataGridView4, textBox1.Text);
                                     }
                                     break;
                                 case 4: //название процедуры
                                     {
-                                        string queryCommand = "SELECT pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врач\", pr.name_drocedure as \"Название процедуры\", n.full_name as \"ФИО мед сестры\", co.date_procedure as \"Дата проведения\", co.time_procedure as \"Время проведения\" FROM Сonservative co JOIN staff s ON co.id_staff = s.id_staff JOIN staff n ON n.id_staff = co.id_staff_nurce JOIN patient_in_room pai ON pai.id_patient = co.id_patient JOIN patient pa ON pa.omc = pai.omc JOIN procedures_ pr ON pr.id_procedure = co.id_procedure JOIN guard_nurse gn ON gn.id_staff = co.id_staff_nurce where pr.name_drocedure = @find;";
+                                        string queryCommand = sgs.OpenReferenseQueryList(25);
                                         FilterGridCore(queryCommand, dataGridView4, textBox1.Text);
                                     }
                                     break;
                                 case 5: //фио мед сестры
                                     {
-                                        string queryCommand = "SELECT pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врач\", pr.name_drocedure as \"Название процедуры\", n.full_name as \"ФИО мед сестры\", co.date_procedure as \"Дата проведения\", co.time_procedure as \"Время проведения\" FROM Сonservative co JOIN staff s ON co.id_staff = s.id_staff JOIN staff n ON n.id_staff = co.id_staff_nurce JOIN patient_in_room pai ON pai.id_patient = co.id_patient JOIN patient pa ON pa.omc = pai.omc JOIN procedures_ pr ON pr.id_procedure = co.id_procedure JOIN guard_nurse gn ON gn.id_staff = co.id_staff_nurce where n.full_name = @find;";
+                                        string queryCommand = sgs.OpenReferenseQueryList(26);
                                         FilterGridCore(queryCommand, dataGridView4, textBox1.Text);
                                     }
                                     break;
@@ -517,31 +517,31 @@ namespace AndreevNIR
                             switch (comboBox1.SelectedIndex) {
                                 case 0:
                                     { //фио пациента
-                                        string queryCommand = "select pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врача\", o.name_operation as \"Название операции\", o.date_operation as \"Дата проведения\", o.time_operation as \"Время проведения\", o.discriptionary_operation as \"Описание\", o.discriptionary_bad as \"Описание осложнений\" from operation o join staff s on s.id_staff = o.id_staff join patient_in_room dir on dir.id_patient = o.id_patient join patient pa on pa.omc = dir.omc where pa.full_name = @find";
+                                        string queryCommand = sgs.OpenReferenseQueryList(27);
                                         FilterGridCore(queryCommand, dataGridView4, textBox1.Text);
                                     }
                                     break;
                                 case 1: //фио врача
                                     {
-                                        string queryCommand = "select pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врача\", o.name_operation as \"Название операции\", o.date_operation as \"Дата проведения\", o.time_operation as \"Время проведения\", o.discriptionary_operation as \"Описание\", o.discriptionary_bad as \"Описание осложнений\" from operation o join staff s on s.id_staff = o.id_staff join patient_in_room dir on dir.id_patient = o.id_patient join patient pa on pa.omc = dir.omc where s.full_name = @find";
+                                        string queryCommand = sgs.OpenReferenseQueryList(28);
                                         FilterGridCore(queryCommand, dataGridView4, textBox1.Text);
                                     }
                                     break;
                                 case 2: //дата проведения
                                     {
-                                        string queryCommand = "select pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врача\", o.name_operation as \"Название операции\", o.date_operation as \"Дата проведения\", o.time_operation as \"Время проведения\", o.discriptionary_operation as \"Описание\", o.discriptionary_bad as \"Описание осложнений\" from operation o join staff s on s.id_staff = o.id_staff join patient_in_room dir on dir.id_patient = o.id_patient join patient pa on pa.omc = dir.omc where o.date_operation = @find";
+                                        string queryCommand = sgs.OpenReferenseQueryList(29);
                                         FilterGridDate(queryCommand, dataGridView4, textBox1.Text);
                                     }
                                     break;
                                 case 3: //время проведения
                                     {
-                                        string queryCommand = "select pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врача\", o.name_operation as \"Название операции\", o.date_operation as \"Дата проведения\", o.time_operation as \"Время проведения\", o.discriptionary_operation as \"Описание\", o.discriptionary_bad as \"Описание осложнений\" from operation o join staff s on s.id_staff = o.id_staff join patient_in_room dir on dir.id_patient = o.id_patient join patient pa on pa.omc = dir.omc where o.time_operation = @find";
+                                        string queryCommand = sgs.OpenReferenseQueryList(30);
                                         FilterGridTime(queryCommand, dataGridView4, textBox1.Text);
                                     }
                                     break;
                                 case 4: //название операции
                                     {
-                                        string queryCommand = "select pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врача\", o.name_operation as \"Название операции\", o.date_operation as \"Дата проведения\", o.time_operation as \"Время проведения\", o.discriptionary_operation as \"Описание\", o.discriptionary_bad as \"Описание осложнений\" from operation o join staff s on s.id_staff = o.id_staff join patient_in_room dir on dir.id_patient = o.id_patient join patient pa on pa.omc = dir.omc where o.name_operation = @find";
+                                        string queryCommand = sgs.OpenReferenseQueryList(31);
                                         FilterGridCore(queryCommand, dataGridView4, textBox1.Text);
                                     }
                                     break;
@@ -555,37 +555,37 @@ namespace AndreevNIR
                             switch (comboBox1.SelectedIndex) {
                                 case 0: //номер выписки
                                     {
-                                        string queryCommand = "select e.numb_extract as \"Номер выписки\", pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врача\", e.date_extract as \"Дата выписки\", e.diagnosis_extract as \"Диагноз\", e.recomendations as \"Рекомендации\", e.death_mark as \"Летальный исход\" from extract_document e join staff s on s.id_staff = e.id_staff join patient_in_room pai on pai.id_patient = e.id_patient join patient pa on pa.omc = pai.omc where e.numb_extract = @find";
+                                        string queryCommand = sgs.OpenReferenseQueryList(32);
                                         FilterGridCore(queryCommand, dataGridView1, textBox1.Text);
                                     }
                                     break;
                                 case 1: //фио пациента
                                     {
-                                        string queryCommand = "select e.numb_extract as \"Номер выписки\", pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врача\", e.date_extract as \"Дата выписки\", e.diagnosis_extract as \"Диагноз\", e.recomendations as \"Рекомендации\", e.death_mark as \"Летальный исход\" from extract_document e join staff s on s.id_staff = e.id_staff join patient_in_room pai on pai.id_patient = e.id_patient join patient pa on pa.omc = pai.omc where pa.full_name = @find";
+                                        string queryCommand = sgs.OpenReferenseQueryList(33);
                                         FilterGridCore(queryCommand, dataGridView1, textBox1.Text);
                                     }
                                     break;
                                 case 2: //фио врача
                                     {
-                                        string queryCommand = "select e.numb_extract as \"Номер выписки\", pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врача\", e.date_extract as \"Дата выписки\", e.diagnosis_extract as \"Диагноз\", e.recomendations as \"Рекомендации\", e.death_mark as \"Летальный исход\" from extract_document e join staff s on s.id_staff = e.id_staff join patient_in_room pai on pai.id_patient = e.id_patient join patient pa on pa.omc = pai.omc where s.full_name = @find";
+                                        string queryCommand = sgs.OpenReferenseQueryList(34);
                                         FilterGridCore(queryCommand, dataGridView1, textBox1.Text);
                                     }
                                     break;
                                 case 3: //дата выписки
                                     {
-                                        string queryCommand = "select e.numb_extract as \"Номер выписки\", pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врача\", e.date_extract as \"Дата выписки\", e.diagnosis_extract as \"Диагноз\", e.recomendations as \"Рекомендации\", e.death_mark as \"Летальный исход\" from extract_document e join staff s on s.id_staff = e.id_staff join patient_in_room pai on pai.id_patient = e.id_patient join patient pa on pa.omc = pai.omc where e.date_extract = @find";
-                                        FilterGridCore(queryCommand, dataGridView1, textBox1.Text);
+                                        string queryCommand = sgs.OpenReferenseQueryList(35);
+                                        FilterGridDate(queryCommand, dataGridView1, textBox1.Text);
                                     }
                                     break;
                                 case 4: //диагноз при выписке
                                     {
-                                        string queryCommand = "select e.numb_extract as \"Номер выписки\", pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врача\", e.date_extract as \"Дата выписки\", e.diagnosis_extract as \"Диагноз\", e.recomendations as \"Рекомендации\", e.death_mark as \"Летальный исход\" from extract_document e join staff s on s.id_staff = e.id_staff join patient_in_room pai on pai.id_patient = e.id_patient join patient pa on pa.omc = pai.omc where e.diagnosis_extract = @find";
+                                        string queryCommand = sgs.OpenReferenseQueryList(36);
                                         FilterGridCore(queryCommand, dataGridView1, textBox1.Text);
                                     }
                                     break;
                                 case 5: //летальность
                                     {
-                                        string queryCommand = "select e.numb_extract as \"Номер выписки\", pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врача\", e.date_extract as \"Дата выписки\", e.diagnosis_extract as \"Диагноз\", e.recomendations as \"Рекомендации\", e.death_mark as \"Летальный исход\" from extract_document e join staff s on s.id_staff = e.id_staff join patient_in_room pai on pai.id_patient = e.id_patient join patient pa on pa.omc = pai.omc where e.death_mark = @find";
+                                        string queryCommand = sgs.OpenReferenseQueryList(37);
                                         FilterGridCore(queryCommand, dataGridView1, textBox1.Text);
                                     }
                                     break;
@@ -595,25 +595,25 @@ namespace AndreevNIR
                             switch (comboBox1.SelectedIndex) {
                                 case 0: //фио пациента
                                     {
-                                        string queryCommand = "select pa.full_name as \"ФИО пациента\", i.date_initial as \"Дата первичного осмотра\", s.full_name as \"ФИО врача приёмного покоя\", i.diagnosis as \"Диагноз\" from initial_inspection i join patient pa on pa.omc = i.omc join staff s on s.id_staff = i.doc_receptinoist where pa.full_name = @find;";
+                                        string queryCommand = sgs.OpenReferenseQueryList(38);
                                         FilterGridCore(queryCommand, dataGridView1, textBox1.Text);
                                     }
                                     break;
                                 case 1: //дата первичного осмотра
                                     {
-                                        string queryCommand = "select pa.full_name as \"ФИО пациента\", i.date_initial as \"Дата первичного осмотра\", s.full_name as \"ФИО врача приёмного покоя\", i.diagnosis as \"Диагноз\" from initial_inspection i join patient pa on pa.omc = i.omc join staff s on s.id_staff = i.doc_receptinoist where i.date_initial = @find;";
-                                        FilterGridCore(queryCommand, dataGridView1, textBox1.Text);
+                                        string queryCommand = sgs.OpenReferenseQueryList(39);
+                                        FilterGridDate(queryCommand, dataGridView1, textBox1.Text);
                                     }
                                     break;
                                 case 2: //фио врача приёмного покоя
                                     {
-                                        string queryCommand = "select pa.full_name as \"ФИО пациента\", i.date_initial as \"Дата первичного осмотра\", s.full_name as \"ФИО врача приёмного покоя\", i.diagnosis as \"Диагноз\" from initial_inspection i join patient pa on pa.omc = i.omc join staff s on s.id_staff = i.doc_receptinoist where s.full_name = @find;";
+                                        string queryCommand = sgs.OpenReferenseQueryList(40);
                                         FilterGridCore(queryCommand, dataGridView1, textBox1.Text);
                                     }
                                     break;
                                 case 3: //диагноз
                                     {
-                                        string queryCommand = "select pa.full_name as \"ФИО пациента\", i.date_initial as \"Дата первичного осмотра\", s.full_name as \"ФИО врача приёмного покоя\", i.diagnosis as \"Диагноз\" from initial_inspection i join patient pa on pa.omc = i.omc join staff s on s.id_staff = i.doc_receptinoist where i.diagnosis = @find;";
+                                        string queryCommand = sgs.OpenReferenseQueryList(41);
                                         FilterGridCore(queryCommand, dataGridView1, textBox1.Text);
                                     }
                                     break;
@@ -623,20 +623,20 @@ namespace AndreevNIR
                             switch (comboBox1.SelectedIndex) {
                                 case 0: //фио пациента
                                     {
-                                        string queryCommand = "select l.numb_extract as \"Номер выписки\", pa.full_name as \"ФИО пациента\", l.date_in as \"Дата поступления\" from list_not_working l join patient pa on pa.omc = l.omc where pa.full_name = @find";
+                                        string queryCommand = sgs.OpenReferenseQueryList(42);
                                         FilterGridCore(queryCommand, dataGridView1, textBox1.Text);
                                     }
                                     break;
                                 case 1: //номер выписки
                                     {
-                                        string queryCommand = "select l.numb_extract as \"Номер выписки\", pa.full_name as \"ФИО пациента\", l.date_in as \"Дата поступления\" from list_not_working l join patient pa on pa.omc = l.omc where l.numb_extract = @find";
+                                        string queryCommand = sgs.OpenReferenseQueryList(43);
                                         FilterGridCore(queryCommand, dataGridView1, textBox1.Text);
                                     }
                                     break;
                                 case 2: //дата поступления
                                     {
-                                        string queryCommand = "select l.numb_extract as \"Номер выписки\", pa.full_name as \"ФИО пациента\", l.date_in as \"Дата поступления\" from list_not_working l join patient pa on pa.omc = l.omc where l.date_in = @find";
-                                        FilterGridCore(queryCommand, dataGridView1, textBox1.Text);
+                                        string queryCommand = sgs.OpenReferenseQueryList(44);
+                                        FilterGridDate(queryCommand, dataGridView1, textBox1.Text);
                                     }
                                     break;
                             }
@@ -647,25 +647,25 @@ namespace AndreevNIR
                     switch (comboBox1.SelectedIndex) {
                         case 0: //название процедуры
                             {
-                                string queryCommand = "select procedures_.name_drocedure \"Название процедуры\", drug.name_drug \"Название препарата\", procedures_.value_drug \"Количество\", procedures_.value_name \"Тип\" from procedures_ join drug on procedures_.id_drug = drug.id_drug where procedures_.name_drocedure = @find";
+                                string queryCommand = sgs.OpenReferenseQueryList(45);
                                 FilterGridCore(queryCommand, dataGridView6, textBox1.Text);
                             }
                             break;
                         case 1: //название препарата
                             {
-                                string queryCommand = "select procedures_.name_drocedure \"Название процедуры\", drug.name_drug \"Название препарата\", procedures_.value_drug \"Количество\", procedures_.value_name \"Тип\" from procedures_ join drug on procedures_.id_drug = drug.id_drug where drug.name_drug = @find";
+                                string queryCommand = sgs.OpenReferenseQueryList(46);
                                 FilterGridCore(queryCommand, dataGridView6, textBox1.Text);
                             }
                             break;
                         case 2: //количество препарата
                             {
-                                string queryCommand = "select procedures_.name_drocedure \"Название процедуры\", drug.name_drug \"Название препарата\", procedures_.value_drug \"Количество\", procedures_.value_name \"Тип\" from procedures_ join drug on procedures_.id_drug = drug.id_drug where procedures_.value_drug = @find";
+                                string queryCommand = sgs.OpenReferenseQueryList(47);
                                 FilterGridCore(queryCommand, dataGridView6, textBox1.Text);
                             }
                             break;
                         case 3: //тип значения
                             {
-                                string queryCommand = "select procedures_.name_drocedure \"Название процедуры\", drug.name_drug \"Название препарата\", procedures_.value_drug \"Количество\", procedures_.value_name \"Тип\" from procedures_ join drug on procedures_.id_drug = drug.id_drug where procedures_.value_name = @find";
+                                string queryCommand = sgs.OpenReferenseQueryList(48);
                                 FilterGridCore(queryCommand, dataGridView6, textBox1.Text);
                             }
                             break;
@@ -675,26 +675,26 @@ namespace AndreevNIR
                     switch (comboBox1.SelectedIndex) {
                         case 0: //фио сотрудника
                             {
-                                string queryCommand = "select staff.full_name ФИО, user_info.login_user Логин, user_info.role_user \"Уровень доступа\" from staff join user_info on staff.id_staff = user_info.id_staff where staff.full_name = @find";
+                                string queryCommand = sgs.OpenReferenseQueryList(49);
                                 FilterGridCore(queryCommand, dataGridView6, textBox1.Text);
                             }
                             break;
                         case 1: //логин
                             {
-                                string queryCommand = "select staff.full_name ФИО, user_info.login_user Логин, user_info.role_user \"Уровень доступа\" from staff join user_info on staff.id_staff = user_info.id_staff where user_info.login_user = @find";
+                                string queryCommand = sgs.OpenReferenseQueryList(50);
                                 FilterGridCore(queryCommand, dataGridView6, textBox1.Text);
                             }
                             break;
                         case 2: //уровень доступа
                             {
-                                string queryCommand = "select staff.full_name ФИО, user_info.login_user Логин, user_info.role_user \"Уровень доступа\" from staff join user_info on staff.id_staff = user_info.id_staff where user_info.role_user = @find";
+                                string queryCommand = sgs.OpenReferenseQueryList(51);
                                 FilterGridCore(queryCommand, dataGridView6, textBox1.Text);
                             }
                             break;
                     }
                     break;
             } //свич в свиче просто безобразие, потом переделать
-        }
+        } //фильтры
 
         private void button2_Click(object sender, EventArgs e) //сброс фильтров
         {
