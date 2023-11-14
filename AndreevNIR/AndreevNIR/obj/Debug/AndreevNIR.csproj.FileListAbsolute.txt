@@ -83,8 +83,6 @@ D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.pdb
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.FormReferenceDataAdd.resources
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.FormAddStaff.resources
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.FormAddStruct.resources
-D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.FormAddTypeDock.resources
-D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.FormAddTypeHeal.resources
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.FormAddTypeProc.resources
 D:\diplom\AndreevNIR\AndreevNIR\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
 D:\diplom\AndreevNIR\AndreevNIR\bin\Debug\Microsoft.Bcl.HashCode.dll

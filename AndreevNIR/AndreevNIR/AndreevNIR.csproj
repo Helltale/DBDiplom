@@ -126,17 +126,41 @@
     <Compile Include="ReferenceData\FormAddStruct.Designer.cs">
       <DependentUpon>FormAddStruct.cs</DependentUpon>
     </Compile>
-    <Compile Include="ReferenceData\FormAddTypeDock.cs">
+    <Compile Include="ReferenceData\FormAddTypeDockExtract.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ReferenceData\FormAddTypeDock.Designer.cs">
-      <DependentUpon>FormAddTypeDock.cs</DependentUpon>
+    <Compile Include="ReferenceData\FormAddTypeDockExtract.Designer.cs">
+      <DependentUpon>FormAddTypeDockExtract.cs</DependentUpon>
     </Compile>
-    <Compile Include="ReferenceData\FormAddTypeHeal.cs">
+    <Compile Include="ReferenceData\FormAddTypeDockInitial.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ReferenceData\FormAddTypeHeal.Designer.cs">
-      <DependentUpon>FormAddTypeHeal.cs</DependentUpon>
+    <Compile Include="ReferenceData\FormAddTypeDockInitial.Designer.cs">
+      <DependentUpon>FormAddTypeDockInitial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReferenceData\FormAddTypeDockNotWorking.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReferenceData\FormAddTypeDockNotWorking.Designer.cs">
+      <DependentUpon>FormAddTypeDockNotWorking.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReferenceData\FormAddTypeHealConservative.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReferenceData\FormAddTypeHealConservative.Designer.cs">
+      <DependentUpon>FormAddTypeHealConservative.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReferenceData\FormAddTypeHealExamination.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReferenceData\FormAddTypeHealExamination.Designer.cs">
+      <DependentUpon>FormAddTypeHealExamination.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReferenceData\FormAddTypeHealOperations.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReferenceData\FormAddTypeHealOperations.Designer.cs">
+      <DependentUpon>FormAddTypeHealOperations.cs</DependentUpon>
     </Compile>
     <Compile Include="ReferenceData\FormAddTypeProc.cs">
       <SubType>Form</SubType>
@@ -231,12 +255,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ReferenceData\FormAddStruct.resx">
       <DependentUpon>FormAddStruct.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ReferenceData\FormAddTypeDock.resx">
-      <DependentUpon>FormAddTypeDock.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ReferenceData\FormAddTypeHeal.resx">
-      <DependentUpon>FormAddTypeHeal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReferenceData\FormAddTypeProc.resx">
       <DependentUpon>FormAddTypeProc.cs</DependentUpon>

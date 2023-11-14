@@ -41,24 +41,24 @@ namespace AndreevNIR
 
         private void button3_Click(object sender, EventArgs e)
         {
-            panelFormAdd.Controls.Clear();
+            //panelFormAdd.Controls.Clear();
 
-            FormAddTypeHeal formAddTypeHeal = new FormAddTypeHeal()
-            { TopLevel = false, TopMost = true };
-            formAddTypeHeal.FormBorderStyle = FormBorderStyle.None;
-            panelFormAdd.Controls.Add(formAddTypeHeal);
-            formAddTypeHeal.Show();
+            //FormAddTypeHeal formAddTypeHeal = new FormAddTypeHeal()
+            //{ TopLevel = false, TopMost = true };
+            //formAddTypeHeal.FormBorderStyle = FormBorderStyle.None;
+            //panelFormAdd.Controls.Add(formAddTypeHeal);
+            //formAddTypeHeal.Show();
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            panelFormAdd.Controls.Clear();
+            //panelFormAdd.Controls.Clear();
 
-            FormAddTypeDock formAddTypeDock = new FormAddTypeDock() 
-            { TopLevel = false, TopMost = true };
-            formAddTypeDock.FormBorderStyle = FormBorderStyle.None;
-            panelFormAdd.Controls.Add(formAddTypeDock);
-            formAddTypeDock.Show();
+            //FormAddTypeDock formAddTypeDock = new FormAddTypeDock() 
+            //{ TopLevel = false, TopMost = true };
+            //formAddTypeDock.FormBorderStyle = FormBorderStyle.None;
+            //panelFormAdd.Controls.Add(formAddTypeDock);
+            //formAddTypeDock.Show();
         }
 
         private void button5_Click(object sender, EventArgs e)

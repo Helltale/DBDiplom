@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AndreevNIR.ReferenceData;
 using Npgsql;
 
 namespace AndreevNIR
@@ -36,8 +37,67 @@ namespace AndreevNIR
 
         private void button4_Click(object sender, EventArgs e)
         {
-            FormReferenceDataAdd add = new FormReferenceDataAdd();
-            add.ShowDialog();
+            switch (tabControl1.SelectedIndex) {
+                case 0: //персонал
+                    FormAddStaff fad = new FormAddStaff();
+                    fad.ShowDialog();
+                    break;
+                case 1: //структура больницы
+                    FormAddStruct fas = new FormAddStruct();
+                    fas.ShowDialog();
+                    break;
+                case 2: //вид лечения
+                    switch (comboBox3.SelectedIndex) {
+                        case 0:
+                            {
+                                FormAddTypeHealExamination fathe = new FormAddTypeHealExamination();
+                                fathe.ShowDialog();
+                            }
+                            break;
+                        case 1:
+                            {
+                                FormAddTypeHealConservative fathc = new FormAddTypeHealConservative();
+                                fathc.ShowDialog();
+                            }
+                            break;
+                        case 2:
+                            {
+                                FormAddTypeHealOperations fatho = new FormAddTypeHealOperations();
+                                fatho.ShowDialog();
+                            }
+                            break;
+                    }
+                    break;
+                case 3: //вид документов
+                    switch (comboBox4.SelectedIndex) {
+                        case 0:
+                            {
+                                FormAddTypeDockExtract fatde = new FormAddTypeDockExtract();
+                                fatde.ShowDialog();
+                            }
+                            break;
+                        case 1:
+                            {
+                                FormAddTypeDockInitial fatdi = new FormAddTypeDockInitial();
+                                fatdi.ShowDialog();
+                            }
+                            break;
+                        case 2:
+                            {
+                                FormAddTypeDockNotWorking fatdw = new FormAddTypeDockNotWorking();
+                                fatdw.ShowDialog();
+                            }
+                            break;
+                    }
+                    break;
+                case 4: //вид процедур
+                    FormAddTypeProc fatp = new FormAddTypeProc();
+                    fatp.ShowDialog();
+                    break;
+                case 5: //роли
+                    MessageBox.Show("Невозможно добавить новые роли!");
+                    break;
+            }
         }
 
         private void ShowDGV(string strQuery, DataGridView dgv, string connStr) {
@@ -68,6 +128,10 @@ namespace AndreevNIR
                     list.Add("ФИО"); list.Add("Должность"); list.Add("Название отделения"); list.Add("Название стационара"); list.Add("Телефон сотрудника"); list.Add("Почта сотрудника");
                     list.Add("Уровень доступа"); list.Add("Начальник отделения"); list.Add("Начальник стационара");
                     FillComboBox(comboBox1, list);
+
+                    groupBox1.Show();
+                    groupBox2.Show();
+                    groupBox3.Show();
                     break;
 
                 case 1: //структура больницы
@@ -78,14 +142,26 @@ namespace AndreevNIR
                     list1.Add("Название стационара"); list1.Add("Адрес"); list1.Add("Телефон регистратуры"); list1.Add("ОГРМ"); list1.Add("Главный врач"); list1.Add("Отделение");
                     list1.Add("Заведущий отделением"); list1.Add("Палата");
                     FillComboBox(comboBox1, list1);
+
+                    groupBox1.Show();
+                    groupBox2.Show();
+                    groupBox3.Show();
                     break;
 
                 case 2:
                     comboBox3.SelectedIndex = 0; //вид лечения (логика в 3 комбобокс)
+
+                    groupBox1.Show();
+                    groupBox2.Show();
+                    groupBox3.Show();
                     break;
 
                 case 3:
                     comboBox4.SelectedIndex = 0; //вид документов (логика в 4 комбобокс)
+
+                    groupBox1.Show();
+                    groupBox2.Show();
+                    groupBox3.Show();
                     break;
 
                 case 4: //вид процедур
@@ -95,6 +171,10 @@ namespace AndreevNIR
                     List<string> list4 = new List<string>();
                     list4.Add("Название процедуры"); list4.Add("Название препарата"); list4.Add("Количество препарата"); list4.Add("Тип значения");
                     FillComboBox(comboBox1, list4);
+
+                    groupBox1.Show();
+                    groupBox2.Show();
+                    groupBox3.Show();
                     break;
 
                 case 5: //роли
@@ -104,6 +184,10 @@ namespace AndreevNIR
                     List<string> list5 = new List<string>();
                     list5.Add("ФИО сотрудника"); list5.Add("Логин"); list5.Add("Уровень роли");
                     FillComboBox(comboBox1, list5);
+
+                    groupBox1.Hide();
+                    groupBox2.Hide();
+                    groupBox3.Hide();
                     break;
             }
         } //отображение данных в dgv
