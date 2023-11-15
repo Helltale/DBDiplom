@@ -264,6 +264,9 @@
     <EmbeddedResource Include="ReferenceData\FormAddTypeDockInitial.resx">
       <DependentUpon>FormAddTypeDockInitial.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ReferenceData\FormAddTypeDockNotWorking.resx">
+      <DependentUpon>FormAddTypeDockNotWorking.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ReferenceData\FormAddTypeHealConservative.resx">
       <DependentUpon>FormAddTypeHealConservative.cs</DependentUpon>
     </EmbeddedResource>

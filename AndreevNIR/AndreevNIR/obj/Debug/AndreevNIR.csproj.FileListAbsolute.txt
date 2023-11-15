@@ -121,3 +121,4 @@ D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.ReferenceData.FormAddTypeHe
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.ReferenceData.FormAddTypeHealConservative.resources
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.ReferenceData.FormAddTypeDockExtract.resources
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.ReferenceData.FormAddTypeDockInitial.resources
+D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.ReferenceData.FormAddTypeDockNotWorking.resources
