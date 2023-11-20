@@ -122,11 +122,23 @@
     <Compile Include="ReferenceData\FormAddStaff.Designer.cs">
       <DependentUpon>FormAddStaff.cs</DependentUpon>
     </Compile>
-    <Compile Include="ReferenceData\FormAddStruct.cs">
+    <Compile Include="ReferenceData\FormAddStruct1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ReferenceData\FormAddStruct.Designer.cs">
-      <DependentUpon>FormAddStruct.cs</DependentUpon>
+    <Compile Include="ReferenceData\FormAddStruct1.Designer.cs">
+      <DependentUpon>FormAddStruct1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReferenceData\FormAddStructF\FormDepartment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReferenceData\FormAddStructF\FormDepartment.Designer.cs">
+      <DependentUpon>FormDepartment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReferenceData\FormAddStructF\FormHospital.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReferenceData\FormAddStructF\FormHospital.Designer.cs">
+      <DependentUpon>FormHospital.cs</DependentUpon>
     </Compile>
     <Compile Include="ReferenceData\FormAddTypeDockExtract.cs">
       <SubType>Form</SubType>
@@ -255,8 +267,11 @@
     <EmbeddedResource Include="ReferenceData\FormAddStaff.resx">
       <DependentUpon>FormAddStaff.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ReferenceData\FormAddStruct.resx">
-      <DependentUpon>FormAddStruct.cs</DependentUpon>
+    <EmbeddedResource Include="ReferenceData\FormAddStruct1.resx">
+      <DependentUpon>FormAddStruct1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReferenceData\FormAddStructF\FormHospital.resx">
+      <DependentUpon>FormHospital.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReferenceData\FormAddTypeDockExtract.resx">
       <DependentUpon>FormAddTypeDockExtract.cs</DependentUpon>

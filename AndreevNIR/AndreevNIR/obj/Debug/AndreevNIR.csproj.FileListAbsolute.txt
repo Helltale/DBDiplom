@@ -62,7 +62,6 @@ D:\diplom\AndreevNIR\AndreevNIR\bin\Debug\AxShockwaveFlashObjects.dll
 D:\diplom\AndreevNIR\AndreevNIR\bin\Debug\CrystalDecisions.ReportAppServer.CommonControls.dll
 D:\diplom\AndreevNIR\AndreevNIR\bin\Debug\ShockwaveFlashObjects.dll
 D:\diplom\AndreevNIR\AndreevNIR\bin\Debug\stdole.dll
-D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.csproj.AssemblyReference.cache
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.FormAutorization.resources
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.FormIndex2.resources
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.FormOperationalDataHistory.resources
@@ -82,7 +81,6 @@ D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.exe
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.pdb
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.FormReferenceDataAdd.resources
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.FormAddStaff.resources
-D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.FormAddStruct.resources
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.FormAddTypeProc.resources
 D:\diplom\AndreevNIR\AndreevNIR\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
 D:\diplom\AndreevNIR\AndreevNIR\bin\Debug\Microsoft.Bcl.HashCode.dll
@@ -122,3 +120,6 @@ D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.ReferenceData.FormAddTypeHe
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.ReferenceData.FormAddTypeDockExtract.resources
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.ReferenceData.FormAddTypeDockInitial.resources
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.ReferenceData.FormAddTypeDockNotWorking.resources
+D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.ReferenceData.FormAddStruct.FormHospital.resources
+D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.csproj.AssemblyReference.cache
+D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.FormAddStruct1.resources

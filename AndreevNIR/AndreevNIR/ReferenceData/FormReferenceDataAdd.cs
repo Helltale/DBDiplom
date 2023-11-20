@@ -32,7 +32,7 @@ namespace AndreevNIR
         {
             panelFormAdd.Controls.Clear();
 
-            FormAddStruct addStruct = new FormAddStruct()
+            FormAddStruct1 addStruct = new FormAddStruct1()
             { TopLevel = false, TopMost = true };
             addStruct.FormBorderStyle = FormBorderStyle.None;
             panelFormAdd.Controls.Add(addStruct);

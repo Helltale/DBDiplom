@@ -43,7 +43,7 @@ namespace AndreevNIR
                     fad.ShowDialog();
                     break;
                 case 1: //структура больницы
-                    FormAddStruct fas = new FormAddStruct();
+                    FormAddStruct1 fas = new FormAddStruct1();
                     fas.ShowDialog();
                     break;
                 case 2: //вид лечения
