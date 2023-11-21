@@ -80,6 +80,7 @@ namespace AndreevNIR
             this.button2.TabIndex = 2;
             this.button2.Text = "Изменить";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button1
             // 
@@ -148,6 +149,7 @@ namespace AndreevNIR
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(498, 28);
             this.comboBox2.TabIndex = 0;
+            this.comboBox2.Click += new System.EventHandler(this.comboBox2_Click);
             // 
             // label1
             // 

@@ -17,26 +17,12 @@ namespace AndreevNIR.ReferenceData.FormAddStruct
 {
     public partial class FormHospital : Form
     {
-        public FormHospital(FormAddStruct1 frm1)
+        public FormHospital()
         {
-
             InitializeComponent();
         }
-
-        //public delegate void UpdateDelegate(object sender, UpdateEventArgs args);
-        //public event UpdateDelegate UpdateEventHandler;
-
-
-        //public class UpdateEventArgs : EventArgs
-        //{
-        //    public string Data { get; set; }
-        //}
-
-
-        //private List<string> listForComboBox;
         private void button8_Click(object sender, EventArgs e)
         {
-            FormAddStruct1 fas1 = new FormAddStruct1();
             DBLogicConnection dB = new DBLogicConnection();
             string stringLastID = dB.GetLastId(dB._connectionString, "Hir_hospital", "code_hir_department");
             int intLastID = int.Parse(stringLastID);

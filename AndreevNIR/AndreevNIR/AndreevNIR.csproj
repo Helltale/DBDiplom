@@ -140,6 +140,12 @@
     <Compile Include="ReferenceData\FormAddStructF\FormHospital.Designer.cs">
       <DependentUpon>FormHospital.cs</DependentUpon>
     </Compile>
+    <Compile Include="ReferenceData\FormAddStructF\FormHospitalUpdate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReferenceData\FormAddStructF\FormHospitalUpdate.Designer.cs">
+      <DependentUpon>FormHospitalUpdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="ReferenceData\FormAddTypeDockExtract.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -272,6 +278,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ReferenceData\FormAddStructF\FormHospital.resx">
       <DependentUpon>FormHospital.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReferenceData\FormAddStructF\FormHospitalUpdate.resx">
+      <DependentUpon>FormHospitalUpdate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReferenceData\FormAddTypeDockExtract.resx">
       <DependentUpon>FormAddTypeDockExtract.cs</DependentUpon>

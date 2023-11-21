@@ -123,3 +123,4 @@ D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.ReferenceData.FormAddTypeDo
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.ReferenceData.FormAddStruct.FormHospital.resources
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.csproj.AssemblyReference.cache
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.FormAddStruct1.resources
+D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.ReferenceData.FormAddStructF.FormHospitalUpdate.resources
