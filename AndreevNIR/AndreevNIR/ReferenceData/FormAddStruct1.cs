@@ -98,10 +98,31 @@ namespace AndreevNIR
                 return null;
             }
         }
-
+        public string lastValue;
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        { 
+            lastValue = comboBox1.SelectedItem.ToString();
+        }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            DBLogicConnection dB = new DBLogicConnection();
+            using (NpgsqlConnection connection = new NpgsqlConnection(dB._connectionString))
+            {
+                connection.Open();
+                using (NpgsqlCommand command = new NpgsqlCommand($"DELETE FROM Hir_hospital WHERE name_hir_department = @name;", connection))
+                {
+                    try
+                    {
+                        command.Parameters.Add("@name", NpgsqlTypes.NpgsqlDbType.Varchar).Value = comboBox1.SelectedItem;
+                        command.ExecuteNonQuery();
+                        comboBox1.Text = "Выберите стационар";
+                        MessageBox.Show("Запись удалена");
+                    }
+                    catch (Exception ex) { MessageBox.Show("" + ex); }
+                    
+                }
+            }
         }
     }
 }
