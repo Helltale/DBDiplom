@@ -121,7 +121,7 @@ namespace AndreevNIR
             switch (tabControl1.SelectedIndex)
             {
                 case 0: //персонал
-                    string str0 = "SELECT staff.full_name AS \"ФИО\", CASE WHEN guard_nurse.id_staff IS NOT NULL THEN 'Постовая мед сестра' WHEN therapist.id_staff IS NOT NULL THEN 'Врач' WHEN receptionist.id_staff IS NOT NULL THEN 'Врач приёмного покоя' END AS \"Должность\", type_department.name_department AS \"Название отделения\", hir_hospital.name_hir_department AS \"Название стационара\", staff.phone AS \"Телефон\", staff.mail AS \"Почта\", user_info.role_user AS \"Уровень доступа\", (SELECT full_name FROM staff WHERE id_staff = department.boss_department) AS \"Начальник отделения\", (SELECT full_name FROM staff WHERE id_staff = hir_hospital.boss_hir_department) AS \"Начальник стационара\" FROM staff FULL OUTER JOIN user_info ON staff.id_staff = user_info.id_staff FULL OUTER JOIN receptionist ON receptionist.id_staff = staff.id_staff FULL OUTER JOIN guard_nurse ON guard_nurse.id_staff = staff.id_staff FULL OUTER JOIN therapist ON therapist.id_staff = staff.id_staff FULL OUTER JOIN department ON department.id_department = staff.id_department FULL OUTER JOIN type_department ON department.id_department = type_department.id_department FULL OUTER JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department";
+                    string str0 = "SELECT staff.full_name AS \"ФИО\", CASE     WHEN nurce.id_staff IS NOT NULL THEN 'Медицинская сестра'     WHEN therapist.id_staff IS NOT NULL THEN 'Врач'     WHEN receptionist.id_staff IS NOT NULL THEN 'Врач приёмного покоя'     WHEN dep_boss.id_staff IS NOT NULL THEN 'Заведующий отделения'     WHEN hir_hosp_boss.id_staff IS NOT NULL THEN 'Главный врач'     WHEN big_boss.id_staff IS NOT NULL THEN 'Начальник больницы' END AS \"Должность\", type_department.name_department AS \"Название отделения\", hir_hospital.name_hir_department AS \"Название стационара\", staff.phone AS \"Телефон\", staff.mail AS \"Почта\", user_info.role_user AS \"Уровень доступа\" FROM staff LEFT JOIN user_info ON staff.id_staff = user_info.id_staff LEFT JOIN receptionist ON receptionist.id_staff = staff.id_staff LEFT JOIN dep_boss ON dep_boss.id_staff = staff.id_staff LEFT JOIN hir_hosp_boss ON hir_hosp_boss.id_staff = staff.id_staff LEFT JOIN big_boss ON big_boss.id_staff = staff.id_staff LEFT JOIN therapist ON therapist.id_staff = staff.id_staff LEFT JOIN department ON department.id_department = staff.id_department LEFT JOIN type_department ON department.id_department = type_department.id_department  LEFT JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department LEFT JOIN nurce ON nurce.id_staff = staff.id_staff;";
                     ShowDGV(str0, dataGridView2, dBLogicConnection._connectionString);
 
                     List<string> list = new List<string>();
@@ -190,7 +190,7 @@ namespace AndreevNIR
                     groupBox3.Hide();
                     break;
             }
-        } //отображение данных в dgv
+        } //отображение данных в dgv при смене вкладки
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -399,36 +399,9 @@ namespace AndreevNIR
                             }
                             break;
                         case 1: //должность
-                            using (var con = dBLogicConnection.GetConnection())
                             {
-                                string tmpTable = "";
-                                
-                                con.Open();
-                                try
-                                {
-                                    switch (textBox1.Text) {
-                                        case "Врач":
-                                            tmpTable = "therapist.id_staff";
-                                            break;
-
-                                        case "Постовая мед сестра":
-                                            tmpTable = "guard_nurse.id_staff";
-                                            break;
-
-                                        case "Врач приёмного покоя":
-                                            tmpTable = "receptionist.id_staff";
-                                            break;
-                                    }
-                                    //надо  подумать что сделать с ней
-                                    string queryCommand = $"SELECT staff.full_name AS \"ФИО\", CASE WHEN guard_nurse.id_staff IS NOT NULL THEN 'Постовая мед сестра' WHEN therapist.id_staff IS NOT NULL THEN 'Врач' WHEN receptionist.id_staff IS NOT NULL THEN 'Врач приёмного покоя' END AS \"Должность\", type_department.name_department AS \"Название отделения\", hir_hospital.name_hir_department AS \"Название стационара\", staff.phone AS \"Телефон\", staff.mail AS \"Почта\", user_info.role_user AS \"Уровень доступа\", (SELECT full_name FROM staff WHERE id_staff = department.boss_department) AS \"Начальник отделения\", (SELECT full_name FROM staff WHERE id_staff = hir_hospital.boss_hir_department) AS \"Начальник стационара\" FROM staff FULL OUTER JOIN user_info ON staff.id_staff = user_info.id_staff FULL OUTER JOIN receptionist ON receptionist.id_staff = staff.id_staff FULL OUTER JOIN guard_nurse ON guard_nurse.id_staff = staff.id_staff FULL OUTER JOIN therapist ON therapist.id_staff = staff.id_staff FULL OUTER JOIN department ON department.id_department = staff.id_department FULL OUTER JOIN type_department ON department.id_department = type_department.id_department FULL OUTER JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department where {tmpTable} IS NOT NULL";
-
-                                    NpgsqlCommand cmd = new NpgsqlCommand(queryCommand, con);
-                                    NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(cmd);
-                                    DataTable table = new DataTable();
-                                    adapter.Fill(table);
-                                    dataGridView2.DataSource = table.DefaultView;
-                                }
-                                catch (Exception ex) { MessageBox.Show("Непредвиденная ошибка: " + ex); }
+                                string queryCommand = sgs.OpenReferenseQueryList(1);
+                                FilterGridCore(queryCommand, dataGridView2, textBox1.Text);
                             }
                             break;
                         case 2: //название отделения
@@ -782,6 +755,7 @@ namespace AndreevNIR
 
         private void button2_Click(object sender, EventArgs e) //сброс фильтров
         {
+            textBox1.Text = null;
             switch (tabControl1.SelectedIndex) {
                 case 2: //вид лечения
                     switch (comboBox3.SelectedIndex) {
@@ -842,5 +816,6 @@ namespace AndreevNIR
         {
 
         }
+
     }
 }

@@ -2,6 +2,8 @@
 
 --пациент
 
+CREATE SCHEMA public;
+
 create table patient(
 omc varchar(16) primary key,
 diagnosis_enter varchar(500),
@@ -66,7 +68,7 @@ create table Hir_hospital(
 code_hir_department varchar(10) primary key,
 name_hir_department varchar(100) unique,
 adress_hir_department varchar(500) unique,
-boss_hir_department varchar(10) references Staff(id_staff),
+boss_hir_department varchar(10),
 phone_hir_department varchar(10) unique,
 ogrm_hir_department varchar(13) unique
 );
@@ -83,10 +85,6 @@ primary key(code_hir_department, id_department)
 alter table Staff
 --drop constraint FK_Staff
 add constraint FK_Staff foreign key(code_hir_department, id_department) references Department(code_hir_department, id_department);
-
-alter table Department
---drop constraint FK_Staff1
-add constraint FK_Staff1 foreign key(boss_department) References Staff(id_staff);
 
 alter table Room
 --drop constraint FK_Room1
@@ -107,15 +105,32 @@ create table Passport(
 );
 
 --сотрудники
-create table Receptionist(
+create table Receptionist( 	--врач приёмного покоя
 id_staff varchar(10) primary key references Staff(id_staff)
 );
-create table Guard_nurse(
+create table Therapist(    	--врач
 id_staff varchar(10) primary key references Staff(id_staff)
 );
-	create table Therapist(
+create table Nurce(			--мед сестра
 id_staff varchar(10) primary key references Staff(id_staff)
 );
+create table Hir_hosp_Boss(	--глав врач
+id_staff varchar(10) primary key references Staff(id_staff)
+);
+create table Dep_Boss(		--заведущий отделения
+id_staff varchar(10) primary key references Staff(id_staff)
+);
+create table Big_Boss(		--начальник больницы
+id_staff varchar(10) primary key references Staff(id_staff)
+);
+
+alter table Department
+--drop constraint FK_Dep_Boss1
+add constraint FK_Dep_Boss1 foreign key(boss_department) References Dep_Boss(id_staff);
+
+alter table Hir_hospital
+--drop constraint FK_Hir_Dep_Boss1
+add constraint FK_Hir_Dep_Boss1 foreign key(boss_hir_department) References Hir_hosp_Boss(id_staff);
 
 --первичный осмотр
 create table Initial_inspection(
@@ -146,7 +161,6 @@ id_patient varchar(10) references Patient_in_room(id_patient),
 id_staff varchar(10) references Therapist(id_staff),
 primary key(id_patient, id_staff)
 );
-
 
 --выписной лист
 create table Extract_document(
@@ -206,7 +220,7 @@ Create Table Сonservative(
 id_staff varchar(10), --лечащий врач
 id_patient varchar(10),
 id_procedure varchar(10) references procedures_(id_procedure),
-id_staff_nurce varchar(10) references Guard_Nurse(id_staff), --мед сестра, что делала
+id_staff_nurce varchar(10) references Nurce(id_staff), 				--мед сестра, что делала
 date_procedure date,
 time_procedure time,
 constraint FK_Operation foreign key (id_patient, id_staff) references Doc_Patient(id_patient, id_staff),

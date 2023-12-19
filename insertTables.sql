@@ -54,6 +54,12 @@ VALUES
 ('1008', 'Научно-педагогическая организация №8', 'ул. Пушкина, д. 80', 	null, '9372343111', '1234567890987'),
 ('1009', 'Городская больница №9', 'ул. Ленина, д. 90', 					null, '9375667778', '6786645653345');
 
+select * from Hir_hospital;
+-- select name_department from type_department;
+-- SELECT code_hir_department FROM Hir_hospital WHERE name_hir_department = 'ыкбр';
+
+-- UPDATE Hir_hospital SET name_hir_department = 'новое_имя_департамента', adress_hir_department = 'новый_адрес_департамента', boss_hir_department = 'новый_руководитель_департамента', phone_hir_department = 'новый_телефон_департамента', ogrm_hir_department = 'новый_ОГРН_департамента' WHERE name_hir_department = 'входящий_name_hir_department';
+
 INSERT INTO Department (code_hir_department, id_department, boss_department)
 VALUES 
 ('1001', '1', null),
@@ -108,36 +114,6 @@ INSERT INTO User_info (id_staff, login_user, password_user, role_user, trust_use
 ('8901234567', 'emily.doe', 'password234', '8', 'y'),
 ('9012345678', 'karen.johnson', 'password567', '9', 'n');
 
-Update Hir_hospital set boss_hir_department = '1234567890' where code_hir_department = '1001';
-Update Hir_hospital set boss_hir_department = '2345678901' where code_hir_department = '1002';
-Update Hir_hospital set boss_hir_department = '3456789012' where code_hir_department = '1003';
-Update Hir_hospital set boss_hir_department = '4567890123' where code_hir_department = '1004';
-Update Hir_hospital set boss_hir_department = '5678901234' where code_hir_department = '1005';
-Update Hir_hospital set boss_hir_department = '6789012345' where code_hir_department = '1006';
-Update Hir_hospital set boss_hir_department = '7890123456' where code_hir_department = '1007';
-Update Hir_hospital set boss_hir_department = '8901234567' where code_hir_department = '1008';
-Update Hir_hospital set boss_hir_department = '9012345678' where code_hir_department = '1009';
-
---добавить персонал для начальников отделений (во всех отделениях один большой босс)
-Update Department set Boss_department = '9012345678' where Code_hir_department = '1001' and ID_department = '1';
-Update Department set Boss_department = '9012345678' where Code_hir_department = '1001' and ID_department = '2';
-Update Department set Boss_department = '9012345678' where Code_hir_department = '1002' and ID_department = '2';
-Update Department set Boss_department = '9012345678' where Code_hir_department = '1002' and ID_department = '3';
-Update Department set Boss_department = '9012345678' where Code_hir_department = '1003' and ID_department = '3';
-Update Department set Boss_department = '9012345678' where Code_hir_department = '1003' and ID_department = '4';
-Update Department set Boss_department = '9012345678' where Code_hir_department = '1004' and ID_department = '4';
-Update Department set Boss_department = '9012345678' where Code_hir_department = '1004' and ID_department = '5';
-Update Department set Boss_department = '9012345678' where Code_hir_department = '1005' and ID_department = '5';
-Update Department set Boss_department = '9012345678' where Code_hir_department = '1005' and ID_department = '6';
-Update Department set Boss_department = '9012345678' where Code_hir_department = '1006' and ID_department = '6';
-Update Department set Boss_department = '9012345678' where Code_hir_department = '1006' and ID_department = '7';
-Update Department set Boss_department = '9012345678' where Code_hir_department = '1007' and ID_department = '7';
-Update Department set Boss_department = '9012345678' where Code_hir_department = '1007' and ID_department = '8';
-Update Department set Boss_department = '9012345678' where Code_hir_department = '1008' and ID_department = '8';
-Update Department set Boss_department = '9012345678' where Code_hir_department = '1008' and ID_department = '9';
-Update Department set Boss_department = '9012345678' where Code_hir_department = '1009' and ID_department = '9';
-Update Department set Boss_department = '9012345678' where Code_hir_department = '1009' and ID_department = '1';
-
 INSERT INTO passport (сode_pass, data_get, number_pass, who_give, tally_pass, adress_pass, id_staff, omc)
 VALUES 
 ('123456', '2021-01-01', '789012', 'МВД1', '123456', 'ул. Ленина, д. 10', 	null, 	'1234567890123456'),
@@ -163,9 +139,48 @@ VALUES
 Insert into therapist Values
 ('1234567890'),('2345678901'),('3456789012');
 Insert into receptionist Values
-('6789012345'),('4567890123'),('5678901234');
-Insert into guard_nurse Values
-('7890123456'),('8901234567'),('9012345678');
+('6789012345'),('4567890123');
+Insert into nurce Values
+('7890123456');
+Insert into big_boss Values
+('5678901234');
+Insert into hir_hosp_boss Values
+('9012345678');
+Insert into dep_boss Values
+('8901234567');
+
+Update Hir_hospital set boss_hir_department = '9012345678' where code_hir_department = '1001';
+Update Hir_hospital set boss_hir_department = '9012345678' where code_hir_department = '1002';
+Update Hir_hospital set boss_hir_department = '9012345678' where code_hir_department = '1003';
+Update Hir_hospital set boss_hir_department = '9012345678' where code_hir_department = '1004';
+Update Hir_hospital set boss_hir_department = '9012345678' where code_hir_department = '1005';
+Update Hir_hospital set boss_hir_department = '9012345678' where code_hir_department = '1006';
+Update Hir_hospital set boss_hir_department = '9012345678' where code_hir_department = '1007';
+Update Hir_hospital set boss_hir_department = '9012345678' where code_hir_department = '1008';
+Update Hir_hospital set boss_hir_department = '9012345678' where code_hir_department = '1009';
+
+--добавить персонал для начальников отделений (во всех отделениях один большой босс)
+Update Department set Boss_department = '8901234567' where Code_hir_department = '1001' and ID_department = '1';
+Update Department set Boss_department = '8901234567' where Code_hir_department = '1001' and ID_department = '2';
+Update Department set Boss_department = '8901234567' where Code_hir_department = '1002' and ID_department = '2';
+Update Department set Boss_department = '8901234567' where Code_hir_department = '1002' and ID_department = '3';
+Update Department set Boss_department = '8901234567' where Code_hir_department = '1003' and ID_department = '3';
+Update Department set Boss_department = '8901234567' where Code_hir_department = '1003' and ID_department = '4';
+Update Department set Boss_department = '8901234567' where Code_hir_department = '1004' and ID_department = '4';
+Update Department set Boss_department = '8901234567' where Code_hir_department = '1004' and ID_department = '5';
+Update Department set Boss_department = '8901234567' where Code_hir_department = '1005' and ID_department = '5';
+Update Department set Boss_department = '8901234567' where Code_hir_department = '1005' and ID_department = '6';
+Update Department set Boss_department = '8901234567' where Code_hir_department = '1006' and ID_department = '6';
+Update Department set Boss_department = '8901234567' where Code_hir_department = '1006' and ID_department = '7';
+Update Department set Boss_department = '8901234567' where Code_hir_department = '1007' and ID_department = '7';
+Update Department set Boss_department = '8901234567' where Code_hir_department = '1007' and ID_department = '8';
+Update Department set Boss_department = '8901234567' where Code_hir_department = '1008' and ID_department = '8';
+Update Department set Boss_department = '8901234567' where Code_hir_department = '1008' and ID_department = '9';
+Update Department set Boss_department = '8901234567' where Code_hir_department = '1009' and ID_department = '9';
+Update Department set Boss_department = '8901234567' where Code_hir_department = '1009' and ID_department = '1';
+
+-- select * from therapist
+-- delete from receptionist where id_staff = '8901234567';
 
 INSERT INTO Initial_inspection (omc, date_initial, time_initial, doc_receptinoist, diagnosis)
 VALUES 
@@ -282,12 +297,12 @@ INSERT INTO Сonservative (id_staff, id_patient, id_procedure, id_staff_nurce, d
 ('1234567890', '1', 'P001', '7890123456', '2021-01-01', '10:00:00'), 
 ('1234567890', '2', 'P002', '7890123456', '2021-01-02', '11:00:00'), 
 ('1234567890', '3', 'P003', '7890123456', '2021-01-03', '12:00:00'), 
-('2345678901', '4', 'P004', '8901234567', '2021-01-04', '13:00:00'), 
-('2345678901', '5', 'P005', '8901234567', '2021-01-05', '14:00:00'), 
-('2345678901', '6', 'P006', '8901234567', '2021-01-06', '15:00:00'), 
-('3456789012', '7', 'P007', '9012345678', '2021-01-07', '16:00:00'), 
-('3456789012', '8', 'P008', '9012345678', '2021-01-08', '17:00:00'), 
-('3456789012', '9', 'P009', '9012345678', '2021-01-09', '18:00:00');
+('2345678901', '4', 'P004', '7890123456', '2021-01-04', '13:00:00'), 
+('2345678901', '5', 'P005', '7890123456', '2021-01-05', '14:00:00'), 
+('2345678901', '6', 'P006', '7890123456', '2021-01-06', '15:00:00'), 
+('3456789012', '7', 'P007', '7890123456', '2021-01-07', '16:00:00'), 
+('3456789012', '8', 'P008', '7890123456', '2021-01-08', '17:00:00'), 
+('3456789012', '9', 'P009', '7890123456', '2021-01-09', '18:00:00');
 
 INSERT INTO meetings (id_meeting, id_staff, id_patient, discription_meeting, date_meeting, time_meeting, operation_control) VALUES 
 ('1', '1234567890', '1', 'Осмотр пациента на приеме к врачу', '2021-01-01', '10:00:00', null), 
@@ -295,4 +310,5 @@ INSERT INTO meetings (id_meeting, id_staff, id_patient, discription_meeting, dat
 ('3', '1234567890', '3', 'Осмотр пациента на приеме к врачу', '2021-03-01', '12:00:00', 'Проведены осмотр, обследование, диагностика'), 
 ('4', '2345678901', '4', 'Осмотр пациента на приеме к врачу', '2021-04-01', '13:00:00', 'Проведены осмотр, обследование, диагностика'), 
 ('5', '2345678901', '5', 'Осмотр пациента на приеме к врачу', '2021-05-01', '14:00:00', 'Проведены осмотр, обследование, диагностика');
+
 
