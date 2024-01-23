@@ -21,11 +21,11 @@ namespace AndreevNIR
         "6" - админ?????
          */
 
-        public string _connectionString = "Host=localhost;Username=postgres;Password=64210369;Database=postgres";
+        public string _connectionString = "Host=localhost;Username=postgres;Password=64210369;Database=andreev1";
         public string conHost = "localhost";
         public string conUsername = "postgres";
         public string conPassword = "64210369";
-        public string conDB = "postgres";
+        public string conDB = "andreev1";
 
         public bool tmpFlag = false;
 

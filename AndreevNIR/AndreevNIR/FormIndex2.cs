@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AndreevNIR.additionalForms;
 
 namespace AndreevNIR
 {
@@ -123,6 +124,19 @@ namespace AndreevNIR
                     MessageBox.Show("Ошбика выбора оперативных данных");
                     break;
             }
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            richTextBoxPrimeTime.Hide();
+            panelForms.Controls.Clear();
+
+            ChipiChipi chipi = new ChipiChipi()
+            { TopLevel = false, TopMost = true };
+            chipi.FormBorderStyle = FormBorderStyle.None;
+            panelForms.Controls.Add(chipi);
+            chipi.Show();
 
         }
     }

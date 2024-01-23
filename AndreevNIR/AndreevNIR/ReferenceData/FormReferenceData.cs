@@ -15,16 +15,23 @@ namespace AndreevNIR
 {
     public partial class FormReferenceData : Form
     {
+        CoreLogic cl = new CoreLogic();
         StringGrouperSQL sgs = new StringGrouperSQL();
         DBLogicConnection dBLogicConnection = new DBLogicConnection();
         Placeholders pl = new Placeholders();
+
         string strPlc = "Значение для фильтра";
+        public List<string> ShowDGVFullList = new List<string>();
+        public int selectedMouseRowID;
+        public string staffID;
 
         public FormReferenceData()
         {
             InitializeComponent();
             pl.PlaceholderShow(textBox1, strPlc);
             sgs.CreateReferenseQueryList();
+            InitialLoadForFirstPage();
+
         }
 
         private void buttonBack_Click(object sender, EventArgs e)
@@ -32,12 +39,13 @@ namespace AndreevNIR
             FormIndex2 formIndex2 = new FormIndex2();
             formIndex2.richTextBoxPrimeTime.Show();
             this.Hide();
-            
+
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            switch (tabControl1.SelectedIndex) {
+            switch (tabControl1.SelectedIndex)
+            {
                 case 0: //персонал
                     FormAddStaff fad = new FormAddStaff();
                     fad.ShowDialog();
@@ -47,7 +55,8 @@ namespace AndreevNIR
                     fas.ShowDialog();
                     break;
                 case 2: //вид лечения
-                    switch (comboBox3.SelectedIndex) {
+                    switch (comboBox3.SelectedIndex)
+                    {
                         case 0:
                             {
                                 FormAddTypeHealExamination fathe = new FormAddTypeHealExamination();
@@ -69,7 +78,8 @@ namespace AndreevNIR
                     }
                     break;
                 case 3: //вид документов
-                    switch (comboBox4.SelectedIndex) {
+                    switch (comboBox4.SelectedIndex)
+                    {
                         case 0:
                             {
                                 FormAddTypeDockExtract fatde = new FormAddTypeDockExtract();
@@ -98,9 +108,10 @@ namespace AndreevNIR
                     MessageBox.Show("Невозможно добавить новые роли!");
                     break;
             }
-        }
+        } //добавление
 
-        private void ShowDGV(string strQuery, DataGridView dgv, string connStr) {
+        private void ShowDGV(string strQuery, DataGridView dgv, string connStr)
+        {
             NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(strQuery, connStr);
             try
             {
@@ -112,17 +123,31 @@ namespace AndreevNIR
             catch (Exception ex) { MessageBox.Show("Ошибка: " + ex); }
         }
 
-        private void FillComboBox(ComboBox cb, List<string> li) {
+        private void FillComboBox(ComboBox cb, List<string> li)
+        {
             cb.DataSource = li;
-            cb.Text = "Параметр";        
+            cb.Text = "Параметр";
         }
 
-        private void OpenTabControl() {
+        public void InitialLoadForFirstPage() {
+            string str0 = "SELECT staff.full_name AS \"ФИО\",  CASE WHEN nurce.id_staff IS NOT NULL THEN 'Медицинская сестра' WHEN therapist.id_staff IS NOT NULL THEN 'Врач' WHEN receptionist.id_staff IS NOT NULL THEN 'Врач приёмного покоя' WHEN dep_boss.id_staff IS NOT NULL THEN 'Заведующий отделения' WHEN hir_hosp_boss.id_staff IS NOT NULL THEN 'Главный врач' WHEN big_boss.id_staff IS NOT NULL THEN 'Начальник больницы' END AS \"Должность\", type_department.name_department AS \"Название отделения\", hir_hospital.name_hir_department AS \"Название стационара\", staff.phone AS \"Телефон\", staff.mail AS \"Почта\", user_info.role_user AS \"Уровень доступа\" FROM staff  LEFT JOIN user_info ON staff.id_staff = user_info.id_staff LEFT JOIN receptionist ON receptionist.id_staff = staff.id_staff LEFT JOIN dep_boss ON dep_boss.id_staff = staff.id_staff LEFT JOIN hir_hosp_boss ON hir_hosp_boss.id_staff = staff.id_staff LEFT JOIN big_boss ON big_boss.id_staff = staff.id_staff LEFT JOIN therapist ON therapist.id_staff = staff.id_staff LEFT JOIN department ON staff.code_hir_department = department.code_hir_department and staff.id_department = department.id_department LEFT JOIN type_department ON department.id_department = type_department.id_department  LEFT JOIN hir_hospital ON staff.code_hir_department = hir_hospital.code_hir_department LEFT JOIN nurce ON nurce.id_staff = staff.id_staff;";
+            ShowDGV(str0, dataGridView2, dBLogicConnection._connectionString);
+            cl.CreateFullListOfShowDGV("SELECT staff.id_staff as \"ID\", staff.full_name AS \"ФИО\",  CASE WHEN nurce.id_staff IS NOT NULL THEN 'Медицинская сестра' WHEN therapist.id_staff IS NOT NULL THEN 'Врач' WHEN receptionist.id_staff IS NOT NULL THEN 'Врач приёмного покоя' WHEN dep_boss.id_staff IS NOT NULL THEN 'Заведующий отделения' WHEN hir_hosp_boss.id_staff IS NOT NULL THEN 'Главный врач' WHEN big_boss.id_staff IS NOT NULL THEN 'Начальник больницы' END AS \"Должность\", type_department.name_department AS \"Название отделения\", hir_hospital.name_hir_department AS \"Название стационара\", staff.phone AS \"Телефон\", staff.mail AS \"Почта\", user_info.role_user AS \"Уровень доступа\" FROM staff  LEFT JOIN user_info ON staff.id_staff = user_info.id_staff LEFT JOIN receptionist ON receptionist.id_staff = staff.id_staff LEFT JOIN dep_boss ON dep_boss.id_staff = staff.id_staff LEFT JOIN hir_hosp_boss ON hir_hosp_boss.id_staff = staff.id_staff LEFT JOIN big_boss ON big_boss.id_staff = staff.id_staff LEFT JOIN therapist ON therapist.id_staff = staff.id_staff LEFT JOIN department ON staff.code_hir_department = department.code_hir_department and staff.id_department = department.id_department LEFT JOIN type_department ON department.id_department = type_department.id_department  LEFT JOIN hir_hospital ON staff.code_hir_department = hir_hospital.code_hir_department LEFT JOIN nurce ON nurce.id_staff = staff.id_staff;", ShowDGVFullList, '|');
+
+            List<string> list = new List<string>();
+            list.Add("ФИО"); list.Add("Должность"); list.Add("Название отделения"); list.Add("Название стационара"); list.Add("Телефон сотрудника"); list.Add("Почта сотрудника");
+            list.Add("Уровень доступа"); list.Add("Начальник отделения"); list.Add("Начальник стационара");
+            FillComboBox(comboBox1, list);
+        }
+
+        private void OpenTabControl()
+        {
             switch (tabControl1.SelectedIndex)
             {
                 case 0: //персонал
-                    string str0 = "SELECT staff.full_name AS \"ФИО\", CASE     WHEN nurce.id_staff IS NOT NULL THEN 'Медицинская сестра'     WHEN therapist.id_staff IS NOT NULL THEN 'Врач'     WHEN receptionist.id_staff IS NOT NULL THEN 'Врач приёмного покоя'     WHEN dep_boss.id_staff IS NOT NULL THEN 'Заведующий отделения'     WHEN hir_hosp_boss.id_staff IS NOT NULL THEN 'Главный врач'     WHEN big_boss.id_staff IS NOT NULL THEN 'Начальник больницы' END AS \"Должность\", type_department.name_department AS \"Название отделения\", hir_hospital.name_hir_department AS \"Название стационара\", staff.phone AS \"Телефон\", staff.mail AS \"Почта\", user_info.role_user AS \"Уровень доступа\" FROM staff LEFT JOIN user_info ON staff.id_staff = user_info.id_staff LEFT JOIN receptionist ON receptionist.id_staff = staff.id_staff LEFT JOIN dep_boss ON dep_boss.id_staff = staff.id_staff LEFT JOIN hir_hosp_boss ON hir_hosp_boss.id_staff = staff.id_staff LEFT JOIN big_boss ON big_boss.id_staff = staff.id_staff LEFT JOIN therapist ON therapist.id_staff = staff.id_staff LEFT JOIN department ON department.id_department = staff.id_department LEFT JOIN type_department ON department.id_department = type_department.id_department  LEFT JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department LEFT JOIN nurce ON nurce.id_staff = staff.id_staff;";
+                    string str0 = "SELECT staff.full_name AS \"ФИО\",  CASE WHEN nurce.id_staff IS NOT NULL THEN 'Медицинская сестра' WHEN therapist.id_staff IS NOT NULL THEN 'Врач' WHEN receptionist.id_staff IS NOT NULL THEN 'Врач приёмного покоя' WHEN dep_boss.id_staff IS NOT NULL THEN 'Заведующий отделения' WHEN hir_hosp_boss.id_staff IS NOT NULL THEN 'Главный врач' WHEN big_boss.id_staff IS NOT NULL THEN 'Начальник больницы' END AS \"Должность\", type_department.name_department AS \"Название отделения\", hir_hospital.name_hir_department AS \"Название стационара\", staff.phone AS \"Телефон\", staff.mail AS \"Почта\", user_info.role_user AS \"Уровень доступа\" FROM staff  LEFT JOIN user_info ON staff.id_staff = user_info.id_staff LEFT JOIN receptionist ON receptionist.id_staff = staff.id_staff LEFT JOIN dep_boss ON dep_boss.id_staff = staff.id_staff LEFT JOIN hir_hosp_boss ON hir_hosp_boss.id_staff = staff.id_staff LEFT JOIN big_boss ON big_boss.id_staff = staff.id_staff LEFT JOIN therapist ON therapist.id_staff = staff.id_staff LEFT JOIN department ON staff.code_hir_department = department.code_hir_department and staff.id_department = department.id_department LEFT JOIN type_department ON department.id_department = type_department.id_department  LEFT JOIN hir_hospital ON staff.code_hir_department = hir_hospital.code_hir_department LEFT JOIN nurce ON nurce.id_staff = staff.id_staff;";
                     ShowDGV(str0, dataGridView2, dBLogicConnection._connectionString);
+                    cl.CreateFullListOfShowDGV("SELECT staff.id_staff as \"ID\", staff.full_name AS \"ФИО\",  CASE WHEN nurce.id_staff IS NOT NULL THEN 'Медицинская сестра' WHEN therapist.id_staff IS NOT NULL THEN 'Врач' WHEN receptionist.id_staff IS NOT NULL THEN 'Врач приёмного покоя' WHEN dep_boss.id_staff IS NOT NULL THEN 'Заведующий отделения' WHEN hir_hosp_boss.id_staff IS NOT NULL THEN 'Главный врач' WHEN big_boss.id_staff IS NOT NULL THEN 'Начальник больницы' END AS \"Должность\", type_department.name_department AS \"Название отделения\", hir_hospital.name_hir_department AS \"Название стационара\", staff.phone AS \"Телефон\", staff.mail AS \"Почта\", user_info.role_user AS \"Уровень доступа\" FROM staff  LEFT JOIN user_info ON staff.id_staff = user_info.id_staff LEFT JOIN receptionist ON receptionist.id_staff = staff.id_staff LEFT JOIN dep_boss ON dep_boss.id_staff = staff.id_staff LEFT JOIN hir_hosp_boss ON hir_hosp_boss.id_staff = staff.id_staff LEFT JOIN big_boss ON big_boss.id_staff = staff.id_staff LEFT JOIN therapist ON therapist.id_staff = staff.id_staff LEFT JOIN department ON staff.code_hir_department = department.code_hir_department and staff.id_department = department.id_department LEFT JOIN type_department ON department.id_department = type_department.id_department  LEFT JOIN hir_hospital ON staff.code_hir_department = hir_hospital.code_hir_department LEFT JOIN nurce ON nurce.id_staff = staff.id_staff;", ShowDGVFullList, '|');
 
                     List<string> list = new List<string>();
                     list.Add("ФИО"); list.Add("Должность"); list.Add("Название отделения"); list.Add("Название стационара"); list.Add("Телефон сотрудника"); list.Add("Почта сотрудника");
@@ -199,7 +224,8 @@ namespace AndreevNIR
 
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
-            switch (comboBox3.SelectedIndex) {
+            switch (comboBox3.SelectedIndex)
+            {
                 case 0:
                     string str21 = "select s.full_name as \"ФИО врача\", pa.full_name as \"ФИО пациента\", me.date_meeting as \"Дата проведения\", " +
                         "me.time_meeting as \"Время проведения\", me.discription_meeting as \"Описание осмотра\", me.operation_control as \"Послеоперационный осмотр\" " +
@@ -221,7 +247,7 @@ namespace AndreevNIR
 
                     List<string> list22 = new List<string>();
                     list22.Add("ФИО пациента"); list22.Add("ФИО врача"); list22.Add("Дата проведения"); list22.Add("Время проведения"); list22.Add("Название процедуры");
-                    list22.Add("ФИО мед. сестры"); 
+                    list22.Add("ФИО мед. сестры");
                     FillComboBox(comboBox1, list22);
 
                     break;
@@ -241,11 +267,12 @@ namespace AndreevNIR
                     MessageBox.Show("Ошибка выбора");
                     break;
             }
-        } 
+        }
 
         private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
         {
-            switch (comboBox4.SelectedIndex) {
+            switch (comboBox4.SelectedIndex)
+            {
                 case 0:
                     string str31 = "select e.numb_extract as \"Номер выписки\", pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врача\", e.date_extract as " +
                         "\"Дата выписки\", e.diagnosis_extract as \"Диагноз\", e.recomendations as \"Рекомендации\", e.death_mark as \"Летальный исход\" " +
@@ -285,7 +312,7 @@ namespace AndreevNIR
         private void textBox1_Leave(object sender, EventArgs e) { pl.PlaceholderShow(textBox1, strPlc); }
 
         private void FilterGridCore(string queryCommandNEW, DataGridView dgv, string find)
-        { 
+        {
             using (var con = dBLogicConnection.GetConnection())
             {
                 string queryCommand = "";
@@ -305,7 +332,8 @@ namespace AndreevNIR
             }
         } //поиск по стринге
 
-        private void FilterGridTime(string queryCommandNEW, DataGridView dgv, string time) {
+        private void FilterGridTime(string queryCommandNEW, DataGridView dgv, string time)
+        {
             DateTime formattedDate = DateTime.ParseExact(time, "H:m:s", CultureInfo.InvariantCulture);
             TimeSpan completeTime = formattedDate.TimeOfDay;
 
@@ -328,8 +356,9 @@ namespace AndreevNIR
             }
         } //поиск по времени
 
-        private void FilterGridDate(string queryCommandNEW, DataGridView dgv, string date) {
-            
+        private void FilterGridDate(string queryCommandNEW, DataGridView dgv, string date)
+        {
+
             string formattedDate = DateTime.ParseExact(date, "d/M/yyyy", CultureInfo.InvariantCulture).ToString("yyyy-dd-MM");
             DateTime completeDate = Convert.ToDateTime(formattedDate);
 
@@ -352,10 +381,11 @@ namespace AndreevNIR
             }
         } //поиск по дате
 
-        private string FilterGrid2(string queryCommandNEW, DataGridView dgv, string textTxtBox) { //NOSONAR
+        private string FilterGrid2(string queryCommandNEW, DataGridView dgv, string textTxtBox)
+        { //NOSONAR
             using (var con = dBLogicConnection.GetConnection())
             {
-                string tmpTable ="";
+                string tmpTable = "";
                 con.Open();
                 try
                 {
@@ -389,9 +419,11 @@ namespace AndreevNIR
 
         private void button1_Click(object sender, EventArgs e)
         {
-            switch (tabControl1.SelectedIndex) {
+            switch (tabControl1.SelectedIndex)
+            {
                 case 0: //персонал
-                    switch (comboBox1.SelectedIndex) {
+                    switch (comboBox1.SelectedIndex)
+                    {
                         case 0: //фио
                             {
                                 string queryCommand = sgs.OpenReferenseQueryList(0);
@@ -449,7 +481,8 @@ namespace AndreevNIR
                     }
                     break;
                 case 1: //структура больницы
-                    switch (comboBox1.SelectedIndex) {
+                    switch (comboBox1.SelectedIndex)
+                    {
                         case 0: //название стационара
                             {
                                 string queryCommand = sgs.OpenReferenseQueryList(9);
@@ -501,9 +534,11 @@ namespace AndreevNIR
                     }
                     break;
                 case 2: //вид лечения
-                    switch (comboBox3.SelectedIndex) {
+                    switch (comboBox3.SelectedIndex)
+                    {
                         case 0: //плановые осмотры
-                            switch (comboBox1.SelectedIndex) {
+                            switch (comboBox1.SelectedIndex)
+                            {
                                 case 0: //фио врача
                                     {
                                         string queryCommand = sgs.OpenReferenseQueryList(17);
@@ -531,7 +566,8 @@ namespace AndreevNIR
                             }
                             break;
                         case 1: //консервативное лечение
-                            switch (comboBox1.SelectedIndex) {
+                            switch (comboBox1.SelectedIndex)
+                            {
                                 case 0: //фио пациента
                                     {
                                         string queryCommand = sgs.OpenReferenseQueryList(21);
@@ -571,7 +607,8 @@ namespace AndreevNIR
                             }
                             break;
                         case 2: //операции
-                            switch (comboBox1.SelectedIndex) {
+                            switch (comboBox1.SelectedIndex)
+                            {
                                 case 0:
                                     { //фио пациента
                                         string queryCommand = sgs.OpenReferenseQueryList(27);
@@ -607,9 +644,11 @@ namespace AndreevNIR
                     }
                     break;
                 case 3: //вид документов
-                    switch (comboBox4.SelectedIndex) {
+                    switch (comboBox4.SelectedIndex)
+                    {
                         case 0: //выписка
-                            switch (comboBox1.SelectedIndex) {
+                            switch (comboBox1.SelectedIndex)
+                            {
                                 case 0: //номер выписки
                                     {
                                         string queryCommand = sgs.OpenReferenseQueryList(32);
@@ -649,7 +688,8 @@ namespace AndreevNIR
                             }
                             break;
                         case 1: //первичный осмотр
-                            switch (comboBox1.SelectedIndex) {
+                            switch (comboBox1.SelectedIndex)
+                            {
                                 case 0: //фио пациента
                                     {
                                         string queryCommand = sgs.OpenReferenseQueryList(38);
@@ -677,7 +717,8 @@ namespace AndreevNIR
                             }
                             break;
                         case 2: //нетрудоспособность
-                            switch (comboBox1.SelectedIndex) {
+                            switch (comboBox1.SelectedIndex)
+                            {
                                 case 0: //фио пациента
                                     {
                                         string queryCommand = sgs.OpenReferenseQueryList(42);
@@ -701,7 +742,8 @@ namespace AndreevNIR
                     }
                     break;
                 case 4: //вид процедур
-                    switch (comboBox1.SelectedIndex) {
+                    switch (comboBox1.SelectedIndex)
+                    {
                         case 0: //название процедуры
                             {
                                 string queryCommand = sgs.OpenReferenseQueryList(45);
@@ -729,7 +771,8 @@ namespace AndreevNIR
                     }
                     break;
                 case 5: //роли
-                    switch (comboBox1.SelectedIndex) {
+                    switch (comboBox1.SelectedIndex)
+                    {
                         case 0: //фио сотрудника
                             {
                                 string queryCommand = sgs.OpenReferenseQueryList(49);
@@ -756,9 +799,11 @@ namespace AndreevNIR
         private void button2_Click(object sender, EventArgs e) //сброс фильтров
         {
             textBox1.Text = null;
-            switch (tabControl1.SelectedIndex) {
+            switch (tabControl1.SelectedIndex)
+            {
                 case 2: //вид лечения
-                    switch (comboBox3.SelectedIndex) {
+                    switch (comboBox3.SelectedIndex)
+                    {
                         case 0://
                             string str21 = "select s.full_name as \"ФИО врача\", pa.full_name as \"ФИО пациента\", me.date_meeting as \"Дата проведения\", " +
                             "me.time_meeting as \"Время проведения\", me.discription_meeting as \"Описание осмотра\", me.operation_control as \"Послеоперационный осмотр\" " +
@@ -784,7 +829,8 @@ namespace AndreevNIR
                     }
                     break;
                 case 3: //вид документов
-                    switch (comboBox4.SelectedIndex) {
+                    switch (comboBox4.SelectedIndex)
+                    {
                         case 0:
                             string str31 = "select e.numb_extract as \"Номер выписки\", pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врача\", e.date_extract as " +
                             "\"Дата выписки\", e.diagnosis_extract as \"Диагноз\", e.recomendations as \"Рекомендации\", e.death_mark as \"Летальный исход\" " +
@@ -808,14 +854,82 @@ namespace AndreevNIR
                     OpenTabControl();
                     break;
             }
-            
-            
+
+
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
+            switch (tabControl1.SelectedIndex) {
+                case 0: //персонал
+                    {
+                        //получение id сотрудника
+                        staffID = cl.GetElementFromListOfShowDGV(ShowDGVFullList, '|', selectedMouseRowID, 0); 
 
-        }
+                        DBLogicConnection dB = new DBLogicConnection();
+                        using (NpgsqlConnection connection = new NpgsqlConnection(dB._connectionString))
+                        {
+                            connection.Open();
+                            using (NpgsqlCommand command = new NpgsqlCommand($"DELETE FROM staff WHERE id_staff = '{staffID}';", connection))
+                            {
+                                try
+                                {
+                                    command.ExecuteNonQuery();
+                                }
+                                catch (Exception ex) { MessageBox.Show("" + ex); }
+                                MessageBox.Show("Сотрудник удалён");
+                            }
+                        }
+                        string str = "SELECT staff.full_name AS \"ФИО\",  CASE WHEN nurce.id_staff IS NOT NULL THEN 'Медицинская сестра' WHEN therapist.id_staff IS NOT NULL THEN 'Врач' WHEN receptionist.id_staff IS NOT NULL THEN 'Врач приёмного покоя' WHEN dep_boss.id_staff IS NOT NULL THEN 'Заведующий отделения' WHEN hir_hosp_boss.id_staff IS NOT NULL THEN 'Главный врач' WHEN big_boss.id_staff IS NOT NULL THEN 'Начальник больницы' END AS \"Должность\", type_department.name_department AS \"Название отделения\", hir_hospital.name_hir_department AS \"Название стационара\", staff.phone AS \"Телефон\", staff.mail AS \"Почта\", user_info.role_user AS \"Уровень доступа\" FROM staff  LEFT JOIN user_info ON staff.id_staff = user_info.id_staff LEFT JOIN receptionist ON receptionist.id_staff = staff.id_staff LEFT JOIN dep_boss ON dep_boss.id_staff = staff.id_staff LEFT JOIN hir_hosp_boss ON hir_hosp_boss.id_staff = staff.id_staff LEFT JOIN big_boss ON big_boss.id_staff = staff.id_staff LEFT JOIN therapist ON therapist.id_staff = staff.id_staff LEFT JOIN department ON staff.code_hir_department = department.code_hir_department and staff.id_department = department.id_department LEFT JOIN type_department ON department.id_department = type_department.id_department  LEFT JOIN hir_hospital ON staff.code_hir_department = hir_hospital.code_hir_department LEFT JOIN nurce ON nurce.id_staff = staff.id_staff;";
+                        ShowDGV(str, dataGridView2, dBLogicConnection._connectionString);
+                    }
+                    break;
+                case 1: //стуктура больницы
 
+                    break;
+                case 2: //вид лечения
+                    break;
+                case 3: //вид документов
+                    break;
+                case 4: // вид процедур
+                    break;
+                case 5: // роли
+                    break;
+
+            }
+            //MessageBox.Show("Tab: " + tabControl1.SelectedIndex);
+        } //удаление
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            switch (tabControl1.SelectedIndex)
+            {
+                case 0: //персонал
+                    staffID = cl.GetElementFromListOfShowDGV(ShowDGVFullList, '|', selectedMouseRowID, 0);
+                    FormUpdateStaff fud = new FormUpdateStaff(staffID);
+                    fud.ShowDialog();
+                    break;
+            }
+        } //изменение
+
+        private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try { selectedMouseRowID = dataGridView2.SelectedRows[0].Index; } catch { }
+            
+        } //для получения строки по клику
+
+        private void FormReferenceData_Load(object sender, EventArgs e)
+        {
+            try {
+
+                switch (tabControl1.SelectedIndex) {
+                    case 0:
+                        selectedMouseRowID = dataGridView2.SelectedRows[0].Index;
+                        staffID = cl.GetElementFromListOfShowDGV(ShowDGVFullList, '|', selectedMouseRowID, 0);
+                        break;
+                }
+            } 
+            catch { }
+        } //при использовании экземпляра класса FormReferenceData
     }
 }

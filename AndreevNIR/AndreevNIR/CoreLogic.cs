@@ -77,5 +77,45 @@ namespace AndreevNIR
         {
             return DateTime.ParseExact(date.ToString("MM/dd/yyyy"), "MM/dd/yyyy", CultureInfo.InvariantCulture);
         }
+
+        public List<string> CreateFullListOfShowDGV(string query, List<string> data, char delimiter)
+        {
+            DBLogicConnection db = new DBLogicConnection();
+            using (NpgsqlConnection connection = new NpgsqlConnection(db._connectionString))
+            {
+                connection.Open();
+
+                using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
+                {
+                    using (NpgsqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string rowData = "";
+                            for (int i = 0; i < reader.FieldCount; i++)
+                            {
+                                rowData += reader[i].ToString() + delimiter;
+                            }
+                            if (data != null)
+                            {
+                                data.Add(rowData);
+                            }
+
+                        }
+                    }
+                }
+            }
+            return data;
+        } //возвращает полные данные (не урезанные), для дальнейшей точной идентификации записи на dgv
+
+        public string GetElementFromListOfShowDGV(List<string> data, char delimiter, int indexRow, int indexColoumn)
+        {
+            string selectedRow = data[indexRow];
+            string[] words = selectedRow.Split(delimiter);
+            string substring = words[indexColoumn];
+            return substring;
+        } //возвращает sting для поиска
+
+        
     }
 }

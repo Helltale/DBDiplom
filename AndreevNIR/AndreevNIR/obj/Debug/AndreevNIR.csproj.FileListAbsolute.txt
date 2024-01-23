@@ -124,3 +124,14 @@ D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.ReferenceData.FormAddStruct
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.csproj.AssemblyReference.cache
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.FormAddStruct1.resources
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.ReferenceData.FormAddStructF.FormHospitalUpdate.resources
+D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.ReferenceData.FormUpdateStaff.resources
+D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.additionalForms.ChipiChipi.resources
+D:\diplom\AndreevNIR\AndreevNIR\bin\Debug\runtimes\win-x86\native\WebView2Loader.dll
+D:\diplom\AndreevNIR\AndreevNIR\bin\Debug\runtimes\win-x64\native\WebView2Loader.dll
+D:\diplom\AndreevNIR\AndreevNIR\bin\Debug\runtimes\win-arm64\native\WebView2Loader.dll
+D:\diplom\AndreevNIR\AndreevNIR\bin\Debug\Microsoft.Web.WebView2.Core.dll
+D:\diplom\AndreevNIR\AndreevNIR\bin\Debug\Microsoft.Web.WebView2.WinForms.dll
+D:\diplom\AndreevNIR\AndreevNIR\bin\Debug\Microsoft.Web.WebView2.Wpf.dll
+D:\diplom\AndreevNIR\AndreevNIR\bin\Debug\Microsoft.Web.WebView2.Core.xml
+D:\diplom\AndreevNIR\AndreevNIR\bin\Debug\Microsoft.Web.WebView2.WinForms.xml
+D:\diplom\AndreevNIR\AndreevNIR\bin\Debug\Microsoft.Web.WebView2.Wpf.xml
