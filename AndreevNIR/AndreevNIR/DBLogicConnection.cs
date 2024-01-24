@@ -95,6 +95,26 @@ namespace AndreevNIR
             return lastId;
         }
 
+        public string GetLastIdCast(string connectionString, string tableName, string IDname)
+        {
+            string lastId = null;
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            {
+                connection.Open();
+                using (NpgsqlCommand command = new NpgsqlCommand($"SELECT MAX(CAST({IDname} as int))::varchar) AS last_id FROM {tableName}", connection))
+                {
+                    using (NpgsqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            lastId = reader["last_id"].ToString();
+                        }
+                    }
+                }
+            }
+            return lastId;
+        }
+
         //connection str
         public NpgsqlConnection GetConnection() {
             return new NpgsqlConnection(_connectionString);

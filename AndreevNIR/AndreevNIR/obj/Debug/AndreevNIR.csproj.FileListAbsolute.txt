@@ -135,3 +135,4 @@ D:\diplom\AndreevNIR\AndreevNIR\bin\Debug\Microsoft.Web.WebView2.Wpf.dll
 D:\diplom\AndreevNIR\AndreevNIR\bin\Debug\Microsoft.Web.WebView2.Core.xml
 D:\diplom\AndreevNIR\AndreevNIR\bin\Debug\Microsoft.Web.WebView2.WinForms.xml
 D:\diplom\AndreevNIR\AndreevNIR\bin\Debug\Microsoft.Web.WebView2.Wpf.xml
+D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.ReferenceData.FormAddStruct.FormDepartment.resources

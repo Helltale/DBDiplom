@@ -25,11 +25,22 @@ namespace AndreevNIR.ReferenceData.FormAddStruct
         public FormHospital()
         {
             InitializeComponent();
-            cl.CreateFullListOfShowDGV("select t1.id_staff ,t2.full_name  from Hir_hosp_Boss t1 left outer join staff t2 on t1.id_staff = t2.id_staff;", listForComboBox, '|');
+            listIDPlusName = cl.CreateFullListOfShowDGV("select t1.id_staff ,t2.full_name  from Hir_hosp_Boss t1 left outer join staff t2 on t1.id_staff = t2.id_staff;", '|');
             cl.LoadComboboxByQuery(comboBox1, "select t2.full_name  from Hir_hosp_Boss t1 left outer join staff t2 on t1.id_staff = t2.id_staff;", "Выберите главного врача");
         }
 
-        
+        public static string FindIDByName(List<string> records, char delimeter, string name)
+        {
+            foreach (string record in records)
+            {
+                string[] parts = record.Split(delimeter);
+                if (parts[1].Trim() == name)
+                {
+                    return parts[0].Trim();
+                }
+            }
+            return null;
+        }
 
 
         private void button8_Click(object sender, EventArgs e)
@@ -51,11 +62,9 @@ namespace AndreevNIR.ReferenceData.FormAddStruct
                         command.Parameters.Add("@name_hir_department", NpgsqlTypes.NpgsqlDbType.Varchar).Value = textBox4.Text;
                         command.Parameters.Add("@adress_hir_department", NpgsqlTypes.NpgsqlDbType.Varchar).Value = textBox3.Text;
 
-                        //staffID = cl.GetElementFromListOfShowDGV(listIDPlusName, '|', selectedMouseRowID, 0);
+                        staffID = FindIDByName(listIDPlusName, '|', comboBox1.SelectedValue.ToString());
+                        command.Parameters.Add("@boss_hir_department", NpgsqlTypes.NpgsqlDbType.Varchar).Value = staffID;
 
-
-
-                        command.Parameters.Add("@boss_hir_department", NpgsqlTypes.NpgsqlDbType.Varchar).Value = comboBox1.SelectedItem.ToString();
                         command.Parameters.Add("@phone_hir_department", NpgsqlTypes.NpgsqlDbType.Varchar).Value = textBox1.Text;
                         command.Parameters.Add("@ogrm_hir_department", NpgsqlTypes.NpgsqlDbType.Varchar).Value = textBox2.Text;
                         command.ExecuteNonQuery();

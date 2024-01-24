@@ -96,10 +96,6 @@ namespace AndreevNIR
                             {
                                 rowData += reader[i].ToString() + delimiter;
                             }
-                            if (data != null)
-                            {
-                                data.Add(rowData);
-                            }
 
                         }
                     }
@@ -107,6 +103,33 @@ namespace AndreevNIR
             }
             return data;
         } //возвращает полные данные (не урезанные), для дальнейшей точной идентификации записи на dgv
+
+        public List<string> CreateFullListOfShowDGV(string query, char delimiter)
+        {
+            List<string> data = new List<string>();
+            DBLogicConnection db = new DBLogicConnection();
+            using (NpgsqlConnection connection = new NpgsqlConnection(db._connectionString))
+            {
+                connection.Open();
+
+                using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
+                {
+                    using (NpgsqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string rowData = "";
+                            for (int i = 0; i < reader.FieldCount; i++)
+                            {
+                                rowData += reader[i].ToString() + delimiter;
+                            }
+                            data.Add(rowData);
+                        }
+                    }
+                }
+            }
+            return data;
+        } //перегрузка при проблемном верхнем методе... переписал, без входного листа со стрингами
 
         public string GetElementFromListOfShowDGV(List<string> data, char delimiter, int indexRow, int indexColoumn)
         {

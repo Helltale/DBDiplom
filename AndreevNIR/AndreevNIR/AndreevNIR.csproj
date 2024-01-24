@@ -302,6 +302,9 @@
     <EmbeddedResource Include="ReferenceData\FormAddStruct1.resx">
       <DependentUpon>FormAddStruct1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ReferenceData\FormAddStructF\FormDepartment.resx">
+      <DependentUpon>FormDepartment.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ReferenceData\FormAddStructF\FormHospital.resx">
       <DependentUpon>FormHospital.cs</DependentUpon>
     </EmbeddedResource>

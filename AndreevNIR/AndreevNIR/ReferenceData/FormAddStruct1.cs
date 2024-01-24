@@ -15,6 +15,8 @@ namespace AndreevNIR
 {
     public partial class FormAddStruct1 : Form
     {
+        private string nameDepartment;
+        public List<string> fullListDepartmentForComboBox;
         public List<string> listForComboBox;
         DBLogicConnection db = new DBLogicConnection();
         public FormAddStruct1()
@@ -22,6 +24,7 @@ namespace AndreevNIR
             InitializeComponent();
             comboBox1.Text = "Выберите стационар";
             comboBox2.Text = "Выберите отделение";
+            comboBox2.Enabled = false;
         }
         
         private void button1_Click(object sender, EventArgs e)
@@ -68,7 +71,7 @@ namespace AndreevNIR
         }
         private void ShowDepartmentCombobox()
         {
-            listForComboBox = GetDataForComboBoxDB(db._connectionString, "select name_department from type_department;");
+            listForComboBox = GetDataForComboBoxDB(db._connectionString, $"select t1.name_department from type_department t1 join department t2 on t1.id_department = t2.id_department join hir_hospital t3 on t3.code_hir_department = t2.code_hir_department where name_hir_department = '{lastValue}';");
             comboBox2.DataSource = listForComboBox;
             comboBox2.Text = "Выберите отделение";
         }
@@ -80,13 +83,19 @@ namespace AndreevNIR
 
         private void comboBox2_Click(object sender, EventArgs e)
         {
-            ShowDepartmentCombobox();
+            try
+            {
+                ShowDepartmentCombobox();
+            }
+            catch { } //чтобы не выбивало ошибки, можно сказать пока что заглушка
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            FormHospitalUpdate fh = new FormHospitalUpdate();
+            nameDepartment = comboBox1.SelectedItem.ToString();
+            FormHospitalUpdate fh = new FormHospitalUpdate(nameDepartment);
             fh.ShowDialog();
+            ShowHirDepartmentCombobox();
         }
 
         public string GetValueComboBox1() {
@@ -102,6 +111,8 @@ namespace AndreevNIR
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         { 
             lastValue = comboBox1.SelectedItem.ToString();
+            comboBox2.Enabled = true;
+            ShowDepartmentCombobox();
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -114,7 +125,7 @@ namespace AndreevNIR
                 {
                     try
                     {
-                        command.Parameters.Add("@name", NpgsqlTypes.NpgsqlDbType.Varchar).Value = comboBox1.SelectedItem;
+                        command.Parameters.Add("@name", NpgsqlTypes.NpgsqlDbType.Varchar).Value = comboBox1.SelectedItem.ToString();
                         command.ExecuteNonQuery();
                         comboBox1.Text = "Выберите стационар";
                         MessageBox.Show("Запись удалена");
@@ -123,6 +134,13 @@ namespace AndreevNIR
                     
                 }
             }
+            ShowHirDepartmentCombobox();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            FormDepartment fd = new FormDepartment();
+            fd.ShowDialog();
         }
     }
 }
