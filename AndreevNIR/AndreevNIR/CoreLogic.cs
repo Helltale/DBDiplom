@@ -131,6 +131,34 @@ namespace AndreevNIR
             return data;
         } //перегрузка при проблемном верхнем методе... переписал, без входного листа со стрингами
 
+        //не совсем понимаю как работали предыдущие методы, ведь он был написан неправильно, сейчас перепиши, потом если будет желание повозиться, то
+        //перепишу код для тех фрагментов.
+        public List<string> CreateFullListOfShowDGV1(string query, List<string> data, char delimiter)
+        {
+            DBLogicConnection db = new DBLogicConnection();
+            using (NpgsqlConnection connection = new NpgsqlConnection(db._connectionString))
+            {
+                connection.Open();
+
+                using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
+                {
+                    using (NpgsqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string rowData = "";
+                            for (int i = 0; i < reader.FieldCount; i++)
+                            {
+                                rowData += reader[i].ToString() + delimiter;
+                            }
+                            data.Add(rowData);
+                        }
+                    }
+                }
+            }
+            return data;
+        }
+
         public string GetElementFromListOfShowDGV(List<string> data, char delimiter, int indexRow, int indexColoumn)
         {
             string selectedRow = data[indexRow];

@@ -101,7 +101,7 @@ namespace AndreevNIR
             using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
             {
                 connection.Open();
-                using (NpgsqlCommand command = new NpgsqlCommand($"SELECT MAX(CAST({IDname} as int))::varchar) AS last_id FROM {tableName}", connection))
+                using (NpgsqlCommand command = new NpgsqlCommand($"SELECT MAX(CAST({IDname} as int)) AS last_id FROM {tableName}", connection))
                 {
                     using (NpgsqlDataReader reader = command.ExecuteReader())
                     {

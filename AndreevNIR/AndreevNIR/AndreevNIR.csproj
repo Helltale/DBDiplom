@@ -132,6 +132,7 @@
       <DependentUpon>Formtest.cs</DependentUpon>
     </Compile>
     <Compile Include="Placeholders.cs" />
+    <Compile Include="ReferenceData\ClassStruct.cs" />
     <Compile Include="ReferenceData\FormAddStaff.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -144,6 +145,7 @@
     <Compile Include="ReferenceData\FormAddStruct1.Designer.cs">
       <DependentUpon>FormAddStruct1.cs</DependentUpon>
     </Compile>
+    <Compile Include="ReferenceData\FormAddStructF\ClassDepartment.cs" />
     <Compile Include="ReferenceData\FormAddStructF\FormDepartment.cs">
       <SubType>Form</SubType>
     </Compile>

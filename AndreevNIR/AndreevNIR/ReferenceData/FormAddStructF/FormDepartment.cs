@@ -7,100 +7,58 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AndreevNIR.ReferenceData.FormAddStructF;
 using Npgsql;
 
 namespace AndreevNIR.ReferenceData.FormAddStruct
 {
     public partial class FormDepartment : Form
     {
+        private bool isAdd;
+        private string nameDepartment;
+        private string idDepartment;
 
-        public FormDepartment()
+        public FormDepartment(bool isAdd_)
         {
             InitializeComponent();
-            SetValuesInHirHospital();
-            SetValuesInBoss();
+            isAdd = isAdd_;
+            PreparationForm();
+        }
+
+        public FormDepartment(bool isAdd_, string nameDepartment_)
+        {
+            InitializeComponent();
+            isAdd = isAdd_;
+            PreparationForm();
+            nameDepartment = nameDepartment_;
+            ClassDepartment cd = new ClassDepartment(nameDepartment_);
+            idDepartment = cd.GetDepartment(textBox4, comboBox2, comboBox1);
         }
 
         private void button8_Click(object sender, EventArgs e)
         {
-            string id_staff = null;
-            string code_hir_department = null;
-
-
-            DBLogicConnection dB = new DBLogicConnection();
-            string stringLastID = dB.GetLastId(dB._connectionString, "type_department", "id_department");
-            int intLastID = int.Parse(stringLastID);
-            intLastID++;
-            stringLastID = intLastID.ToString(); //id_department
-
-            //создание type_department
-            using (NpgsqlConnection connection = new NpgsqlConnection(dB._connectionString))
+            
+            if (isAdd)
             {
-                connection.Open();
-                using (NpgsqlCommand command = new NpgsqlCommand($"insert into type_department (id_department, name_department) values (@id, @name);", connection))
-                {
-                    try
-                    {
-                        command.Parameters.Add("@id", NpgsqlTypes.NpgsqlDbType.Varchar).Value = stringLastID;
-                        command.Parameters.Add("@name", NpgsqlTypes.NpgsqlDbType.Varchar).Value = textBox4.Text;
-                    }
-                    catch (Exception ex) { MessageBox.Show("" + ex); }
-                    command.ExecuteNonQuery();
-                }
+                ClassDepartment cd = new ClassDepartment();
+                cd.CreateDepartment(textBox4, comboBox2, comboBox1); 
             }
-
-            //получение id_заведущего по name
-            using (NpgsqlConnection connection = new NpgsqlConnection(dB._connectionString))
+            else 
             {
-                connection.Open();
-                using (NpgsqlCommand command = new NpgsqlCommand($"select id_staff from staff where full_name = '{comboBox2.SelectedItem.ToString()}';", connection))
-                {
-                    using (NpgsqlDataReader reader = command.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            id_staff = reader["id_staff"].ToString();
-                        }
-                    }
-                    //command.ExecuteNonQuery();
-                }
+                ClassDepartment cd = new ClassDepartment(nameDepartment);
+                cd.UpdateDepartment(textBox4, comboBox2, comboBox1, idDepartment); 
             }
-
-            //получение id_стационара по name
-            using (NpgsqlConnection connection = new NpgsqlConnection(dB._connectionString))
-            {
-                connection.Open();
-                using (NpgsqlCommand command = new NpgsqlCommand($"select code_hir_department from hir_hospital where name_hir_department = '{comboBox1.SelectedItem.ToString()}'", connection))
-                {
-                    using (NpgsqlDataReader reader = command.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            code_hir_department = reader["code_hir_department"].ToString();
-                        }
-                    }
-                    //command.ExecuteNonQuery();
-                }
-            }
-
-            //создание department
-            using (NpgsqlConnection connection = new NpgsqlConnection(dB._connectionString))
-            {
-                connection.Open();
-                using (NpgsqlCommand command = new NpgsqlCommand($"insert into department (code_hir_department, id_department, boss_department) values (@code_hir_department, @id_department, @boss_department);", connection))
-                {
-                    try
-                    {
-                        command.Parameters.Add("@code_hir_department", NpgsqlTypes.NpgsqlDbType.Varchar).Value = code_hir_department;
-                        command.Parameters.Add("@id_department", NpgsqlTypes.NpgsqlDbType.Varchar).Value = stringLastID;
-                        command.Parameters.Add("@boss_department", NpgsqlTypes.NpgsqlDbType.Varchar).Value = id_staff;
-                    }
-                    catch (Exception ex) { MessageBox.Show(ex.Message); }
-                    command.ExecuteNonQuery();
-                }
-            }
-
             this.Close();
+
+        }
+
+        private void PreparationForm() {
+            if (!isAdd)
+            {
+                button8.Text = "Обновить";
+            }
+            SetValuesInHirHospital();
+            SetValuesInBoss();
         }
 
         private void SetValuesInHirHospital() {

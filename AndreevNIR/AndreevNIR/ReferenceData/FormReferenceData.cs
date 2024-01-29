@@ -51,8 +51,12 @@ namespace AndreevNIR
                     fad.ShowDialog();
                     break;
                 case 1: //структура больницы
-                    FormAddStruct1 fas = new FormAddStruct1();
-                    fas.ShowDialog();
+                    {
+                        FormAddStruct1 fas = new FormAddStruct1();
+                        fas.ShowDialog();
+                        string str1 = "SELECT name_hir_department as \"Стационар\", adress_hir_department as \"Адрес стационара\", phone_hir_department as \"Телефон регистратуры\", ogrm_hir_department as \"ОГРМ\", (select full_name from staff where id_staff = hir_hospital.boss_hir_department) as \"Главный врач\",name_department as \"Отделение\", (select full_name from staff where id_staff = department.boss_department) as \"Заведующий отделением\", number_room as \"Палата\" FROM type_department JOIN department ON type_department.id_department = department.id_department JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department JOIN room ON department.id_department = room.id_department join staff on hir_hospital.boss_hir_department = staff.id_staff;";
+                        ShowDGV(str1, dataGridView3, dBLogicConnection._connectionString);
+                    }
                     break;
                 case 2: //вид лечения
                     switch (comboBox3.SelectedIndex)
@@ -162,6 +166,7 @@ namespace AndreevNIR
                 case 1: //структура больницы
                     string str1 = "SELECT name_hir_department as \"Стационар\", adress_hir_department as \"Адрес стационара\", phone_hir_department as \"Телефон регистратуры\", ogrm_hir_department as \"ОГРМ\", (select full_name from staff where id_staff = hir_hospital.boss_hir_department) as \"Главный врач\",name_department as \"Отделение\", (select full_name from staff where id_staff = department.boss_department) as \"Заведующий отделением\", number_room as \"Палата\" FROM type_department JOIN department ON type_department.id_department = department.id_department JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department JOIN room ON department.id_department = room.id_department join staff on hir_hospital.boss_hir_department = staff.id_staff;";
                     ShowDGV(str1, dataGridView3, dBLogicConnection._connectionString);
+                    ShowDGVFullList = cl.CreateFullListOfShowDGV1("SELECT name_hir_department as \"Стационар\", hir_hospital.code_hir_department, adress_hir_department as \"Адрес стационара\", phone_hir_department as \"Телефон регистратуры\", ogrm_hir_department as \"ОГРМ\", (select full_name from staff where id_staff = hir_hospital.boss_hir_department) as \"Главный врач\", name_department as \"Отделение\",department.id_department, (select full_name from staff where id_staff = department.boss_department) as \"Заведующий отделением\", number_room as \"Палата\", room.sit_empt FROM type_department JOIN department ON type_department.id_department = department.id_department JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department JOIN room ON department.id_department = room.id_department join staff on hir_hospital.boss_hir_department = staff.id_staff;", ShowDGVFullList, '|');
 
                     List<string> list1 = new List<string>();
                     list1.Add("Название стационара"); list1.Add("Адрес"); list1.Add("Телефон регистратуры"); list1.Add("ОГРМ"); list1.Add("Главный врач"); list1.Add("Отделение");
@@ -885,7 +890,28 @@ namespace AndreevNIR
                     }
                     break;
                 case 1: //стуктура больницы
+                    {
+                        string numberRoom = cl.GetElementFromListOfShowDGV(ShowDGVFullList, '|', selectedMouseRowID, 9);
+                        string codeHirDep = cl.GetElementFromListOfShowDGV(ShowDGVFullList, '|', selectedMouseRowID, 1);
+                        string idDepartment = cl.GetElementFromListOfShowDGV(ShowDGVFullList, '|', selectedMouseRowID, 7);
 
+                        DBLogicConnection dB = new DBLogicConnection();
+                        using (NpgsqlConnection connection = new NpgsqlConnection(dB._connectionString))
+                        {
+                            connection.Open();
+                            using (NpgsqlCommand command = new NpgsqlCommand($"DELETE FROM room WHERE number_room = '{numberRoom}' and code_hir_department = '{codeHirDep}' and id_department = '{idDepartment}';", connection))
+                            {
+                                try
+                                {
+                                    command.ExecuteNonQuery();
+                                }
+                                catch (Exception ex) { MessageBox.Show("" + ex); }
+                                MessageBox.Show("Запись удалёна");
+                            }
+                        }
+                        string str1 = "SELECT name_hir_department as \"Стационар\", adress_hir_department as \"Адрес стационара\", phone_hir_department as \"Телефон регистратуры\", ogrm_hir_department as \"ОГРМ\", (select full_name from staff where id_staff = hir_hospital.boss_hir_department) as \"Главный врач\",name_department as \"Отделение\", (select full_name from staff where id_staff = department.boss_department) as \"Заведующий отделением\", number_room as \"Палата\" FROM type_department JOIN department ON type_department.id_department = department.id_department JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department JOIN room ON department.id_department = room.id_department join staff on hir_hospital.boss_hir_department = staff.id_staff;";
+                        ShowDGV(str1, dataGridView3, dBLogicConnection._connectionString);
+                    }
                     break;
                 case 2: //вид лечения
                     break;
@@ -909,6 +935,14 @@ namespace AndreevNIR
                     FormUpdateStaff fud = new FormUpdateStaff(staffID);
                     fud.ShowDialog();
                     break;
+                case 1: //структура
+                    string number_room = cl.GetElementFromListOfShowDGV(ShowDGVFullList, '|', selectedMouseRowID, 9);
+                    string code_hir_department = cl.GetElementFromListOfShowDGV(ShowDGVFullList, '|', selectedMouseRowID, 1);
+                    string id_department = cl.GetElementFromListOfShowDGV(ShowDGVFullList, '|', selectedMouseRowID, 7);
+
+                    FormAddStruct1 fas = new FormAddStruct1(id_department, code_hir_department, number_room);
+                    fas.ShowDialog();
+                    break;
             }
         } //изменение
 
@@ -931,5 +965,13 @@ namespace AndreevNIR
             } 
             catch { }
         } //при использовании экземпляра класса FormReferenceData
+
+        private void dataGridView3_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try {
+                ShowDGVFullList = cl.CreateFullListOfShowDGV1("SELECT name_hir_department as \"Стационар\", hir_hospital.code_hir_department, adress_hir_department as \"Адрес стационара\", phone_hir_department as \"Телефон регистратуры\", ogrm_hir_department as \"ОГРМ\", (select full_name from staff where id_staff = hir_hospital.boss_hir_department) as \"Главный врач\", name_department as \"Отделение\",department.id_department, (select full_name from staff where id_staff = department.boss_department) as \"Заведующий отделением\", number_room as \"Палата\", room.sit_empt FROM type_department JOIN department ON type_department.id_department = department.id_department JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department JOIN room ON department.id_department = room.id_department join staff on hir_hospital.boss_hir_department = staff.id_staff;", ShowDGVFullList, '|');
+                selectedMouseRowID = dataGridView3.SelectedRows[0].Index; 
+            } catch { }
+        }
     }
 }

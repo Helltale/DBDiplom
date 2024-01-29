@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AndreevNIR.ReferenceData;
 using AndreevNIR.ReferenceData.FormAddStruct;
 using AndreevNIR.ReferenceData.FormAddStructF;
 using Npgsql;
@@ -18,7 +19,12 @@ namespace AndreevNIR
         private string nameDepartment;
         public List<string> fullListDepartmentForComboBox;
         public List<string> listForComboBox;
+
+        bool isUpdate = false;
+        string[] dataForUpdate = new string[4];
+        
         DBLogicConnection db = new DBLogicConnection();
+
         public FormAddStruct1()
         {
             InitializeComponent();
@@ -26,7 +32,16 @@ namespace AndreevNIR
             comboBox2.Text = "Выберите отделение";
             comboBox2.Enabled = false;
         }
+
+        public FormAddStruct1(string id_department, string code_hir_department, string number_room) {
+            InitializeComponent();
+            ClassStruct cs = new ClassStruct();
+            dataForUpdate = cs.GetStruct(comboBox1, comboBox2, numericUpDown2, textBox1, id_department, code_hir_department, number_room);
+
+            isUpdate = true;
+        }
         
+
         private void button1_Click(object sender, EventArgs e)
         {
             FormHospital fh = new FormHospital();
@@ -96,6 +111,8 @@ namespace AndreevNIR
             FormHospitalUpdate fh = new FormHospitalUpdate(nameDepartment);
             fh.ShowDialog();
             ShowHirDepartmentCombobox();
+            comboBox2.SelectedItem = null;
+            comboBox1.SelectedItem = null;
         }
 
         public string GetValueComboBox1() {
@@ -135,12 +152,52 @@ namespace AndreevNIR
                 }
             }
             ShowHirDepartmentCombobox();
+            comboBox2.SelectedItem = null;
+            comboBox1.SelectedItem = null;
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
-            FormDepartment fd = new FormDepartment();
+            bool isAdd = true;
+            FormDepartment fd = new FormDepartment(isAdd);
             fd.ShowDialog();
         }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            bool isAdd = false;
+            FormDepartment fd = new FormDepartment(isAdd, comboBox2.SelectedValue.ToString());
+            fd.ShowDialog();
+            MessageBox.Show("Запись обновлена");
+            comboBox2.SelectedItem = null;
+            comboBox1.SelectedItem = null;
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            ClassDepartment cd = new ClassDepartment(comboBox2.SelectedItem.ToString());
+            cd.DeleteDepartment();
+            MessageBox.Show("Запись удалена");
+            comboBox2.SelectedItem = null;
+            comboBox1.SelectedItem = null;
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            if (!isUpdate)
+            {
+                ClassStruct cs = new ClassStruct();
+                cs.CreateRoom(comboBox2, comboBox1, numericUpDown2, textBox1);
+                this.Close();
+            }
+            else {
+                ClassStruct cs = new ClassStruct();
+                
+                cs.UpdateStruct(dataForUpdate, comboBox2.Text, comboBox1.Text, numericUpDown2, textBox1);
+            }
+            
+        }
+
+
     }
 }
