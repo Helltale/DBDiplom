@@ -942,6 +942,9 @@ namespace AndreevNIR
 
                     FormAddStruct1 fas = new FormAddStruct1(id_department, code_hir_department, number_room);
                     fas.ShowDialog();
+
+                    string str1 = "SELECT name_hir_department as \"Стационар\", adress_hir_department as \"Адрес стационара\", phone_hir_department as \"Телефон регистратуры\", ogrm_hir_department as \"ОГРМ\", (select full_name from staff where id_staff = hir_hospital.boss_hir_department) as \"Главный врач\",name_department as \"Отделение\", (select full_name from staff where id_staff = department.boss_department) as \"Заведующий отделением\", number_room as \"Палата\" FROM type_department JOIN department ON type_department.id_department = department.id_department JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department JOIN room ON department.id_department = room.id_department join staff on hir_hospital.boss_hir_department = staff.id_staff;";
+                    ShowDGV(str1, dataGridView3, dBLogicConnection._connectionString);
                     break;
             }
         } //изменение

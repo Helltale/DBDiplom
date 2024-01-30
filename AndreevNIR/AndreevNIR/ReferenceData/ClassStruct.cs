@@ -110,19 +110,19 @@ namespace AndreevNIR.ReferenceData
             return result;
         }
 
-        public void UpdateStruct(string[] data, string cbNameDepartment, string cbNameHirDepartment, NumericUpDown nudSits, TextBox tbNumber) {
+        public void UpdateStruct(string[] data, ComboBox cbNameDepartment, ComboBox cbNameHirDepartment, NumericUpDown nudSits, TextBox tbNumber) {
             string new_code_hir_department = null;
             string new_id_department = null;
-            //string new_number_room = null;
-            //string new_sit_empt = null;
+            string old_code_hir_department = null;
+            string old_id_department = null;
 
             DBLogicConnection dB = new DBLogicConnection();
 
-            //получение id_стационара по name
+            //получение old_id_стационара по name
             using (NpgsqlConnection connection = new NpgsqlConnection(dB._connectionString))
             {
                 connection.Open();
-                using (NpgsqlCommand command = new NpgsqlCommand($"select code_hir_department from hir_hospital where name_hir_department = '{cbNameHirDepartment}'", connection))
+                using (NpgsqlCommand command = new NpgsqlCommand($"select code_hir_department from hir_hospital where name_hir_department = '{data[2]}'", connection))
                 {
                     using (NpgsqlDataReader reader = command.ExecuteReader())
                     {
@@ -135,11 +135,46 @@ namespace AndreevNIR.ReferenceData
                 }
             }
 
-            //получение id_отделения по name
+            //получение old_id_отделения по name
             using (NpgsqlConnection connection = new NpgsqlConnection(dB._connectionString))
             {
                 connection.Open();
-                using (NpgsqlCommand command = new NpgsqlCommand($"select id_department from type_department where name_department = '{cbNameDepartment}'", connection))
+                using (NpgsqlCommand command = new NpgsqlCommand($"select id_department from type_department where name_department = '{data[1]}'", connection))
+                {
+                    using (NpgsqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            old_id_department = reader["id_department"].ToString();
+                        }
+                    }
+                    //command.ExecuteNonQuery();
+                }
+            }
+
+
+            //получение new_id_стационара по name
+            using (NpgsqlConnection connection = new NpgsqlConnection(dB._connectionString))
+            {
+                connection.Open();
+                using (NpgsqlCommand command = new NpgsqlCommand($"select code_hir_department from hir_hospital where name_hir_department = '{cbNameHirDepartment.Text}'", connection))
+                {
+                    using (NpgsqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            old_code_hir_department = reader["code_hir_department"].ToString();
+                        }
+                    }
+                    //command.ExecuteNonQuery();
+                }
+            }
+
+            //получение new_id_отделения по name
+            using (NpgsqlConnection connection = new NpgsqlConnection(dB._connectionString))
+            {
+                connection.Open();
+                using (NpgsqlCommand command = new NpgsqlCommand($"select id_department from type_department where name_department = '{cbNameDepartment.Text}'", connection))
                 {
                     using (NpgsqlDataReader reader = command.ExecuteReader())
                     {
@@ -156,7 +191,7 @@ namespace AndreevNIR.ReferenceData
             using (NpgsqlConnection connection = new NpgsqlConnection(dB._connectionString))
             {
                 connection.Open();
-                using (NpgsqlCommand command = new NpgsqlCommand($"update room set number_room = @number_room, code_hir_department = @code_hir_department, id_department = @id_department, sit_empt = @sit_empt where number_room = '{data[0]}' and id_department = '{data[1]}' and code_hir_department = '{data[2]}' and sit_empt = '{data[3]}';", connection))
+                using (NpgsqlCommand command = new NpgsqlCommand($"update room set number_room = @number_room, code_hir_department = @code_hir_department, id_department = @id_department, sit_empt = @sit_empt where number_room = '{data[0]}' and id_department = '{old_id_department}' and code_hir_department = '{old_code_hir_department}' and sit_empt = '{data[3]}';", connection))
                 {
                     try
                     {

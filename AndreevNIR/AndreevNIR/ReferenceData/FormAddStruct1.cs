@@ -192,8 +192,8 @@ namespace AndreevNIR
             }
             else {
                 ClassStruct cs = new ClassStruct();
-                
-                cs.UpdateStruct(dataForUpdate, comboBox2.Text, comboBox1.Text, numericUpDown2, textBox1);
+                cs.UpdateStruct(dataForUpdate, comboBox2, comboBox1, numericUpDown2, textBox1);
+                this.Close();
             }
             
         }
