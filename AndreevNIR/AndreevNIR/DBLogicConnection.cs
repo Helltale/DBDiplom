@@ -62,7 +62,7 @@ namespace AndreevNIR
                 tmpFlag = true;
 
                 FormIndex2 f2 = new FormIndex2();
-                SessionInformation si = new SessionInformation();
+                SessionInformation si = new SessionInformation(nameStaff, idStaff, roleStaff);
                 f2.GetLabelData(nameStaff, idStaff);
                 si.userID = idStaff;
                 si.userRole = roleStaff;

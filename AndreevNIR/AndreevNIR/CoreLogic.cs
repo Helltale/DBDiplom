@@ -167,6 +167,10 @@ namespace AndreevNIR
             return substring;
         } //возвращает sting для поиска
 
-        
+        public DateTime CreateTimePostgreFromDateTime(DateTime dateTime) {
+            TimeSpan time = dateTime.TimeOfDay;
+            DateTime timeOnly = new DateTime(1900, 1, 1, 0, 0, 0, DateTimeKind.Unspecified).Add(time);
+            return timeOnly;
+        }
     }
 }

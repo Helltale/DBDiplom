@@ -40,12 +40,19 @@ namespace AndreevNIR.ReferenceData
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            try { id_staff_selected_d = dataGridView1.SelectedRows[0].Index; } catch { }
+            try { 
+                id_staff_selected_d = dataGridView1.SelectedRows[0].Index;
+                id_staff_selected_s = dataGridView1.Rows[id_staff_selected_d].Cells[1].Value.ToString();
+                
+            } catch { }
         }
 
         private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            try { id_patient_selected_d = dataGridView2.SelectedRows[0].Index; } catch { }
+            try { 
+                id_patient_selected_d = dataGridView2.SelectedRows[0].Index;
+                id_patient_selected_s = dataGridView2.Rows[id_patient_selected_d].Cells[1].Value.ToString();
+            } catch { }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -99,6 +106,14 @@ namespace AndreevNIR.ReferenceData
                 richTextBox2.Enabled = false;
                 richTextBox2.Text = null;
             }
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            string staff = id_staff_selected_s;
+            string patient = id_patient_selected_s;
+            ClassTypeHealExamination ct = new ClassTypeHealExamination();
+            ct.CreateExamination(staff, patient, date_meeteng, richTextBox1, richTextBox2, textBox1);
         }
     }
 }

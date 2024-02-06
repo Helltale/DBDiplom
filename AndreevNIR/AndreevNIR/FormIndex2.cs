@@ -46,7 +46,7 @@ namespace AndreevNIR
             { TopLevel = false, TopMost = true};
             formReferenceData.FormBorderStyle = FormBorderStyle.None;
             panelForms.Controls.Add(formReferenceData);
-            formReferenceData.Show();
+            try { formReferenceData.Show(); } catch { }
         }
 
         private void buttonInformation_Click(object sender, EventArgs e)
@@ -138,6 +138,12 @@ namespace AndreevNIR
             panelForms.Controls.Add(chipi);
             chipi.Show();
 
+        }
+
+        private void FormIndex2_Load(object sender, EventArgs e)
+        {
+            SessionInformation si = new SessionInformation();
+            
         }
     }
 }

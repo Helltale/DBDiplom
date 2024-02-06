@@ -8,6 +8,13 @@ namespace AndreevNIR
 {
     class SessionInformation
     {
+
+        public SessionInformation(string name, string id, string role) { 
+            
+        }
+
+        public SessionInformation() { }
+
         public string userID;
         public string userRole;
         public string userName;

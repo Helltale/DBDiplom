@@ -32,6 +32,7 @@
             this.labelName = new System.Windows.Forms.Label();
             this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
             this.panelInstruments = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.comboBoxOperationalData = new System.Windows.Forms.ComboBox();
             this.buttonRequests = new System.Windows.Forms.Button();
             this.buttonReport = new System.Windows.Forms.Button();
@@ -40,7 +41,6 @@
             this.buttonReferenceData = new System.Windows.Forms.Button();
             this.panelForms = new System.Windows.Forms.Panel();
             this.richTextBoxPrimeTime = new System.Windows.Forms.RichTextBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.panelHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
             this.panelInstruments.SuspendLayout();
@@ -95,6 +95,16 @@
             this.panelInstruments.Name = "panelInstruments";
             this.panelInstruments.Size = new System.Drawing.Size(224, 1011);
             this.panelInstruments.TabIndex = 1;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(12, 722);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(200, 52);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "???";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // comboBoxOperationalData
             // 
@@ -179,16 +189,6 @@
             this.richTextBoxPrimeTime.TabIndex = 0;
             this.richTextBoxPrimeTime.Text = "Здесь будет\nЗагруженность отделения\n\n\nА могла бы быть ваша реклама\n";
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(12, 722);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(200, 52);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "???";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // FormIndex2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -199,6 +199,7 @@
             this.Controls.Add(this.panelHeader);
             this.Name = "FormIndex2";
             this.Text = "FormIndex2";
+            this.Load += new System.EventHandler(this.FormIndex2_Load);
             this.panelHeader.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).EndInit();
             this.panelInstruments.ResumeLayout(false);

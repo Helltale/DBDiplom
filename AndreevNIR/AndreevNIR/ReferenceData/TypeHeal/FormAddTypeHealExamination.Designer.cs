@@ -30,11 +30,13 @@ namespace AndreevNIR.ReferenceData
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.button4 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
@@ -52,8 +54,6 @@ namespace AndreevNIR.ReferenceData
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -76,6 +76,16 @@ namespace AndreevNIR.ReferenceData
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Пациент";
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(446, 330);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 41);
+            this.button3.TabIndex = 12;
+            this.button3.Text = "Сброс";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button2
             // 
@@ -128,6 +138,16 @@ namespace AndreevNIR.ReferenceData
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Врач";
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(446, 333);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(75, 41);
+            this.button4.TabIndex = 13;
+            this.button4.Text = "Сброс";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button1
             // 
@@ -289,26 +309,7 @@ namespace AndreevNIR.ReferenceData
             this.button8.TabIndex = 0;
             this.button8.Text = "Сохранить";
             this.button8.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(446, 330);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 41);
-            this.button3.TabIndex = 12;
-            this.button3.Text = "Сброс";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(446, 333);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 41);
-            this.button4.TabIndex = 13;
-            this.button4.Text = "Сброс";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // FormAddTypeHealExamination
             // 

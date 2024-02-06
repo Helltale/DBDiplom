@@ -131,6 +131,14 @@
     <Compile Include="Formtest.Designer.cs">
       <DependentUpon>Formtest.cs</DependentUpon>
     </Compile>
+    <Compile Include="OperationalData\Patients\ClassPatientAddLogic.cs" />
+    <Compile Include="OperationalData\Patients\ClassPatientInRoom.cs" />
+    <Compile Include="OperationalData\Patients\FormAddPatient.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OperationalData\Patients\FormAddPatient.Designer.cs">
+      <DependentUpon>FormAddPatient.cs</DependentUpon>
+    </Compile>
     <Compile Include="Placeholders.cs" />
     <Compile Include="ReferenceData\Struct\ClassStruct.cs" />
     <Compile Include="ReferenceData\Staff\FormAddStaff.cs">
@@ -243,16 +251,16 @@
     <Compile Include="OperationalData\FormOperationalDataListAdd.Designer.cs">
       <DependentUpon>FormOperationalDataListAdd.cs</DependentUpon>
     </Compile>
-    <Compile Include="OperationalData\FormOperationalDataPatient.cs">
+    <Compile Include="OperationalData\Patients\FormOperationalDataPatient.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="OperationalData\FormOperationalDataPatient.Designer.cs">
+    <Compile Include="OperationalData\Patients\FormOperationalDataPatient.Designer.cs">
       <DependentUpon>FormOperationalDataPatient.cs</DependentUpon>
     </Compile>
-    <Compile Include="OperationalData\FormOperationalDataPatientAdd.cs">
+    <Compile Include="OperationalData\Patients\FormOperationalDataPatientAdd.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="OperationalData\FormOperationalDataPatientAdd.Designer.cs">
+    <Compile Include="OperationalData\Patients\FormOperationalDataPatientAdd.Designer.cs">
       <DependentUpon>FormOperationalDataPatientAdd.cs</DependentUpon>
     </Compile>
     <Compile Include="ReferenceData\FormReferenceData.cs">
@@ -298,6 +306,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formtest.resx">
       <DependentUpon>Formtest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OperationalData\Patients\FormAddPatient.resx">
+      <DependentUpon>FormAddPatient.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReferenceData\Staff\FormAddStaff.resx">
       <DependentUpon>FormAddStaff.cs</DependentUpon>
@@ -353,10 +364,10 @@
     <EmbeddedResource Include="OperationalData\FormOperationalDataListAdd.resx">
       <DependentUpon>FormOperationalDataListAdd.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="OperationalData\FormOperationalDataPatient.resx">
+    <EmbeddedResource Include="OperationalData\Patients\FormOperationalDataPatient.resx">
       <DependentUpon>FormOperationalDataPatient.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="OperationalData\FormOperationalDataPatientAdd.resx">
+    <EmbeddedResource Include="OperationalData\Patients\FormOperationalDataPatientAdd.resx">
       <DependentUpon>FormOperationalDataPatientAdd.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReferenceData\FormReferenceData.resx">

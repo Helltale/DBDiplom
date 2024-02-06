@@ -111,6 +111,8 @@ namespace AndreevNIR
                 case 5: //роли
                     MessageBox.Show("Невозможно добавить новые роли!");
                     break;
+                case 6: //пациенты-врачи
+                    break;
             }
         } //добавление
 
@@ -218,6 +220,9 @@ namespace AndreevNIR
                     groupBox1.Hide();
                     groupBox2.Hide();
                     groupBox3.Hide();
+                    break;
+
+                case 6: //пациенты - врачи
                     break;
             }
         } //отображение данных в dgv при смене вкладки
