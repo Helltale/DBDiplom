@@ -16,17 +16,50 @@ namespace AndreevNIR
         private string strQuery = "select t1.omc, t1.full_name, t2.date_initial, to_char(t2.time_initial, 'HH24:MI:SS') as \"time\", t2.diagnosis, t4.full_name from patient t1 join initial_inspection t2 on t1.omc = t2.omc join receptionist t3 on t3.id_staff = t2.doc_receptinoist join staff t4 on t3.id_staff = t4.id_staff";
         CoreLogic cl = new CoreLogic();
         DBLogicConnection db = new DBLogicConnection();
+
         private string omc;
+        private string id_patient;
+        private string hir_hosp;
+        private string department;
+        private string room;
+
+        bool isChange;
 
         public FormOperationalDataPatientAdd()
         {
             InitializeComponent();
             MaximizeBox = false;
             FormBorderStyle = FormBorderStyle.Fixed3D;
+
+            cl.LoadComboboxByQuery(comboBox1, "select name_hir_department from hir_hospital", "Параметр"); //хир стат
+            cl.LoadComboboxByQuery(comboBox6, "select t2.full_name from therapist t1 join staff t2 on t1.id_staff = t2.id_staff", "Параметр"); //леч врачи
+
             comboBox2.Enabled = false;
             comboBox2.Text = "Параметр";
             comboBox3.Enabled = false;
             comboBox3.Text = "Параметр";
+            
+        }
+
+        public FormOperationalDataPatientAdd(bool flag, string _id_patient, string _omc, string _hir_hosp, string _department, string _room)
+        {
+            ClassPatientInRoom cp = new ClassPatientInRoom();
+            InitializeComponent();
+            MaximizeBox = false;
+            FormBorderStyle = FormBorderStyle.Fixed3D;
+
+            cl.LoadComboboxByQuery(comboBox1, "select name_hir_department from hir_hospital", "Параметр"); //хир стат
+            cl.LoadComboboxByQuery(comboBox6, "select t2.full_name from therapist t1 join staff t2 on t1.id_staff = t2.id_staff", "Параметр"); //леч врачи
+
+            isChange = flag;
+            omc = _omc;
+            id_patient = _id_patient;
+            hir_hosp = _hir_hosp;
+            department = _department;
+            room = _room;
+
+            cp.LoadPatietnInRoom(id_patient, omc, hir_hosp, department, room, dataGridView1, comboBox1, comboBox2, comboBox3, comboBox6);
+            
         }
 
         private void button2_Click_1(object sender, EventArgs e)
@@ -43,10 +76,14 @@ namespace AndreevNIR
 
         private void FormOperationalDataPatientAdd_Load(object sender, EventArgs e)
         {
+            ClassPatientInRoom cp = new ClassPatientInRoom();
+
             cl.ShowDGV(strQuery, dataGridView1, db._connectionString);
-            dataGridView1.Columns[0].Visible = false;
-            cl.LoadComboboxByQuery(comboBox1, "select name_hir_department from hir_hospital", "Параметр"); //хир стат
-            cl.LoadComboboxByQuery(comboBox6, "select t2.full_name from therapist t1 join staff t2 on t1.id_staff = t2.id_staff", "Параметр"); //леч врачи
+            dataGridView1.Columns[0].Visible = false; //omc
+            if (isChange) {
+                cp.LoadPatietnInRoomDGV(dataGridView1, omc); //выделение строки 
+            }
+            
         }
 
         private void dataGridView1_KeyDown(object sender, KeyEventArgs e)
@@ -93,7 +130,13 @@ namespace AndreevNIR
         private void button1_Click(object sender, EventArgs e)
         {
             ClassPatientInRoom cp = new ClassPatientInRoom();
-            cp.CreatePatietnInRoom(omc, comboBox1, comboBox2, comboBox3, comboBox6);
+            if (isChange)
+            {
+                cp.ChangePatientInRoom(id_patient, omc, comboBox1, comboBox2, comboBox3, comboBox6);
+            }
+            else {
+                cp.CreatePatietnInRoom(omc, comboBox1, comboBox2, comboBox3, comboBox6);
+            }
             this.Close();
         }
 
