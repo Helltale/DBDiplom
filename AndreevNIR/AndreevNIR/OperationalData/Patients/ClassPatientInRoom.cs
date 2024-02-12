@@ -15,7 +15,7 @@ namespace AndreevNIR.OperationalData.Patients
         public void CreatePatietnInRoom(string omc, ComboBox cb1, ComboBox cb2, ComboBox cb3, ComboBox cb6) {
             CoreLogic cl = new CoreLogic();
 
-            string last_id = cl.GetLastIdFromQuery("patient_in_room", "id_patient");
+            string last_id = cl.GetLastIdFromQueryCast("patient_in_room", "id_patient");
             string hir_id = null;
             string dep_id = null;
             string thera_id = null;
@@ -220,7 +220,7 @@ namespace AndreevNIR.OperationalData.Patients
                 {
                     try
                     {
-                        command.Parameters.Add("@name_department", NpgsqlTypes.NpgsqlDbType.Varchar).Value = cb2.SelectedItem.ToString();
+                        command.Parameters.Add("@name_department", NpgsqlTypes.NpgsqlDbType.Varchar).Value = cb2.Text;
                         using (NpgsqlDataReader reader = command.ExecuteReader())
                         {
                             if (reader.Read())
@@ -286,7 +286,7 @@ namespace AndreevNIR.OperationalData.Patients
                         command.Parameters.Add("@omc", NpgsqlTypes.NpgsqlDbType.Varchar).Value = omc;
                         command.Parameters.Add("@code_hir_department", NpgsqlTypes.NpgsqlDbType.Varchar).Value = hir_id;
                         command.Parameters.Add("@date_room", NpgsqlTypes.NpgsqlDbType.Date).Value = date.Date;
-                        command.Parameters.Add("@number_room", NpgsqlTypes.NpgsqlDbType.Varchar).Value = cb3.SelectedItem.ToString();
+                        command.Parameters.Add("@number_room", NpgsqlTypes.NpgsqlDbType.Varchar).Value = cb3.Text;
                         command.Parameters.Add("@id_department", NpgsqlTypes.NpgsqlDbType.Varchar).Value = dep_id;
                     }
                     catch (Exception ex) { MessageBox.Show("" + ex); }
@@ -320,7 +320,7 @@ namespace AndreevNIR.OperationalData.Patients
                     command.ExecuteNonQuery();
                 }
                 
-                using (NpgsqlCommand command = new NpgsqlCommand($"delete from doc_patient where id_patient = @id_patient;", connection))
+                using (NpgsqlCommand command = new NpgsqlCommand($"delete from patient_in_room where id_patient = @id_patient;", connection))
                 {
                     try
                     {

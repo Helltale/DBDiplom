@@ -140,6 +140,9 @@
       <DependentUpon>FormAddPatient.cs</DependentUpon>
     </Compile>
     <Compile Include="Placeholders.cs" />
+    <Compile Include="ReferenceData\Documents\Extraction\ClassLogicExtraction.cs" />
+    <Compile Include="ReferenceData\Documents\Initial\ClassInitial.cs" />
+    <Compile Include="ReferenceData\Documents\ListNotWorking\ClassListNotWorking.cs" />
     <Compile Include="ReferenceData\Struct\ClassStruct.cs" />
     <Compile Include="ReferenceData\Staff\FormAddStaff.cs">
       <SubType>Form</SubType>
@@ -172,22 +175,22 @@
     <Compile Include="ReferenceData\Struct\FormHospitalUpdate.Designer.cs">
       <DependentUpon>FormHospitalUpdate.cs</DependentUpon>
     </Compile>
-    <Compile Include="ReferenceData\FormAddTypeDockExtract.cs">
+    <Compile Include="ReferenceData\Documents\Extraction\FormAddTypeDockExtract.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ReferenceData\FormAddTypeDockExtract.Designer.cs">
+    <Compile Include="ReferenceData\Documents\Extraction\FormAddTypeDockExtract.Designer.cs">
       <DependentUpon>FormAddTypeDockExtract.cs</DependentUpon>
     </Compile>
-    <Compile Include="ReferenceData\FormAddTypeDockInitial.cs">
+    <Compile Include="ReferenceData\Documents\Initial\FormAddTypeDockInitial.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ReferenceData\FormAddTypeDockInitial.Designer.cs">
+    <Compile Include="ReferenceData\Documents\Initial\FormAddTypeDockInitial.Designer.cs">
       <DependentUpon>FormAddTypeDockInitial.cs</DependentUpon>
     </Compile>
-    <Compile Include="ReferenceData\FormAddTypeDockNotWorking.cs">
+    <Compile Include="ReferenceData\Documents\ListNotWorking\FormAddTypeDockNotWorking.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ReferenceData\FormAddTypeDockNotWorking.Designer.cs">
+    <Compile Include="ReferenceData\Documents\ListNotWorking\FormAddTypeDockNotWorking.Designer.cs">
       <DependentUpon>FormAddTypeDockNotWorking.cs</DependentUpon>
     </Compile>
     <Compile Include="ReferenceData\TypeHeal\ClassTypeHealExamination.cs" />
@@ -325,13 +328,13 @@
     <EmbeddedResource Include="ReferenceData\Struct\FormHospitalUpdate.resx">
       <DependentUpon>FormHospitalUpdate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ReferenceData\FormAddTypeDockExtract.resx">
+    <EmbeddedResource Include="ReferenceData\Documents\Extraction\FormAddTypeDockExtract.resx">
       <DependentUpon>FormAddTypeDockExtract.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ReferenceData\FormAddTypeDockInitial.resx">
+    <EmbeddedResource Include="ReferenceData\Documents\Initial\FormAddTypeDockInitial.resx">
       <DependentUpon>FormAddTypeDockInitial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ReferenceData\FormAddTypeDockNotWorking.resx">
+    <EmbeddedResource Include="ReferenceData\Documents\ListNotWorking\FormAddTypeDockNotWorking.resx">
       <DependentUpon>FormAddTypeDockNotWorking.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReferenceData\TypeHeal\FormAddTypeHealConservative.resx">

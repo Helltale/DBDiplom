@@ -66,6 +66,15 @@ namespace AndreevNIR
             return intLastID.ToString();
         } //отдаёт последний id + 1
 
+        public string GetLastIdFromQueryCast(string tableName, string IDname)
+        {
+            DBLogicConnection dB = new DBLogicConnection();
+            string stringLastID = dB.GetLastIdCast(dB._connectionString, tableName, IDname);
+            Int64 intLastID = Int64.Parse(stringLastID);
+            intLastID++;
+            return intLastID.ToString();
+        } //отдаёт последний id + 1
+
         public DateTime GetDatetimeFromString(string date) {
             string formattedDate = DateTime.ParseExact(date, "d/M/yyyy", CultureInfo.InvariantCulture).ToString("yyyy-dd-MM");
             DateTime completeDate = Convert.ToDateTime(formattedDate);

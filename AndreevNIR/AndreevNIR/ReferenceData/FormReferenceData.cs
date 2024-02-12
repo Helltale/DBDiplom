@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using AndreevNIR.ReferenceData;
 using Npgsql;
+using AndreevNIR.ReferenceData.Documents.Extraction;
 
 namespace AndreevNIR
 {
@@ -24,6 +25,7 @@ namespace AndreevNIR
         public List<string> ShowDGVFullList = new List<string>();
         public int selectedMouseRowID;
         public string staffID;
+        public string selectedMouseCell = null; //нулевой элемент
 
         public FormReferenceData()
         {
@@ -86,20 +88,30 @@ namespace AndreevNIR
                     {
                         case 0:
                             {
+                                string str = "select e.numb_extract as \"Номер выписки\", pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врача\", e.date_extract as " +
+                                                "\"Дата выписки\", e.diagnosis_extract as \"Диагноз\", e.recomendations as \"Рекомендации\", e.death_mark as \"Летальный исход\" " +
+                                                "from extract_document e join staff s on s.id_staff = e.id_staff join patient_in_room pai on pai.id_patient = e.id_patient join patient pa on " +
+                                                "pa.omc = pai.omc";
                                 FormAddTypeDockExtract fatde = new FormAddTypeDockExtract();
                                 fatde.ShowDialog();
+                                ShowDGV(str, dataGridView1, dBLogicConnection._connectionString);
                             }
                             break;
                         case 1:
                             {
-                                FormAddTypeDockInitial fatdi = new FormAddTypeDockInitial();
+                                string str = "select pa.omc, pa.full_name as \"full_patient\", i.date_initial as \"date\", i.time_initial as \"time\", s.full_name as \"full_staff\", s.id_staff, i.diagnosis as \"diagnosis\" from initial_inspection i join patient pa on pa.omc = i.omc join staff s on s.id_staff = i.doc_receptinoist;";
+                                FormAddTypeDockInitial fatdi = new FormAddTypeDockInitial(selectedMouseCell);
                                 fatdi.ShowDialog();
+                                cl.ShowDGV(str, dataGridView1, dBLogicConnection._connectionString);
                             }
                             break;
                         case 2:
                             {
+                                string str = "select l.numb_extract as \"Номер выписки\", pa.full_name as \"ФИО пациента\", l.date_in as \"Дата поступления\", l.date_extract_to \"Дата выписки\" from list_not_working l " +
+                                                "join patient pa on pa.omc = l.omc";
                                 FormAddTypeDockNotWorking fatdw = new FormAddTypeDockNotWorking();
                                 fatdw.ShowDialog();
+                                cl.ShowDGV(str, dataGridView1, dBLogicConnection._connectionString);
                             }
                             break;
                     }
@@ -296,9 +308,9 @@ namespace AndreevNIR
                     break;
 
                 case 1:
-                    string str32 = "select pa.full_name as \"ФИО пациента\", i.date_initial as \"Дата первичного осмотра\", s.full_name as \"ФИО врача приёмного покоя\", " +
-                        "i.diagnosis as \"Диагноз\" from initial_inspection i join patient pa on pa.omc = i.omc join staff s on s.id_staff = i.doc_receptinoist;";
+                    string str32 = "select pa.omc, pa.full_name as \"full_patient\", i.date_initial as \"date\", i.time_initial as \"time\", s.full_name as \"full_staff\", s.id_staff, i.diagnosis as \"diagnosis\" from initial_inspection i join patient pa on pa.omc = i.omc join staff s on s.id_staff = i.doc_receptinoist;";
                     ShowDGV(str32, dataGridView1, dBLogicConnection._connectionString);
+                    dataGridView1.Columns[0].Visible = false;
 
                     List<string> list32 = new List<string>();
                     list32.Add("ФИО пациента"); list32.Add("Дата первичного осмотра"); list32.Add("ФИО врача приёмного покоя"); list32.Add("Диагноз");
@@ -306,7 +318,7 @@ namespace AndreevNIR
                     break;
 
                 case 2:
-                    string str33 = "select l.numb_extract as \"Номер выписки\", pa.full_name as \"ФИО пациента\", l.date_in as \"Дата поступления\" from list_not_working l " +
+                    string str33 = "select l.numb_extract as \"Номер выписки\", pa.full_name as \"ФИО пациента\", l.date_in as \"Дата поступления\", l.date_extract_to \"Дата выписки\" from list_not_working l " +
                         "join patient pa on pa.omc = l.omc";
                     ShowDGV(str33, dataGridView1, dBLogicConnection._connectionString);
 
@@ -921,6 +933,19 @@ namespace AndreevNIR
                 case 2: //вид лечения
                     break;
                 case 3: //вид документов
+                    switch (comboBox4.SelectedIndex) {
+                        case 0: //выписка
+                            {
+                                string str = "select e.numb_extract as \"Номер выписки\", pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врача\", e.date_extract as " +
+                                                "\"Дата выписки\", e.diagnosis_extract as \"Диагноз\", e.recomendations as \"Рекомендации\", e.death_mark as \"Летальный исход\" " +
+                                                "from extract_document e join staff s on s.id_staff = e.id_staff join patient_in_room pai on pai.id_patient = e.id_patient join patient pa on " +
+                                                "pa.omc = pai.omc";
+                                ClassLogicExtraction cle = new ClassLogicExtraction();
+                                cle.DeleteExtraction(selectedMouseCell);
+                                cl.ShowDGV(str, dataGridView1, dBLogicConnection._connectionString);
+                            }
+                            break;
+                    }
                     break;
                 case 4: // вид процедур
                     break;
@@ -951,6 +976,24 @@ namespace AndreevNIR
                     string str1 = "SELECT name_hir_department as \"Стационар\", adress_hir_department as \"Адрес стационара\", phone_hir_department as \"Телефон регистратуры\", ogrm_hir_department as \"ОГРМ\", (select full_name from staff where id_staff = hir_hospital.boss_hir_department) as \"Главный врач\",name_department as \"Отделение\", (select full_name from staff where id_staff = department.boss_department) as \"Заведующий отделением\", number_room as \"Палата\" FROM type_department JOIN department ON type_department.id_department = department.id_department JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department JOIN room ON department.id_department = room.id_department join staff on hir_hospital.boss_hir_department = staff.id_staff;";
                     ShowDGV(str1, dataGridView3, dBLogicConnection._connectionString);
                     break;
+                case 3: //вид документов
+                    switch (comboBox4.SelectedIndex) {
+                        case 0: //выписка
+                            FormAddTypeDockExtract fa = new FormAddTypeDockExtract(selectedMouseCell);
+                            fa.ShowDialog();
+                            break;
+                        case 1: //первичка
+                            {
+                                FormAddTypeDockInitial ft = new FormAddTypeDockInitial(selectedMouseCell);
+                                ft.Show();
+                                string str = "select pa.omc, pa.full_name as \"ФИО пациента\", i.date_initial as \"Дата первичного осмотра\", s.full_name as \"ФИО врача приёмного покоя\", i.diagnosis as \"Диагноз\" from initial_inspection i join patient pa on pa.omc = i.omc join staff s on s.id_staff = i.doc_receptinoist;";
+                                cl.ShowDGV(str, dataGridView1, dBLogicConnection._connectionString);
+                            }
+                            break;
+                        case 2:
+                            break;
+                    }
+                    break;
             }
         } //изменение
 
@@ -980,6 +1023,11 @@ namespace AndreevNIR
                 ShowDGVFullList = cl.CreateFullListOfShowDGV1("SELECT name_hir_department as \"Стационар\", hir_hospital.code_hir_department, adress_hir_department as \"Адрес стационара\", phone_hir_department as \"Телефон регистратуры\", ogrm_hir_department as \"ОГРМ\", (select full_name from staff where id_staff = hir_hospital.boss_hir_department) as \"Главный врач\", name_department as \"Отделение\",department.id_department, (select full_name from staff where id_staff = department.boss_department) as \"Заведующий отделением\", number_room as \"Палата\", room.sit_empt FROM type_department JOIN department ON type_department.id_department = department.id_department JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department JOIN room ON department.id_department = room.id_department join staff on hir_hospital.boss_hir_department = staff.id_staff;", ShowDGVFullList, '|');
                 selectedMouseRowID = dataGridView3.SelectedRows[0].Index; 
             } catch { }
+        }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try { selectedMouseCell = dataGridView1.SelectedRows[0].Cells[0].Value.ToString(); } catch { }
         }
     }
 }
