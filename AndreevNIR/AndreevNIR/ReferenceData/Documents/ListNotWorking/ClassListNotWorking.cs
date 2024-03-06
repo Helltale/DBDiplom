@@ -13,7 +13,7 @@ namespace AndreevNIR.ReferenceData.Documents.ListNotWorking
         DBLogicConnection db = new DBLogicConnection();
         CoreLogic cl = new CoreLogic();
 
-        public void CreateListNotWorking(string omc, string number_extract, MonthCalendar mDateOut, TextBox tbTime) {
+        public void CreateListNotWorking(string omc, string number_extract, MonthCalendar mDateOut) {
             //string lastID = cl.GetLastIdFromQueryCast("List_not_working", "id_not_working_initial");
             DateTime dateIn = DateTime.Now;
 
@@ -80,6 +80,71 @@ namespace AndreevNIR.ReferenceData.Documents.ListNotWorking
                 }
             }
             return number_extract;
+        }
+
+        public void DeleteListNotWorking(string omc) {
+            //удаление extract_document
+            using (NpgsqlConnection connection = new NpgsqlConnection(db._connectionString))
+            {
+                connection.Open();
+                using (NpgsqlCommand command = new NpgsqlCommand($"delete from list_not_working where numb_extract = @numb_extract", connection))
+                {
+                    try
+                    {
+                        //DateTime newDateTime = new DateTime(date.Year, date.Month, date.Day,
+                        //Convert.ToInt32(time.Split(':')[0]), Convert.ToInt32(time.Split(':')[1]), Convert.ToInt32(time.Split(':')[2]));
+
+                        command.Parameters.Add("@numb_extract", NpgsqlTypes.NpgsqlDbType.Varchar).Value = omc;
+                    }
+                    catch (NpgsqlException ex) { MessageBox.Show(ex.Message); }
+                    catch (Exception ex) { MessageBox.Show(ex.Message); }
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void GetListNotWorking(string numb_extract, TextBox tbNumberExtract, MonthCalendar mDateOut) {
+
+            //получение листа о нетрудоспособности
+            using (NpgsqlConnection connection = new NpgsqlConnection(db._connectionString))
+            {
+                string omc = null;
+                connection.Open();
+                using (NpgsqlCommand command = new NpgsqlCommand($"select * from list_not_working where numb_extract = '{numb_extract}';", connection))
+                {
+                    using (NpgsqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            tbNumberExtract.Text = numb_extract;
+                            mDateOut.SelectionStart = Convert.ToDateTime(reader["date_extract_to"].ToString());
+                            mDateOut.SelectionEnd = Convert.ToDateTime(reader["date_extract_to"].ToString());
+                            
+                        }
+                    }
+                    //command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void UpdateListNotWorking(string numb_extract, MonthCalendar mDateOut) {
+
+            //обновление extract_document
+            using (NpgsqlConnection connection = new NpgsqlConnection(db._connectionString))
+            {
+                connection.Open();
+                using (NpgsqlCommand command = new NpgsqlCommand($"update list_not_working set date_extract_to = @date_extract_to where numb_extract = @numb_extract", connection))
+                {
+                    try
+                    {
+                        command.Parameters.Add("@date_extract_to", NpgsqlTypes.NpgsqlDbType.Date).Value = mDateOut.SelectionStart;
+                        command.Parameters.Add("@numb_extract", NpgsqlTypes.NpgsqlDbType.Varchar).Value = numb_extract;
+                    }
+                    catch (NpgsqlException ex) { MessageBox.Show(ex.Message); }
+                    catch (Exception ex) { MessageBox.Show(ex.Message); }
+                    command.ExecuteNonQuery();
+                }
+            }
         }
 
     }

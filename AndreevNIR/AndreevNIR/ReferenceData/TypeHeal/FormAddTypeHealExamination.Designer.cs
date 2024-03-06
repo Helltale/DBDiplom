@@ -85,7 +85,6 @@ namespace AndreevNIR.ReferenceData
             this.button3.TabIndex = 12;
             this.button3.Text = "Сброс";
             this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button2
             // 
@@ -95,7 +94,6 @@ namespace AndreevNIR.ReferenceData
             this.button2.TabIndex = 11;
             this.button2.Text = "Поиск";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // label5
             // 
@@ -110,11 +108,11 @@ namespace AndreevNIR.ReferenceData
             // 
             this.dataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(0, 25);
+            this.dataGridView2.Location = new System.Drawing.Point(6, 25);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.RowHeadersWidth = 62;
             this.dataGridView2.RowTemplate.Height = 28;
-            this.dataGridView2.Size = new System.Drawing.Size(515, 299);
+            this.dataGridView2.Size = new System.Drawing.Size(509, 299);
             this.dataGridView2.TabIndex = 2;
             this.dataGridView2.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellClick);
             // 
@@ -192,7 +190,6 @@ namespace AndreevNIR.ReferenceData
             this.monthCalendar1.Location = new System.Drawing.Point(12, 31);
             this.monthCalendar1.Name = "monthCalendar1";
             this.monthCalendar1.TabIndex = 2;
-            this.monthCalendar1.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.monthCalendar1_DateChanged);
             // 
             // textBox1
             // 
@@ -271,7 +268,7 @@ namespace AndreevNIR.ReferenceData
             this.checkBox1.TabIndex = 1;
             this.checkBox1.Text = "Коментарии к проведённой операции";
             this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.Click += new System.EventHandler(this.checkBox1_Click);
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // richTextBox1
             // 
@@ -299,7 +296,6 @@ namespace AndreevNIR.ReferenceData
             this.button7.TabIndex = 1;
             this.button7.Text = "Закрыть";
             this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // button8
             // 
@@ -323,7 +319,6 @@ namespace AndreevNIR.ReferenceData
             this.Controls.Add(this.groupBox1);
             this.Name = "FormAddTypeHealExamination";
             this.Text = "FormAddTypeHealDockExamiantion";
-            this.Load += new System.EventHandler(this.FormAddTypeHealExamination_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();

@@ -97,5 +97,10 @@ namespace AndreevNIR
             cp.DeletePatientInRoom(id_patient);
             cl.ShowDGV(str1, dataGridView1, db._connectionString);
         }
+
+        private void buttonBack_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

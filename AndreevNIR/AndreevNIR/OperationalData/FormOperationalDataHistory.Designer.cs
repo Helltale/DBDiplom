@@ -193,6 +193,7 @@
             this.button9.TabIndex = 2;
             this.button9.Text = "Изменить";
             this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
             // button10
             // 
@@ -212,6 +213,7 @@
             this.button11.TabIndex = 0;
             this.button11.Text = "Удалить";
             this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.button11_Click);
             // 
             // FormOperationalDataHistory
             // 

@@ -4,6 +4,7 @@ using Npgsql;
 using System.Windows.Forms;
 using System.Data;
 using System.Globalization;
+using System.Linq;
 
 namespace AndreevNIR
 {
@@ -181,5 +182,18 @@ namespace AndreevNIR
             DateTime timeOnly = new DateTime(1900, 1, 1, 0, 0, 0, DateTimeKind.Unspecified).Add(time);
             return timeOnly;
         }
+
+        public void FillComboBox(ComboBox cb, string defaultText, params string[] param)
+        {
+            List<string> list = new List<string>();
+            for (int i = 0; i < param.Count(); i++)
+            {
+                list.Add(param[i]);
+            }
+            cb.DataSource = list;
+            cb.SelectedIndex = -1;
+            cb.Text = defaultText;
+
+        } //заполняет combobox параметрами, которые можно задать вручную
     }
 }

@@ -16,12 +16,24 @@ namespace AndreevNIR.ReferenceData
         CoreLogic cl = new CoreLogic();
         DBLogicConnection db = new DBLogicConnection();
         string omc = null;
+        string numb_extract = null;
 
         public FormAddTypeDockNotWorking()
         {
             InitializeComponent();
             LoadDGV(dataGridView2);
             textBox2.Enabled = false;
+        }
+
+        public FormAddTypeDockNotWorking(string _numb_extract)
+        {
+            ClassListNotWorking cln = new ClassListNotWorking();
+            InitializeComponent();
+            LoadDGV(dataGridView2);
+            textBox2.Enabled = false;
+            numb_extract = _numb_extract;
+            groupBox1.Enabled = false;
+            cln.GetListNotWorking(_numb_extract, textBox2, monthCalendar1);
         }
 
         private void LoadDGV(DataGridView dgv) {
@@ -51,7 +63,13 @@ namespace AndreevNIR.ReferenceData
         private void button8_Click(object sender, EventArgs e)
         {
             ClassListNotWorking cln = new ClassListNotWorking();
-            cln.CreateListNotWorking(omc, textBox2.Text, monthCalendar1, textBox1);
+            if (numb_extract != null)
+            {
+                cln.UpdateListNotWorking(numb_extract, monthCalendar1);
+            }
+            else {
+                cln.CreateListNotWorking(omc, textBox2.Text, monthCalendar1);
+            }
             this.Close();
         }
     }

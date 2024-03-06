@@ -29,11 +29,7 @@ namespace AndreevNIR.ReferenceData
         /// </summary>
         private void InitializeComponent()
         {
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.button6 = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -50,9 +46,10 @@ namespace AndreevNIR.ReferenceData
             this.button8 = new System.Windows.Forms.Button();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
             this.groupBox5.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -64,53 +61,15 @@ namespace AndreevNIR.ReferenceData
             this.groupBox7.SuspendLayout();
             this.SuspendLayout();
             // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(352, 59);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(162, 49);
-            this.button4.TabIndex = 3;
-            this.button4.Text = "Удалить";
-            this.button4.UseVisualStyleBackColor = true;
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(184, 59);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(162, 49);
-            this.button5.TabIndex = 2;
-            this.button5.Text = "Изменить";
-            this.button5.UseVisualStyleBackColor = true;
-            // 
-            // comboBox2
-            // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(16, 25);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(498, 28);
-            this.comboBox2.TabIndex = 0;
-            // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.button4);
-            this.groupBox5.Controls.Add(this.button5);
-            this.groupBox5.Controls.Add(this.button6);
-            this.groupBox5.Controls.Add(this.comboBox2);
-            this.groupBox5.Location = new System.Drawing.Point(482, 905);
+            this.groupBox5.Controls.Add(this.textBox4);
+            this.groupBox5.Location = new System.Drawing.Point(12, 399);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(527, 130);
+            this.groupBox5.Size = new System.Drawing.Size(1075, 73);
             this.groupBox5.TabIndex = 21;
             this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Операция";
-            // 
-            // button6
-            // 
-            this.button6.Location = new System.Drawing.Point(16, 59);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(162, 49);
-            this.button6.TabIndex = 1;
-            this.button6.Text = "Добавить";
-            this.button6.UseVisualStyleBackColor = true;
+            this.groupBox5.Text = "Название операции";
             // 
             // label5
             // 
@@ -149,6 +108,7 @@ namespace AndreevNIR.ReferenceData
             this.dataGridView2.RowTemplate.Height = 28;
             this.dataGridView2.Size = new System.Drawing.Size(515, 299);
             this.dataGridView2.TabIndex = 2;
+            this.dataGridView2.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellClick);
             // 
             // label4
             // 
@@ -187,6 +147,7 @@ namespace AndreevNIR.ReferenceData
             this.dataGridView1.RowTemplate.Height = 28;
             this.dataGridView1.Size = new System.Drawing.Size(515, 299);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
             // groupBox3
             // 
@@ -239,12 +200,13 @@ namespace AndreevNIR.ReferenceData
             this.button8.TabIndex = 0;
             this.button8.Text = "Сохранить";
             this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.button7);
             this.groupBox6.Controls.Add(this.button8);
-            this.groupBox6.Location = new System.Drawing.Point(12, 932);
+            this.groupBox6.Location = new System.Drawing.Point(12, 972);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(447, 103);
             this.groupBox6.TabIndex = 26;
@@ -253,22 +215,12 @@ namespace AndreevNIR.ReferenceData
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.richTextBox1);
-            this.groupBox4.Location = new System.Drawing.Point(12, 399);
+            this.groupBox4.Location = new System.Drawing.Point(12, 478);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(997, 488);
             this.groupBox4.TabIndex = 27;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Описание операции";
-            // 
-            // groupBox7
-            // 
-            this.groupBox7.Controls.Add(this.richTextBox2);
-            this.groupBox7.Location = new System.Drawing.Point(1016, 399);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(627, 488);
-            this.groupBox7.TabIndex = 28;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Описание осложнений";
             // 
             // richTextBox1
             // 
@@ -278,6 +230,16 @@ namespace AndreevNIR.ReferenceData
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "";
             // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.richTextBox2);
+            this.groupBox7.Location = new System.Drawing.Point(1016, 478);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(627, 488);
+            this.groupBox7.TabIndex = 28;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Описание осложнений";
+            // 
             // richTextBox2
             // 
             this.richTextBox2.Location = new System.Drawing.Point(7, 26);
@@ -286,11 +248,18 @@ namespace AndreevNIR.ReferenceData
             this.richTextBox2.TabIndex = 0;
             this.richTextBox2.Text = "";
             // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(7, 27);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(1062, 26);
+            this.textBox4.TabIndex = 0;
+            // 
             // FormAddTypeHealOperations
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1655, 1047);
+            this.ClientSize = new System.Drawing.Size(1655, 1087);
             this.Controls.Add(this.groupBox7);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox5);
@@ -301,6 +270,7 @@ namespace AndreevNIR.ReferenceData
             this.Name = "FormAddTypeHealOperations";
             this.Text = "FormAddTypeHealOperations";
             this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
@@ -317,12 +287,7 @@ namespace AndreevNIR.ReferenceData
         }
 
         #endregion
-
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -342,5 +307,6 @@ namespace AndreevNIR.ReferenceData
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.RichTextBox richTextBox2;
+        private System.Windows.Forms.TextBox textBox4;
     }
 }

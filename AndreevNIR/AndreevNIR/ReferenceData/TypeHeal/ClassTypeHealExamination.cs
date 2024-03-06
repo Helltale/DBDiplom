@@ -11,7 +11,11 @@ namespace AndreevNIR.ReferenceData.TypeHeal
 {
     class ClassTypeHealExamination
     {
-        public void FindAllPeople(DataGridView dgv, string strQuery) {
+        DBLogicConnection db = new DBLogicConnection();
+        CoreLogic cl = new CoreLogic();
+
+        public void FindAllPeople(DataGridView dgv, string strQuery)
+        {
             ShowDGVSelected(strQuery, dgv);
         }
 
@@ -41,8 +45,7 @@ namespace AndreevNIR.ReferenceData.TypeHeal
 
         public void CreateExamination(string id_staff_, string id_patient_, DateTime dateTime, RichTextBox richTextBox1, RichTextBox richTextBox2, TextBox tbTime)
         {
-            CoreLogic cl = new CoreLogic();
-            string id_meeting = cl.GetLastIdFromQuery("meetings", "id_meeting");
+            string id_meeting = cl.GetLastIdFromQueryCast("meetings", "id_meeting");
             string id_staff = id_staff_;
             string id_patient = id_patient_;
             DateTime date_meeting = dateTime;
@@ -50,7 +53,7 @@ namespace AndreevNIR.ReferenceData.TypeHeal
             string operation_control = richTextBox2.Text;
             DateTime time_meeting = Convert.ToDateTime(tbTime.Text);
 
-            DBLogicConnection db = new DBLogicConnection();
+
 
             //создание палаты
             using (NpgsqlConnection connection = new NpgsqlConnection(db._connectionString))
@@ -73,23 +76,71 @@ namespace AndreevNIR.ReferenceData.TypeHeal
                     command.ExecuteNonQuery();
                 }
             }
+        }
 
+        public void DeleteExamination(string id_meeting)
+        {
+            //удаление палаты
+            using (NpgsqlConnection connection = new NpgsqlConnection(db._connectionString))
+            {
+                connection.Open();
+                using (NpgsqlCommand command = new NpgsqlCommand($"delete from meetings where id_meeting = @find;", connection))
+                {
+                    try
+                    {
+                        command.Parameters.Add("@find", NpgsqlTypes.NpgsqlDbType.Varchar).Value = id_meeting;
+                    }
+                    catch (Exception ex) { MessageBox.Show("" + ex); }
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void LoadExamination(string id_meeting, MonthCalendar monthCalendar, RichTextBox richTextBox1, RichTextBox richTextBox2, TextBox tbTime) {
             
+            using (NpgsqlConnection connection = new NpgsqlConnection(db._connectionString))
+            {
+                connection.Open();
+                using (NpgsqlCommand command = new NpgsqlCommand($"select * from meetings where id_meeting = '{id_meeting}'", connection))
+                {
+                    using (NpgsqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            richTextBox1.Text = reader["discription_meeting"].ToString();
+                            monthCalendar.SelectionStart = Convert.ToDateTime(reader["date_meeting"].ToString());
+                            monthCalendar.SelectionEnd = Convert.ToDateTime(reader["date_meeting"].ToString());
+                            tbTime.Text = reader["time_meeting"].ToString();
+                            richTextBox2.Text = reader["operation_control"].ToString();
+                        }
+                    }
+                }
+            }
+        }
 
-            //using (NpgsqlConnection connection = new NpgsqlConnection(db._connectionString))
-            //{
-            //    connection.Open();
-            //    using (NpgsqlCommand command = new NpgsqlCommand($"select code_hir_department from hir_hospital where name_hir_department = '{cbNameHirDepartment.SelectedItem.ToString()}'", connection))
-            //    {
-            //        using (NpgsqlDataReader reader = command.ExecuteReader())
-            //        {
-            //            if (reader.Read())
-            //            {
-            //                code_hir_department = reader["code_hir_department"].ToString();
-            //            }
-            //        }
-            //    }
-            //}
+        public void UpdateExamination(MonthCalendar dateTime, RichTextBox richTextBox1, RichTextBox richTextBox2, TextBox tbTime)
+        {
+            //обновление палаты
+            using (NpgsqlConnection connection = new NpgsqlConnection(db._connectionString))
+            {
+                connection.Open();
+                using (NpgsqlCommand command = new NpgsqlCommand($"update meetings set discription_meeting = @discription_meeting, date_meeting = @date_meeting, " +
+                    $"time_meeting = @time_meeting, operation_control = @operation_control;", connection))
+                {
+                    try
+                    {
+                        var newTime = new DateTime();
+                        newTime = Convert.ToDateTime(tbTime.Text);
+
+                        command.Parameters.Add("@discription_meeting", NpgsqlTypes.NpgsqlDbType.Varchar).Value = richTextBox1.Text;
+                        command.Parameters.Add("@date_meeting", NpgsqlTypes.NpgsqlDbType.Date).Value = dateTime.SelectionStart;
+                        command.Parameters.AddWithValue("@time_meeting", newTime);
+                        command.Parameters.Add("@operation_control", NpgsqlTypes.NpgsqlDbType.Varchar).Value = richTextBox2.Text;
+                    }
+                    catch (Exception ex) { MessageBox.Show("" + ex); }
+                    command.ExecuteNonQuery();
+                }
+            }
         }
     }
 }

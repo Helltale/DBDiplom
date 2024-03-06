@@ -79,7 +79,6 @@ D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.csproj.CoreCompileInputs.ca
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.csproj.CopyComplete
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.exe
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.pdb
-D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.FormReferenceDataAdd.resources
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.FormAddStaff.resources
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.FormAddTypeProc.resources
 D:\diplom\AndreevNIR\AndreevNIR\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
@@ -137,3 +136,6 @@ D:\diplom\AndreevNIR\AndreevNIR\bin\Debug\Microsoft.Web.WebView2.WinForms.xml
 D:\diplom\AndreevNIR\AndreevNIR\bin\Debug\Microsoft.Web.WebView2.Wpf.xml
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.ReferenceData.FormAddStruct.FormDepartment.resources
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.OperationalData.Patients.FormAddPatient.resources
+D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.ReferenceData.Procedures.FormAddDrug.resources
+D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.additionalForms.PrimeTime.resources
+D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.OperationalData.FormOperativeData.resources

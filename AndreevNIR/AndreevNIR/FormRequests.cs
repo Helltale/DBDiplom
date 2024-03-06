@@ -20,7 +20,6 @@ namespace AndreevNIR
         private void button2_Click(object sender, EventArgs e)
         {
             FormIndex2 formIndex2 = new FormIndex2();
-            formIndex2.richTextBoxPrimeTime.Show();
             this.Hide();
         }
 

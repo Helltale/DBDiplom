@@ -75,7 +75,6 @@ namespace AndreevNIR.ReferenceData
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             try { id_staff = dataGridView1.SelectedRows[0].Cells[0].Value.ToString(); } catch { }
-            
         }
 
         private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)

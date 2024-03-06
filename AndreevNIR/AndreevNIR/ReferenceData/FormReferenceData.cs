@@ -11,6 +11,9 @@ using System.Windows.Forms;
 using AndreevNIR.ReferenceData;
 using Npgsql;
 using AndreevNIR.ReferenceData.Documents.Extraction;
+using AndreevNIR.ReferenceData.Documents.ListNotWorking;
+using AndreevNIR.ReferenceData.Procedures;
+using AndreevNIR.ReferenceData.TypeHeal;
 
 namespace AndreevNIR
 {
@@ -26,6 +29,10 @@ namespace AndreevNIR
         public int selectedMouseRowID;
         public string staffID;
         public string selectedMouseCell = null; //нулевой элемент
+        public string selectedMouseCell2 = null; //дополнительная переменная (почти всегда пуста)
+        public string selectedMouseCell3 = null; //дополнительная переменная (почти всегда пуста)
+        public string selectedMouseCell4 = null; //дополнительная переменная (почти всегда пуста)
+        public string selectedMouseCell5 = null; //дополнительная переменная (почти всегда пуста)
 
         public FormReferenceData()
         {
@@ -38,10 +45,7 @@ namespace AndreevNIR
 
         private void buttonBack_Click(object sender, EventArgs e)
         {
-            FormIndex2 formIndex2 = new FormIndex2();
-            formIndex2.richTextBoxPrimeTime.Show();
-            this.Hide();
-
+            this.Close();
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -63,22 +67,31 @@ namespace AndreevNIR
                 case 2: //вид лечения
                     switch (comboBox3.SelectedIndex)
                     {
-                        case 0:
+                        case 0: //плановые осмотры
                             {
                                 FormAddTypeHealExamination fathe = new FormAddTypeHealExamination();
                                 fathe.ShowDialog();
+                                string str21 = "select me.id_meeting, s.full_name as \"ФИО врача\", pa.full_name as \"ФИО пациента\", me.date_meeting as \"Дата проведения\", me.time_meeting as \"Время проведения\", me.discription_meeting as \"Описание осмотра\", me.operation_control as \"Послеоперационный осмотр\" from meetings me inner join patient_in_room pai on me.id_patient = pai.id_patient inner join patient pa on pa.omc = pai.omc inner join staff s on s.id_staff = me.id_staff";
+                                ShowDGV(str21, dataGridView4, dBLogicConnection._connectionString);
                             }
                             break;
-                        case 1:
+                        case 1: //conservative
                             {
                                 FormAddTypeHealConservative fathc = new FormAddTypeHealConservative();
                                 fathc.ShowDialog();
+                                string str22 = "select t1.id_staff, t1.id_patient, t5.id_procedure, t2.full_name \"ФИО врача\", t4.full_name \"ФИО пациента\", t5.name_drocedure \"Процедура\", t6.full_name \"ФИО медсестры\", t1.date_procedure \"Дата процедуры\", t1.time_procedure \"Время процедуры\" from Сonservative t1 join staff t2 on t1.id_staff = t2.id_staff join patient_in_room t3 on t1.id_patient = t3.id_patient join patient t4 on t3.omc = t4.omc join procedures_ t5 on t1.id_procedure = t5.id_procedure join staff t6 on t1.id_staff_nurce = t6.id_staff;";
+                                ShowDGV(str22, dataGridView4, dBLogicConnection._connectionString);
                             }
                             break;
-                        case 2:
+                        case 2: //operation
                             {
                                 FormAddTypeHealOperations fatho = new FormAddTypeHealOperations();
                                 fatho.ShowDialog();
+                                string str23 = "select o.id_operation, pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врача\", o.name_operation as \"Название операции\", " +
+                        "o.date_operation as \"Дата проведения\", o.time_operation as \"Время проведения\", o.discriptionary_operation as \"Описание\", " +
+                        "o.discriptionary_bad as \"Описание осложнений\" from operation o join staff s on s.id_staff = o.id_staff " +
+                        "join patient_in_room dir on dir.id_patient = o.id_patient join patient pa on pa.omc = dir.omc";
+                                ShowDGV(str23, dataGridView4, dBLogicConnection._connectionString);
                             }
                             break;
                     }
@@ -117,8 +130,12 @@ namespace AndreevNIR
                     }
                     break;
                 case 4: //вид процедур
-                    FormAddTypeProc fatp = new FormAddTypeProc();
-                    fatp.ShowDialog();
+                    {
+                        FormAddTypeProc fatp = new FormAddTypeProc();
+                        fatp.ShowDialog();
+                        string str = "select procedures_.id_procedure, procedures_.name_drocedure \"Название процедуры\", drug.name_drug \"Название препарата\", procedures_.value_drug \"Количество\", procedures_.value_name \"Тип\" from procedures_ join drug on procedures_.id_drug = drug.id_drug";
+                        ShowDGV(str, dataGridView6, dBLogicConnection._connectionString);
+                    }
                     break;
                 case 5: //роли
                     MessageBox.Show("Невозможно добавить новые роли!");
@@ -209,8 +226,9 @@ namespace AndreevNIR
                     break;
 
                 case 4: //вид процедур
-                    string str4 = "select procedures_.name_drocedure \"Название процедуры\", drug.name_drug \"Название препарата\", procedures_.value_drug \"Количество\", procedures_.value_name \"Тип\" from procedures_ join drug on procedures_.id_drug = drug.id_drug";
+                    string str4 = "select procedures_.id_procedure, procedures_.name_drocedure \"Название процедуры\", drug.name_drug \"Название препарата\", procedures_.value_drug \"Количество\", procedures_.value_name \"Тип\" from procedures_ join drug on procedures_.id_drug = drug.id_drug";
                     ShowDGV(str4, dataGridView6, dBLogicConnection._connectionString);
+                    dataGridView6.Columns[0].Visible = false; //скрыть id
 
                     List<string> list4 = new List<string>();
                     list4.Add("Название процедуры"); list4.Add("Название препарата"); list4.Add("Количество препарата"); list4.Add("Тип значения");
@@ -249,23 +267,21 @@ namespace AndreevNIR
             switch (comboBox3.SelectedIndex)
             {
                 case 0:
-                    string str21 = "select s.full_name as \"ФИО врача\", pa.full_name as \"ФИО пациента\", me.date_meeting as \"Дата проведения\", " +
-                        "me.time_meeting as \"Время проведения\", me.discription_meeting as \"Описание осмотра\", me.operation_control as \"Послеоперационный осмотр\" " +
-                        "from meetings me inner join patient_in_room pai on me.id_patient = pai.id_patient inner join patient pa on pa.omc = pai.omc inner " +
-                        "join staff s on s.id_staff = me.id_staff";
+                    string str21 = "select me.id_meeting, s.full_name as \"ФИО врача\", pa.full_name as \"ФИО пациента\", me.date_meeting as \"Дата проведения\", me.time_meeting as \"Время проведения\", me.discription_meeting as \"Описание осмотра\", me.operation_control as \"Послеоперационный осмотр\" from meetings me inner join patient_in_room pai on me.id_patient = pai.id_patient inner join patient pa on pa.omc = pai.omc inner join staff s on s.id_staff = me.id_staff";
                     ShowDGV(str21, dataGridView4, dBLogicConnection._connectionString);
+                    dataGridView4.Columns[0].Visible = false; //id_meeting?
+                    //MessageBox.Show(dataGridView4.Rows[0].Cells[0].Value.ToString());
 
                     List<string> list21 = new List<string>();
                     list21.Add("ФИО врача"); list21.Add("ФИО пациента"); list21.Add("Дата проведения"); list21.Add("Время проведения");
                     FillComboBox(comboBox1, list21);
                     break;
-                case 1:
-                    string str22 = "SELECT pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врач\", pr.name_drocedure as \"Название процедуры\", " +
-                        "n.full_name as \"ФИО мед сестры\", co.date_procedure as \"Дата проведения\", co.time_procedure as \"Время проведения\" " +
-                        "FROM Сonservative co JOIN staff s ON co.id_staff = s.id_staff JOIN staff n ON n.id_staff = co.id_staff_nurce " +
-                        "JOIN patient_in_room pai ON pai.id_patient = co.id_patient JOIN patient pa ON pa.omc = pai.omc " +
-                        "JOIN procedures_ pr ON pr.id_procedure = co.id_procedure JOIN guard_nurse gn ON gn.id_staff = co.id_staff_nurce;";
+                case 1: //conservative
+                    string str22 = "select t1.id_staff, t1.id_patient, t5.id_procedure, t2.full_name \"ФИО врача\", t4.full_name \"ФИО пациента\", t5.name_drocedure \"Процедура\", t6.full_name \"ФИО медсестры\", t1.date_procedure \"Дата процедуры\", t1.time_procedure \"Время процедуры\" from Сonservative t1 join staff t2 on t1.id_staff = t2.id_staff join patient_in_room t3 on t1.id_patient = t3.id_patient join patient t4 on t3.omc = t4.omc join procedures_ t5 on t1.id_procedure = t5.id_procedure join staff t6 on t1.id_staff_nurce = t6.id_staff;";
                     ShowDGV(str22, dataGridView4, dBLogicConnection._connectionString);
+                    dataGridView4.Columns[0].Visible = false; //id_staff
+                    dataGridView4.Columns[1].Visible = false; //id_patient
+                    dataGridView4.Columns[2].Visible = false; //id_procedure
 
                     List<string> list22 = new List<string>();
                     list22.Add("ФИО пациента"); list22.Add("ФИО врача"); list22.Add("Дата проведения"); list22.Add("Время проведения"); list22.Add("Название процедуры");
@@ -273,12 +289,13 @@ namespace AndreevNIR
                     FillComboBox(comboBox1, list22);
 
                     break;
-                case 2:
-                    string str23 = "select pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врача\", o.name_operation as \"Название операции\", " +
+                case 2: //operation
+                    string str23 = "select o.id_operation, pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врача\", o.name_operation as \"Название операции\", " +
                         "o.date_operation as \"Дата проведения\", o.time_operation as \"Время проведения\", o.discriptionary_operation as \"Описание\", " +
                         "o.discriptionary_bad as \"Описание осложнений\" from operation o join staff s on s.id_staff = o.id_staff " +
                         "join patient_in_room dir on dir.id_patient = o.id_patient join patient pa on pa.omc = dir.omc";
                     ShowDGV(str23, dataGridView4, dBLogicConnection._connectionString);
+                    dataGridView4.Columns[0].Visible = false; //id_operation
 
                     List<string> list23 = new List<string>();
                     list23.Add("ФИО пациента"); list23.Add("ФИО врача"); list23.Add("Дата проведения"); list23.Add("Время проведения"); list23.Add("Название операции");
@@ -931,6 +948,34 @@ namespace AndreevNIR
                     }
                     break;
                 case 2: //вид лечения
+                    switch (comboBox3.SelectedIndex) {
+                        case 0:
+                            {
+                                string str = "select me.id_meeting, s.full_name as \"ФИО врача\", pa.full_name as \"ФИО пациента\", me.date_meeting as \"Дата проведения\", me.time_meeting as \"Время проведения\", " +
+                                    "me.discription_meeting as \"Описание осмотра\", me.operation_control as \"Послеоперационный осмотр\" from meetings me " +
+                                    "inner join patient_in_room pai on me.id_patient = pai.id_patient inner join patient pa on pa.omc = pai.omc inner join staff s on s.id_staff = me.id_staff";
+                                ClassTypeHealExamination ct = new ClassTypeHealExamination();
+                                ct.DeleteExamination(selectedMouseCell);
+                                cl.ShowDGV(str, dataGridView4, dBLogicConnection._connectionString);
+                            }
+                            break;
+                        case 1: //conservative
+                            {
+                                ClassTypeHealConservative ct = new ClassTypeHealConservative();
+                                ct.DeleteConservative(selectedMouseCell, selectedMouseCell2);
+                                string str = "select t1.id_staff, t1.id_patient, t5.id_procedure, t2.full_name \"ФИО врача\", t4.full_name \"ФИО пациента\", t5.name_drocedure \"Процедура\", t6.full_name \"ФИО медсестры\", t1.date_procedure \"Дата процедуры\", t1.time_procedure \"Время процедуры\" from Сonservative t1 join staff t2 on t1.id_staff = t2.id_staff join patient_in_room t3 on t1.id_patient = t3.id_patient join patient t4 on t3.omc = t4.omc join procedures_ t5 on t1.id_procedure = t5.id_procedure join staff t6 on t1.id_staff_nurce = t6.id_staff;";
+                                ShowDGV(str, dataGridView4, dBLogicConnection._connectionString);
+                            }
+                            break;
+                        case 2: //operation
+                            {
+                                ClassTypeHealOperation ct = new ClassTypeHealOperation();
+                                ct.DeleleOperation(selectedMouseCell);
+                                string str = "select o.id_operation, pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врача\", o.name_operation as \"Название операции\", o.date_operation as \"Дата проведения\", o.time_operation as \"Время проведения\", o.discriptionary_operation as \"Описание\", o.discriptionary_bad as \"Описание осложнений\" from operation o join staff s on s.id_staff = o.id_staff join patient_in_room dir on dir.id_patient = o.id_patient join patient pa on pa.omc = dir.omc"; 
+                                ShowDGV(str, dataGridView4, dBLogicConnection._connectionString);
+                            }
+                            break;
+                    }
                     break;
                 case 3: //вид документов
                     switch (comboBox4.SelectedIndex) {
@@ -945,9 +990,24 @@ namespace AndreevNIR
                                 cl.ShowDGV(str, dataGridView1, dBLogicConnection._connectionString);
                             }
                             break;
+                        case 2: //лист нетрудоспособности
+                            {
+                                string str = "select l.numb_extract as \"Номер выписки\", pa.full_name as \"ФИО пациента\", l.date_in as \"Дата поступления\", l.date_extract_to \"Дата выписки\" from list_not_working l " +
+                                                "join patient pa on pa.omc = l.omc";
+                                ClassListNotWorking cln = new ClassListNotWorking();
+                                cln.DeleteListNotWorking(selectedMouseCell);
+                                cl.ShowDGV(str, dataGridView1, dBLogicConnection._connectionString);
+                            }
+                            break;
                     }
                     break;
                 case 4: // вид процедур
+                    {
+                        ClassProcedures cp = new ClassProcedures();
+                        cp.DeleteProcedures(selectedMouseCell);
+                        string str = "select procedures_.id_procedure, procedures_.name_drocedure \"Название процедуры\", drug.name_drug \"Название препарата\", procedures_.value_drug \"Количество\", procedures_.value_name \"Тип\" from procedures_ join drug on procedures_.id_drug = drug.id_drug";
+                        ShowDGV(str, dataGridView6, dBLogicConnection._connectionString);
+                    }
                     break;
                 case 5: // роли
                     break;
@@ -976,22 +1036,68 @@ namespace AndreevNIR
                     string str1 = "SELECT name_hir_department as \"Стационар\", adress_hir_department as \"Адрес стационара\", phone_hir_department as \"Телефон регистратуры\", ogrm_hir_department as \"ОГРМ\", (select full_name from staff where id_staff = hir_hospital.boss_hir_department) as \"Главный врач\",name_department as \"Отделение\", (select full_name from staff where id_staff = department.boss_department) as \"Заведующий отделением\", number_room as \"Палата\" FROM type_department JOIN department ON type_department.id_department = department.id_department JOIN hir_hospital ON department.code_hir_department = hir_hospital.code_hir_department JOIN room ON department.id_department = room.id_department join staff on hir_hospital.boss_hir_department = staff.id_staff;";
                     ShowDGV(str1, dataGridView3, dBLogicConnection._connectionString);
                     break;
+                case 2:
+                    switch (comboBox3.SelectedIndex) {
+                        case 0: //Плановые осмотры
+                            {
+                                FormAddTypeHealExamination ft = new FormAddTypeHealExamination(selectedMouseCell);
+                                ft.ShowDialog();
+                                string str21 = "select me.id_meeting, s.full_name as \"ФИО врача\", pa.full_name as \"ФИО пациента\", me.date_meeting as \"Дата проведения\", me.time_meeting as \"Время проведения\", me.discription_meeting as \"Описание осмотра\", me.operation_control as \"Послеоперационный осмотр\" from meetings me inner join patient_in_room pai on me.id_patient = pai.id_patient inner join patient pa on pa.omc = pai.omc inner join staff s on s.id_staff = me.id_staff";
+                                ShowDGV(str21, dataGridView4, dBLogicConnection._connectionString);
+                            }
+                            break;
+                        case 1: //conservative
+                            {
+                                bool tmp = true;
+                                FormAddTypeHealConservative ft = new FormAddTypeHealConservative(selectedMouseCell, selectedMouseCell2, selectedMouseCell3, selectedMouseCell4, selectedMouseCell5, tmp); //позже переделать
+                                ft.ShowDialog();
+                                string str22 = "select t1.id_staff, t1.id_patient, t5.id_procedure, t2.full_name \"ФИО врача\", t4.full_name \"ФИО пациента\", t5.name_drocedure \"Процедура\", t6.full_name \"ФИО медсестры\", t1.date_procedure \"Дата процедуры\", t1.time_procedure \"Время процедуры\" from Сonservative t1 join staff t2 on t1.id_staff = t2.id_staff join patient_in_room t3 on t1.id_patient = t3.id_patient join patient t4 on t3.omc = t4.omc join procedures_ t5 on t1.id_procedure = t5.id_procedure join staff t6 on t1.id_staff_nurce = t6.id_staff;";
+                                ShowDGV(str22, dataGridView4, dBLogicConnection._connectionString);
+                            }
+                            break;
+                        case 2: //operation
+                            {
+                                FormAddTypeHealOperations ft = new FormAddTypeHealOperations(selectedMouseCell);
+                                ft.ShowDialog();
+                                string str = "select o.id_operation, pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врача\", o.name_operation as \"Название операции\", o.date_operation as \"Дата проведения\", o.time_operation as \"Время проведения\", o.discriptionary_operation as \"Описание\", o.discriptionary_bad as \"Описание осложнений\" from operation o join staff s on s.id_staff = o.id_staff join patient_in_room dir on dir.id_patient = o.id_patient join patient pa on pa.omc = dir.omc";
+                                ShowDGV(str, dataGridView4, dBLogicConnection._connectionString);
+                            }
+                            break;
+                    }
+                    break;
                 case 3: //вид документов
                     switch (comboBox4.SelectedIndex) {
                         case 0: //выписка
-                            FormAddTypeDockExtract fa = new FormAddTypeDockExtract(selectedMouseCell);
-                            fa.ShowDialog();
+                            {
+                                FormAddTypeDockExtract fa = new FormAddTypeDockExtract(selectedMouseCell);
+                                fa.ShowDialog();
+                            }
                             break;
                         case 1: //первичка
                             {
                                 FormAddTypeDockInitial ft = new FormAddTypeDockInitial(selectedMouseCell);
-                                ft.Show();
+                                ft.ShowDialog();
                                 string str = "select pa.omc, pa.full_name as \"ФИО пациента\", i.date_initial as \"Дата первичного осмотра\", s.full_name as \"ФИО врача приёмного покоя\", i.diagnosis as \"Диагноз\" from initial_inspection i join patient pa on pa.omc = i.omc join staff s on s.id_staff = i.doc_receptinoist;";
                                 cl.ShowDGV(str, dataGridView1, dBLogicConnection._connectionString);
                             }
                             break;
-                        case 2:
+                        case 2: //лист о нетрудоспособности
+                            {
+                                FormAddTypeDockNotWorking fa = new FormAddTypeDockNotWorking(selectedMouseCell);
+                                fa.ShowDialog();
+                                string str = "select l.numb_extract as \"Номер выписки\", pa.full_name as \"ФИО пациента\", l.date_in as \"Дата поступления\", l.date_extract_to \"Дата выписки\" from list_not_working l " +
+                                                "join patient pa on pa.omc = l.omc";
+                                cl.ShowDGV(str, dataGridView1, dBLogicConnection._connectionString);
+                            }
                             break;
+                    }
+                    break;
+                case 4:
+                    {
+                        FormAddTypeProc fatp = new FormAddTypeProc(selectedMouseCell);
+                        fatp.ShowDialog();
+                        string str = "select procedures_.id_procedure, procedures_.name_drocedure \"Название процедуры\", drug.name_drug \"Название препарата\", procedures_.value_drug \"Количество\", procedures_.value_name \"Тип\" from procedures_ join drug on procedures_.id_drug = drug.id_drug";
+                        ShowDGV(str, dataGridView6, dBLogicConnection._connectionString);
                     }
                     break;
             }
@@ -1028,6 +1134,28 @@ namespace AndreevNIR
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             try { selectedMouseCell = dataGridView1.SelectedRows[0].Cells[0].Value.ToString(); } catch { }
+        }
+
+        private void dataGridView6_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try { selectedMouseCell = dataGridView6.SelectedRows[0].Cells[0].Value.ToString(); } catch { }
+        }
+
+        private void dataGridView4_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (comboBox3.SelectedIndex == 1)
+            {
+                try {   selectedMouseCell = dataGridView4.SelectedRows[0].Cells[0].Value.ToString(); //id_staff
+                        selectedMouseCell2 = dataGridView4.SelectedRows[0].Cells[1].Value.ToString(); //id_patient
+                        selectedMouseCell3 = dataGridView4.SelectedRows[0].Cells[2].Value.ToString(); //id_procedure
+                        selectedMouseCell4 = dataGridView4.SelectedRows[0].Cells[7].Value.ToString(); //date_procedure
+                        selectedMouseCell5 = dataGridView4.SelectedRows[0].Cells[8].Value.ToString(); //time_procedure
+                } catch { }
+            }
+            else {
+                try { selectedMouseCell = dataGridView4.SelectedRows[0].Cells[0].Value.ToString(); } catch { }
+            }
+            
         }
     }
 }

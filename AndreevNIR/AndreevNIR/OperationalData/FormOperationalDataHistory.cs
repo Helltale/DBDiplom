@@ -17,6 +17,11 @@ namespace AndreevNIR
         {
             InitializeComponent();
             OperationalDataName();
+
+
+            List<string> list = new List<string>();
+            list.Add("Мероприятие"); list.Add("ФИО врача"); list.Add("Время проведения");
+            FillComboBox(comboBox2, list);
         }
 
         public string currentName;
@@ -95,12 +100,19 @@ namespace AndreevNIR
             currentName = currentName_.ToString();
             OperationalDataHistory(currentName, dataGridView1);
 
-            List<string> list= new List<string>();
-            list.Add("Мероприятие"); list.Add("ФИО врача"); list.Add("Время проведения");
-            FillComboBox(comboBox2, list);
         }
 
         private void buttonBack_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button11_Click(object sender, EventArgs e)
         {
 
         }

@@ -8,11 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AndreevNIR.additionalForms;
+using AndreevNIR.OperationalData;
 
 namespace AndreevNIR
 {
     public partial class FormIndex2 : Form
     {
+
+        private string CoreLable = "Домашняя страница";
 
         public FormIndex2()
         {
@@ -39,7 +42,6 @@ namespace AndreevNIR
 
         private void buttonReferenceData_Click(object sender, EventArgs e)
         {
-            richTextBoxPrimeTime.Hide();
             panelForms.Controls.Clear();
 
             FormReferenceData formReferenceData = new FormReferenceData() 
@@ -47,6 +49,8 @@ namespace AndreevNIR
             formReferenceData.FormBorderStyle = FormBorderStyle.None;
             panelForms.Controls.Add(formReferenceData);
             try { formReferenceData.Show(); } catch { }
+
+            ShowPrimeTime();
         }
 
         private void buttonInformation_Click(object sender, EventArgs e)
@@ -56,7 +60,6 @@ namespace AndreevNIR
 
         private void buttonRequests_Click(object sender, EventArgs e)
         {
-            richTextBoxPrimeTime.Hide();
             panelForms.Controls.Clear();
 
             FormRequests formRequests = new FormRequests()
@@ -64,11 +67,12 @@ namespace AndreevNIR
             formRequests.FormBorderStyle = FormBorderStyle.None;
             panelForms.Controls.Add(formRequests);
             formRequests.Show();
+
+            ShowPrimeTime();
         }
 
         private void buttonReport_Click(object sender, EventArgs e)
         {
-            richTextBoxPrimeTime.Hide();
             panelForms.Controls.Clear();
 
             FormReport formReport = new FormReport()
@@ -76,6 +80,8 @@ namespace AndreevNIR
             formReport.FormBorderStyle = FormBorderStyle.None;
             panelForms.Controls.Add(formReport);
             formReport.Show();
+
+            ShowPrimeTime();
         }
 
         private void comboBoxOperationalData_SelectedIndexChanged(object sender, EventArgs e)
@@ -85,7 +91,6 @@ namespace AndreevNIR
             switch (selected) {
 
                 case "Учёт пациентов":
-                    richTextBoxPrimeTime.Hide();
                     panelForms.Controls.Clear();
 
                     FormOperationalDataPatient formChild1 = new FormOperationalDataPatient()
@@ -94,10 +99,11 @@ namespace AndreevNIR
                     panelForms.Controls.Add(formChild1);
                     formChild1.Show();
 
+                    ShowPrimeTime();
+
                     break;
 
                 case "Выписные листы":
-                    richTextBoxPrimeTime.Hide();
                     panelForms.Controls.Clear();
 
                     FormOperationalDataList formChild2 = new FormOperationalDataList()
@@ -106,10 +112,11 @@ namespace AndreevNIR
                     panelForms.Controls.Add(formChild2);
                     formChild2.Show();
 
+                    ShowPrimeTime();
+
                     break;
 
                 case "История болезни":
-                    richTextBoxPrimeTime.Hide();
                     panelForms.Controls.Clear();
 
                     FormOperationalDataHistory formChild3 = new FormOperationalDataHistory()
@@ -117,6 +124,8 @@ namespace AndreevNIR
                     formChild3.FormBorderStyle = FormBorderStyle.None;
                     panelForms.Controls.Add(formChild3);
                     formChild3.Show();
+
+                    ShowPrimeTime();
 
                     break;
 
@@ -129,7 +138,6 @@ namespace AndreevNIR
 
         private void button1_Click(object sender, EventArgs e)
         {
-            richTextBoxPrimeTime.Hide();
             panelForms.Controls.Clear();
 
             ChipiChipi chipi = new ChipiChipi()
@@ -138,12 +146,35 @@ namespace AndreevNIR
             panelForms.Controls.Add(chipi);
             chipi.Show();
 
+            ShowPrimeTime();
+        }
+
+        private void ShowPrimeTime() {
+            PrimeTime form = new PrimeTime()
+            { TopLevel = false, TopMost = true };
+            form.FormBorderStyle = FormBorderStyle.None;
+            panelForms.Controls.Add(form);
+            form.Show();
         }
 
         private void FormIndex2_Load(object sender, EventArgs e)
         {
-            SessionInformation si = new SessionInformation();
+            ShowPrimeTime();
+            labelName.Text = CoreLable;
+        }
+
+        private void buttonOperativeData_Click(object sender, EventArgs e)
+        {
+            panelForms.Controls.Clear();
+            labelName.Text = "Оперативные данные";
+            FormOperativeData formChild = new FormOperativeData()
+            { TopLevel = false, TopMost = true };
+            formChild.FormBorderStyle = FormBorderStyle.None;
+            panelForms.Controls.Add(formChild);
             
+            try { formChild.Show(); } catch { }
+            
+            ShowPrimeTime();
         }
     }
 }

@@ -65,7 +65,7 @@ namespace AndreevNIR.ReferenceData
             // 
             this.groupBox6.Controls.Add(this.button7);
             this.groupBox6.Controls.Add(this.button8);
-            this.groupBox6.Location = new System.Drawing.Point(9, 638);
+            this.groupBox6.Location = new System.Drawing.Point(12, 648);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(447, 103);
             this.groupBox6.TabIndex = 20;
@@ -88,6 +88,7 @@ namespace AndreevNIR.ReferenceData
             this.button8.TabIndex = 0;
             this.button8.Text = "Сохранить";
             this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // label2
             // 
@@ -107,6 +108,7 @@ namespace AndreevNIR.ReferenceData
             this.dataGridView3.RowTemplate.Height = 28;
             this.dataGridView3.Size = new System.Drawing.Size(515, 299);
             this.dataGridView3.TabIndex = 2;
+            this.dataGridView3.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView3_CellClick);
             // 
             // textBox4
             // 
@@ -145,7 +147,7 @@ namespace AndreevNIR.ReferenceData
             this.groupBox3.Controls.Add(this.label1);
             this.groupBox3.Controls.Add(this.monthCalendar1);
             this.groupBox3.Controls.Add(this.textBox1);
-            this.groupBox3.Location = new System.Drawing.Point(1270, 398);
+            this.groupBox3.Location = new System.Drawing.Point(560, 398);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(370, 343);
             this.groupBox3.TabIndex = 19;
@@ -177,6 +179,7 @@ namespace AndreevNIR.ReferenceData
             this.dataGridView1.RowTemplate.Height = 28;
             this.dataGridView1.Size = new System.Drawing.Size(515, 299);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
             // dataGridView2
             // 
@@ -187,6 +190,7 @@ namespace AndreevNIR.ReferenceData
             this.dataGridView2.RowTemplate.Height = 28;
             this.dataGridView2.Size = new System.Drawing.Size(515, 299);
             this.dataGridView2.TabIndex = 2;
+            this.dataGridView2.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellClick);
             // 
             // groupBox2
             // 
@@ -240,7 +244,7 @@ namespace AndreevNIR.ReferenceData
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.comboBox2);
-            this.groupBox5.Location = new System.Drawing.Point(560, 429);
+            this.groupBox5.Location = new System.Drawing.Point(12, 398);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(527, 130);
             this.groupBox5.TabIndex = 5;

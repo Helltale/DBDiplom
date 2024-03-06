@@ -13,92 +13,59 @@ namespace AndreevNIR.ReferenceData
 {
     public partial class FormAddTypeHealExamination : Form
     {
-        ClassTypeHealExamination ct = new ClassTypeHealExamination();
-        private int id_staff_selected_d;
-        private int id_patient_selected_d;
-        private string id_staff_selected_s = null;
-        private string id_patient_selected_s = null;
-        private DateTime date_meeteng;
-
+        CoreLogic cl = new CoreLogic();
+        DBLogicConnection db = new DBLogicConnection();
+        private string id_therapist;
+        private string id_patient;
+        private string id_meeting;
 
         public FormAddTypeHealExamination()
         {
             InitializeComponent();
-            FillDataGrids(); //id хранятся в [1]
+            LoadDGV("select t1.id_staff, t2.full_name from therapist t1 join staff t2 on t1.id_staff = t2.id_staff", dataGridView1); //врач
             richTextBox2.Enabled = false;
         }
 
-        private void FillDataGrids() {
-            //врач
-            string str1 = "select t2.full_name, t1.id_staff from therapist t1 join staff t2 on t1.id_staff = t2.id_staff";
-            ct.FindAllPeople(dataGridView1, str1);
+        public FormAddTypeHealExamination(string id_meeting_) {
+            ClassTypeHealExamination ct = new ClassTypeHealExamination();
 
-            //пациент
-            string str2 = "select full_name, id_staff from staff";
-            ct.FindAllPeople(dataGridView2, str2);
+            InitializeComponent();
+            LoadDGV("select t1.id_staff, t2.full_name from therapist t1 join staff t2 on t1.id_staff = t2.id_staff", dataGridView1); //врач
+            richTextBox2.Enabled = false;
+            id_meeting = id_meeting_;
+            groupBox1.Enabled = false;
+            groupBox2.Enabled = false;
+
+            ct.LoadExamination(id_meeting_, monthCalendar1, richTextBox1, richTextBox2, textBox1);
+            if (richTextBox2.Text != null) { checkBox1.Checked = true; richTextBox2.Enabled = true; }
+        }
+
+
+        private void LoadDGV(string str, DataGridView dgv) {
+            cl.ShowDGV(str, dgv, db._connectionString);
+            dgv.Columns[0].Visible = false;
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            try { 
-                id_staff_selected_d = dataGridView1.SelectedRows[0].Index;
-                id_staff_selected_s = dataGridView1.Rows[id_staff_selected_d].Cells[1].Value.ToString();
-                
-            } catch { }
-        }
-
-        private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            try { 
-                id_patient_selected_d = dataGridView2.SelectedRows[0].Index;
-                id_patient_selected_s = dataGridView2.Rows[id_patient_selected_d].Cells[1].Value.ToString();
-            } catch { }
+            try { id_therapist = dataGridView1.SelectedRows[0].Cells[0].Value.ToString(); } catch { } //получить therapist id
+            LoadDGV($"select t1.id_patient, t3.full_name from doc_patient t1 join patient_in_room t2 on t1.id_patient = t2.id_patient join patient t3 on t3.omc = t2.omc where t1.id_staff = '{id_therapist}'", dataGridView2);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string str1 = $"select t2.full_name, t1.id_staff from therapist t1 join staff t2 on t1.id_staff = t2.id_staff where full_name like '%{textBox2.Text}%'";
-            ct.FindAllPeople(dataGridView1, str1);
-        }
-
-        private void FormAddTypeHealExamination_Load(object sender, EventArgs e)
-        {
-
+            LoadDGV($"select t1.id_staff, t2.full_name from therapist t1 join staff t2 on t1.id_staff = t2.id_staff where t2.full_name like '%{textBox2.Text}%'", dataGridView1); //врач
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            string str1 = "select t2.full_name, t1.id_staff from therapist t1 join staff t2 on t1.id_staff = t2.id_staff";
-            ct.FindAllPeople(dataGridView1, str1);
+            LoadDGV("select t1.id_staff, t2.full_name from therapist t1 join staff t2 on t1.id_staff = t2.id_staff", dataGridView1); //врач
             textBox2.Text = null;
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            string str2 = $"select full_name, id_staff from staff where full_name like '%{textBox3.Text}%'";
-            ct.FindAllPeople(dataGridView2, str2);
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            string str2 = "select full_name, id_staff from staff";
-            ct.FindAllPeople(dataGridView2, str2);
-            textBox3.Text = null;
-        }
-
-        private void button7_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
-        {
-            date_meeteng = monthCalendar1.SelectionStart;
-        }
-
-        private void checkBox1_Click(object sender, EventArgs e)
-        {
-            if (checkBox1.Checked)
+            if (checkBox1.Checked == true)
             {
                 richTextBox2.Enabled = true;
             }
@@ -110,10 +77,18 @@ namespace AndreevNIR.ReferenceData
 
         private void button8_Click(object sender, EventArgs e)
         {
-            string staff = id_staff_selected_s;
-            string patient = id_patient_selected_s;
             ClassTypeHealExamination ct = new ClassTypeHealExamination();
-            ct.CreateExamination(staff, patient, date_meeteng, richTextBox1, richTextBox2, textBox1);
+            if (id_meeting == null)
+            {
+                ct.CreateExamination(id_therapist, id_patient, monthCalendar1.SelectionStart, richTextBox1, richTextBox2, textBox1);
+            }
+            else { ct.UpdateExamination(monthCalendar1, richTextBox1, richTextBox2, textBox1); }
+            this.Close();
+        }
+
+        private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try { id_patient = dataGridView2.SelectedRows[0].Cells[0].Value.ToString(); } catch { } //получить patient_id
         }
     }
 }

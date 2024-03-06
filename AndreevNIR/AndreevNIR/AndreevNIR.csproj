@@ -117,12 +117,19 @@
     <Compile Include="additionalForms\ChipiChipi.Designer.cs">
       <DependentUpon>ChipiChipi.cs</DependentUpon>
     </Compile>
-    <Compile Include="CoreLogic.cs" />
-    <Compile Include="DBLogicConnection.cs" />
-    <Compile Include="FormAutorizationSettings.cs">
+    <Compile Include="additionalForms\ClassPrimeTime.cs" />
+    <Compile Include="additionalForms\PrimeTime.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormAutorizationSettings.Designer.cs">
+    <Compile Include="additionalForms\PrimeTime.Designer.cs">
+      <DependentUpon>PrimeTime.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CoreLogic.cs" />
+    <Compile Include="DBLogicConnection.cs" />
+    <Compile Include="authorization\FormAutorizationSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="authorization\FormAutorizationSettings.Designer.cs">
       <DependentUpon>FormAutorizationSettings.cs</DependentUpon>
     </Compile>
     <Compile Include="Formtest.cs">
@@ -131,6 +138,13 @@
     <Compile Include="Formtest.Designer.cs">
       <DependentUpon>Formtest.cs</DependentUpon>
     </Compile>
+    <Compile Include="OperationalData\FormOperativeData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OperationalData\FormOperativeData.Designer.cs">
+      <DependentUpon>FormOperativeData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OperationalData\ListOut\ListOut.cs" />
     <Compile Include="OperationalData\Patients\ClassPatientAddLogic.cs" />
     <Compile Include="OperationalData\Patients\ClassPatientInRoom.cs" />
     <Compile Include="OperationalData\Patients\FormAddPatient.cs">
@@ -143,6 +157,14 @@
     <Compile Include="ReferenceData\Documents\Extraction\ClassLogicExtraction.cs" />
     <Compile Include="ReferenceData\Documents\Initial\ClassInitial.cs" />
     <Compile Include="ReferenceData\Documents\ListNotWorking\ClassListNotWorking.cs" />
+    <Compile Include="ReferenceData\Procedures\ClassDrug.cs" />
+    <Compile Include="ReferenceData\Procedures\ClassProcedures.cs" />
+    <Compile Include="ReferenceData\Procedures\FormAddDrug.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReferenceData\Procedures\FormAddDrug.Designer.cs">
+      <DependentUpon>FormAddDrug.cs</DependentUpon>
+    </Compile>
     <Compile Include="ReferenceData\Struct\ClassStruct.cs" />
     <Compile Include="ReferenceData\Staff\FormAddStaff.cs">
       <SubType>Form</SubType>
@@ -193,7 +215,9 @@
     <Compile Include="ReferenceData\Documents\ListNotWorking\FormAddTypeDockNotWorking.Designer.cs">
       <DependentUpon>FormAddTypeDockNotWorking.cs</DependentUpon>
     </Compile>
+    <Compile Include="ReferenceData\TypeHeal\ClassTypeHealConservative.cs" />
     <Compile Include="ReferenceData\TypeHeal\ClassTypeHealExamination.cs" />
+    <Compile Include="ReferenceData\TypeHeal\ClassTypeHealOperation.cs" />
     <Compile Include="ReferenceData\TypeHeal\FormAddTypeHealConservative.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -212,16 +236,16 @@
     <Compile Include="ReferenceData\TypeHeal\FormAddTypeHealOperations.Designer.cs">
       <DependentUpon>FormAddTypeHealOperations.cs</DependentUpon>
     </Compile>
-    <Compile Include="ReferenceData\FormAddTypeProc.cs">
+    <Compile Include="ReferenceData\Procedures\FormAddTypeProc.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ReferenceData\FormAddTypeProc.Designer.cs">
+    <Compile Include="ReferenceData\Procedures\FormAddTypeProc.Designer.cs">
       <DependentUpon>FormAddTypeProc.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormAutorization.cs">
+    <Compile Include="authorization\FormAutorization.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormAutorization.Designer.cs">
+    <Compile Include="authorization\FormAutorization.Designer.cs">
       <DependentUpon>FormAutorization.cs</DependentUpon>
     </Compile>
     <Compile Include="FormIndex2.cs">
@@ -242,16 +266,16 @@
     <Compile Include="OperationalData\FormOperationalDataHistoryAdd.Designer.cs">
       <DependentUpon>FormOperationalDataHistoryAdd.cs</DependentUpon>
     </Compile>
-    <Compile Include="OperationalData\FormOperationalDataList.cs">
+    <Compile Include="OperationalData\ListOut\FormOperationalDataList.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="OperationalData\FormOperationalDataList.Designer.cs">
+    <Compile Include="OperationalData\ListOut\FormOperationalDataList.Designer.cs">
       <DependentUpon>FormOperationalDataList.cs</DependentUpon>
     </Compile>
-    <Compile Include="OperationalData\FormOperationalDataListAdd.cs">
+    <Compile Include="OperationalData\ListOut\FormOperationalDataListAdd.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="OperationalData\FormOperationalDataListAdd.Designer.cs">
+    <Compile Include="OperationalData\ListOut\FormOperationalDataListAdd.Designer.cs">
       <DependentUpon>FormOperationalDataListAdd.cs</DependentUpon>
     </Compile>
     <Compile Include="OperationalData\Patients\FormOperationalDataPatient.cs">
@@ -271,12 +295,6 @@
     </Compile>
     <Compile Include="ReferenceData\FormReferenceData.Designer.cs">
       <DependentUpon>FormReferenceData.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ReferenceData\FormReferenceDataAdd.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ReferenceData\FormReferenceDataAdd.Designer.cs">
-      <DependentUpon>FormReferenceDataAdd.cs</DependentUpon>
     </Compile>
     <Compile Include="FormReport.cs">
       <SubType>Form</SubType>
@@ -304,14 +322,23 @@
     <EmbeddedResource Include="additionalForms\ChipiChipi.resx">
       <DependentUpon>ChipiChipi.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormAutorizationSettings.resx">
+    <EmbeddedResource Include="additionalForms\PrimeTime.resx">
+      <DependentUpon>PrimeTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="authorization\FormAutorizationSettings.resx">
       <DependentUpon>FormAutorizationSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formtest.resx">
       <DependentUpon>Formtest.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="OperationalData\FormOperativeData.resx">
+      <DependentUpon>FormOperativeData.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="OperationalData\Patients\FormAddPatient.resx">
       <DependentUpon>FormAddPatient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReferenceData\Procedures\FormAddDrug.resx">
+      <DependentUpon>FormAddDrug.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReferenceData\Staff\FormAddStaff.resx">
       <DependentUpon>FormAddStaff.cs</DependentUpon>
@@ -346,10 +373,10 @@
     <EmbeddedResource Include="ReferenceData\TypeHeal\FormAddTypeHealOperations.resx">
       <DependentUpon>FormAddTypeHealOperations.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ReferenceData\FormAddTypeProc.resx">
+    <EmbeddedResource Include="ReferenceData\Procedures\FormAddTypeProc.resx">
       <DependentUpon>FormAddTypeProc.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormAutorization.resx">
+    <EmbeddedResource Include="authorization\FormAutorization.resx">
       <DependentUpon>FormAutorization.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormIndex2.resx">
@@ -361,10 +388,10 @@
     <EmbeddedResource Include="OperationalData\FormOperationalDataHistoryAdd.resx">
       <DependentUpon>FormOperationalDataHistoryAdd.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="OperationalData\FormOperationalDataList.resx">
+    <EmbeddedResource Include="OperationalData\ListOut\FormOperationalDataList.resx">
       <DependentUpon>FormOperationalDataList.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="OperationalData\FormOperationalDataListAdd.resx">
+    <EmbeddedResource Include="OperationalData\ListOut\FormOperationalDataListAdd.resx">
       <DependentUpon>FormOperationalDataListAdd.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OperationalData\Patients\FormOperationalDataPatient.resx">
@@ -375,9 +402,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ReferenceData\FormReferenceData.resx">
       <DependentUpon>FormReferenceData.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ReferenceData\FormReferenceDataAdd.resx">
-      <DependentUpon>FormReferenceDataAdd.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormReport.resx">
       <DependentUpon>FormReport.cs</DependentUpon>
