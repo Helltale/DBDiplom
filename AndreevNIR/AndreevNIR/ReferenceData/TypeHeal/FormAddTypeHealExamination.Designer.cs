@@ -318,7 +318,7 @@ namespace AndreevNIR.ReferenceData
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "FormAddTypeHealExamination";
-            this.Text = "FormAddTypeHealDockExamiantion";
+            this.Text = "Плановый осмотр";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();

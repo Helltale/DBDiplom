@@ -55,6 +55,9 @@ namespace AndreevNIR
                 adapter.Fill(table);
 
                 dgv.DataSource = table;
+
+                dgv.Update();
+                dgv.ClearSelection();
             }
             catch (Exception ex) { MessageBox.Show("Ошибка: " + ex); }
         } //заполнение DGV
@@ -195,5 +198,13 @@ namespace AndreevNIR
             cb.Text = defaultText;
 
         } //заполняет combobox параметрами, которые можно задать вручную
+
+        //заполняет лист
+        public List<bool> FillListBool(List<bool> list, params bool[] flag) {
+            for (int i = 0; i < flag.Length; i++) {
+                list.Add(flag[i]);
+            }
+            return list;
+        }
     }
 }

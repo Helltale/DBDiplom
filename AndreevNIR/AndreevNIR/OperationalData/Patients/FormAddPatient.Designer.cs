@@ -30,6 +30,7 @@ namespace AndreevNIR.OperationalData.Patients
         private void InitializeComponent()
         {
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.textBox12 = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.textBox11 = new System.Windows.Forms.TextBox();
@@ -42,6 +43,10 @@ namespace AndreevNIR.OperationalData.Patients
             this.textBox7 = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.textBox8 = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -49,8 +54,6 @@ namespace AndreevNIR.OperationalData.Patients
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.textBox3 = new System.Windows.Forms.TextBox();
@@ -59,21 +62,18 @@ namespace AndreevNIR.OperationalData.Patients
             this.label2 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.button3 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.comboBox4 = new System.Windows.Forms.ComboBox();
             this.label16 = new System.Windows.Forms.Label();
             this.textBox13 = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
-            this.label8 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.textBox8 = new System.Windows.Forms.TextBox();
-            this.label19 = new System.Windows.Forms.Label();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -101,6 +101,13 @@ namespace AndreevNIR.OperationalData.Patients
             this.groupBox3.TabIndex = 5;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Паспортные данные";
+            // 
+            // dateTimePicker2
+            // 
+            this.dateTimePicker2.Location = new System.Drawing.Point(137, 87);
+            this.dateTimePicker2.Name = "dateTimePicker2";
+            this.dateTimePicker2.Size = new System.Drawing.Size(363, 26);
+            this.dateTimePicker2.TabIndex = 18;
             // 
             // textBox12
             // 
@@ -210,6 +217,39 @@ namespace AndreevNIR.OperationalData.Patients
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Дополнительная информация";
             // 
+            // textBox8
+            // 
+            this.textBox8.Location = new System.Drawing.Point(136, 126);
+            this.textBox8.Name = "textBox8";
+            this.textBox8.Size = new System.Drawing.Size(363, 26);
+            this.textBox8.TabIndex = 12;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(6, 129);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(109, 20);
+            this.label19.TabIndex = 11;
+            this.label19.Text = "Место жилья";
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Location = new System.Drawing.Point(10, 197);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(489, 169);
+            this.richTextBox1.TabIndex = 10;
+            this.richTextBox1.Text = "";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(6, 173);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(145, 20);
+            this.label15.TabIndex = 9;
+            this.label15.Text = "Доп. информация";
+            // 
             // comboBox2
             // 
             this.comboBox2.FormattingEnabled = true;
@@ -277,22 +317,6 @@ namespace AndreevNIR.OperationalData.Patients
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Основная информация";
             // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(5, 110);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(208, 20);
-            this.label18.TabIndex = 9;
-            this.label18.Text = "Дата первичного осмотра";
-            // 
-            // dateTimePicker1
-            // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(215, 108);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(283, 26);
-            this.dateTimePicker1.TabIndex = 8;
-            // 
             // textBox4
             // 
             this.textBox4.Location = new System.Drawing.Point(137, 90);
@@ -357,6 +381,22 @@ namespace AndreevNIR.OperationalData.Patients
             this.label1.TabIndex = 0;
             this.label1.Text = "ФИО пациента";
             // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(5, 110);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(208, 20);
+            this.label18.TabIndex = 9;
+            this.label18.Text = "Дата первичного осмотра";
+            // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.Location = new System.Drawing.Point(215, 108);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(283, 26);
+            this.dateTimePicker1.TabIndex = 8;
+            // 
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.button3);
@@ -405,6 +445,22 @@ namespace AndreevNIR.OperationalData.Patients
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Первичный осмотр";
             // 
+            // textBox6
+            // 
+            this.textBox6.Location = new System.Drawing.Point(229, 148);
+            this.textBox6.Name = "textBox6";
+            this.textBox6.Size = new System.Drawing.Size(269, 26);
+            this.textBox6.TabIndex = 11;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(5, 151);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(218, 20);
+            this.label8.TabIndex = 10;
+            this.label8.Text = "Время первичного осмотра";
+            // 
             // comboBox4
             // 
             this.comboBox4.FormattingEnabled = true;
@@ -438,62 +494,6 @@ namespace AndreevNIR.OperationalData.Patients
             this.label17.TabIndex = 2;
             this.label17.Text = "Диагноз";
             // 
-            // dateTimePicker2
-            // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(137, 87);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(363, 26);
-            this.dateTimePicker2.TabIndex = 18;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(5, 151);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(218, 20);
-            this.label8.TabIndex = 10;
-            this.label8.Text = "Время первичного осмотра";
-            // 
-            // textBox6
-            // 
-            this.textBox6.Location = new System.Drawing.Point(229, 148);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(269, 26);
-            this.textBox6.TabIndex = 11;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(6, 173);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(145, 20);
-            this.label15.TabIndex = 9;
-            this.label15.Text = "Доп. информация";
-            // 
-            // richTextBox1
-            // 
-            this.richTextBox1.Location = new System.Drawing.Point(10, 197);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(489, 169);
-            this.richTextBox1.TabIndex = 10;
-            this.richTextBox1.Text = "";
-            // 
-            // textBox8
-            // 
-            this.textBox8.Location = new System.Drawing.Point(136, 126);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(363, 26);
-            this.textBox8.TabIndex = 12;
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(6, 129);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(109, 20);
-            this.label19.TabIndex = 11;
-            this.label19.Text = "Место жилья";
-            // 
             // FormAddPatient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -505,7 +505,7 @@ namespace AndreevNIR.OperationalData.Patients
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "FormAddPatient";
-            this.Text = "FormAddPatient";
+            this.Text = "Первичный осмотр";
             this.Load += new System.EventHandler(this.FormAddPatient_Load);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();

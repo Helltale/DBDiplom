@@ -271,7 +271,7 @@ namespace AndreevNIR.ReferenceData
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "FormAddTypeHealConservative";
-            this.Text = "FormAddTypeHealConservative";
+            this.Text = "Консервативное лечение";
             this.groupBox6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
             this.groupBox4.ResumeLayout(false);

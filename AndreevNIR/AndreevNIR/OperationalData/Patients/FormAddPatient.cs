@@ -12,6 +12,7 @@ namespace AndreevNIR.OperationalData.Patients
 {
     public partial class FormAddPatient : Form
     {
+        CoreLogic cl = new CoreLogic();
         bool isChange = false;
         string omc = null;
         public FormAddPatient()
@@ -44,16 +45,59 @@ namespace AndreevNIR.OperationalData.Patients
         private void button1_Click(object sender, EventArgs e)
         {
             ClassPatientAddLogic cp = new ClassPatientAddLogic();
-            if (isChange) {
-                cp.UpdatePatient(omc, textBox1, textBox2, textBox4, textBox3, textBox5, comboBox1, comboBox2, richTextBox1, textBox8, textBox11, textBox9, dateTimePicker2,
-                textBox10, textBox7, textBox12, textBox13, comboBox4, dateTimePicker1, textBox6);
+            CheckFields cf = new CheckFields();
+            var listFill1 = cf.CheckAllFields(textBox1, textBox2, textBox3, textBox4,textBox11, textBox9, textBox10, textBox7, textBox12, textBox5, textBox8, textBox13, textBox6);
+            var errorMessage1 = cf.GenerateErrorMessageEmptyTextBox(listFill1, "ФИО", "СНИЛС", "ОМС", "Диагноз", "Серия паспорта", "Номер паспорта", "Кем выдан", "Код паспорта", "Прописка", "Аллергии", "Место жительства",
+                "Диагноз", "Время первичного осмотра");
+            if (errorMessage1 == "Следующие поля не были заполнены: ")
+            {
+                bool flagE1 = cf.LetterAndSpace(textBox1); //фио
+                bool flagE2 = cf.DigitAndDash(textBox2); //снилс
+                bool flagE3 = cf.DigitAndDash(textBox4); //омс
+                //bool flagE4 = cf.Anything(textBox3); //диагноз при поступлении
+                bool flagE5 = cf.Digit(textBox11); //серия паспорта
+                bool flagE6 = cf.Digit(textBox9); //номер паспорта
+                bool flagE7 = cf.LetterAndDotAndCommaAndSpace(textBox10);  //кем выдан
+                bool flagE8 = cf.DigitAndDash(textBox7); //код паспорта
+                bool flagE9 = cf.LetterAndDotAndCommaAndSpaceAndDigitAndDash(textBox12); //прописка
+                bool flagE10 = cf.LetterAndSpaceAndPunctuation(textBox5); //аллергии
+                bool flagE11 = cf.LetterAndDotAndCommaAndSpaceAndDigitAndDash(textBox8); //место жительства
+                //bool flagE12 = cf.Anything(textBox13); //диагноз
+                bool flagE13 = cf.DigitAndColon(textBox6); //время первичного осмотра
+                bool flagEC = cf.CheckedCombobox(comboBox1, comboBox2, comboBox4); //выбраны значения в cb
+
+                //заполнение листа для генерации ошибки
+                var listFill2 = new List<bool>();
+                listFill2.AddRange(new bool[] { flagE1, flagE2, flagE3, flagE5, flagE6, flagE7, flagE8, flagE9, flagE10, flagE11, flagE13 });
+
+                var errorMessage2 = cf.GenerateErrorMessageErrors(listFill2, "ФИО", "СНИЛС", "ОМС", "Серия паспорта", "Номер паспорта", "Кем выдан", "Код паспорта", "Прописка", "Аллергии", "Место жительства", "Время первичного осмотра", 
+                    "Не выбраны пункты выпадающего меню");
+
+                //проверка на корректность
+                if (errorMessage2 == "Следующие поля были заполнены с ошибками: ")
+                {
+                    if (isChange)
+                    {
+                        cp.UpdatePatient(omc, textBox1, textBox2, textBox4, textBox3, textBox5, comboBox1, comboBox2, richTextBox1, textBox8, textBox11, textBox9, dateTimePicker2,
+                            textBox10, textBox7, textBox12, textBox13, comboBox4, dateTimePicker1, textBox6);
+                    }
+                    else
+                    {
+                        cp.CreatePatient(textBox4, textBox3, textBox2, textBox1, textBox5, comboBox1, comboBox2, richTextBox1, textBox8, textBox9, dateTimePicker2,
+                            textBox11, textBox10, textBox7, textBox12, dateTimePicker1, textBox6, comboBox4, textBox13);
+                    }
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show(errorMessage2); //найдены ошибки
+                }
             }
             else {
-                
-                cp.CreatePatient(textBox4, textBox3, textBox2, textBox1, textBox5, comboBox1, comboBox2, richTextBox1, textBox8, textBox9, dateTimePicker2,
-                    textBox11, textBox10, textBox7, textBox12, dateTimePicker1, textBox6, comboBox4, textBox13);
+                MessageBox.Show(errorMessage1); //не были заполнены нужные строки
             }
-            this.Close();
+
+            
         }
 
         private void FullUpComboboxes() {

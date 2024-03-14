@@ -13,7 +13,8 @@ namespace AndreevNIR
 {
     public partial class FormOperationalDataPatientAdd : Form
     {
-        private string strQuery = "select t1.omc, t1.full_name, t2.date_initial, to_char(t2.time_initial, 'HH24:MI:SS') as \"time\", t2.diagnosis, t4.full_name from patient t1 join initial_inspection t2 on t1.omc = t2.omc join receptionist t3 on t3.id_staff = t2.doc_receptinoist join staff t4 on t3.id_staff = t4.id_staff";
+        private string strQuery = "select t1.omc \"ОМС\", t1.full_name \"ФИО пациента\", t2.date_initial \"Дата первичного осмотра\", to_char(t2.time_initial, 'HH24:MI:SS') as \"Время первичного осмотра\", t2.diagnosis \"Диагноз\", " +
+            "t4.full_name \"ФИО врача приёмного покоя\" from patient t1 join initial_inspection t2 on t1.omc = t2.omc join receptionist t3 on t3.id_staff = t2.doc_receptinoist join staff t4 on t3.id_staff = t4.id_staff";
         CoreLogic cl = new CoreLogic();
         DBLogicConnection db = new DBLogicConnection();
 
@@ -130,14 +131,32 @@ namespace AndreevNIR
         private void button1_Click(object sender, EventArgs e)
         {
             ClassPatientInRoom cp = new ClassPatientInRoom();
-            if (isChange)
+            CheckFields cf = new CheckFields();
+            bool flagE1 = cf.CheckedCombobox(comboBox1);
+            bool flagE2 = cf.CheckedCombobox(comboBox2);
+            bool flagE3 = cf.CheckedCombobox(comboBox3);
+            bool flagE4 = cf.CheckedCombobox(comboBox6);
+
+            //заполнение листа для генерации ошибки
+            var listFill = new List<bool>();
+            listFill.AddRange(new bool[] { flagE1, flagE2, flagE3, flagE4 });
+
+            var errorMessage = cf.GenerateErrorMessageEmptyComboBox(listFill, "Хирургический стационар", "Отделение", "Палата", "Лечащий врач");
+            if (errorMessage == "Значения в следующих выпадающих меню не были выбраны: ")
             {
-                cp.ChangePatientInRoom(id_patient, omc, comboBox1, comboBox2, comboBox3, comboBox6);
+                if (isChange)
+                {
+                    cp.ChangePatientInRoom(id_patient, omc, comboBox1, comboBox2, comboBox3, comboBox6);
+                }
+                else
+                {
+                    cp.CreatePatietnInRoom(omc, comboBox1, comboBox2, comboBox3, comboBox6);
+                }
+                this.Close();
             }
             else {
-                cp.CreatePatietnInRoom(omc, comboBox1, comboBox2, comboBox3, comboBox6);
+                MessageBox.Show(errorMessage);
             }
-            this.Close();
         }
 
         private void LoadComboboxes() {

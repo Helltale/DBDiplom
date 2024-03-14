@@ -30,6 +30,7 @@ namespace AndreevNIR.ReferenceData
         private void InitializeComponent()
         {
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -49,7 +50,6 @@ namespace AndreevNIR.ReferenceData
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
             this.groupBox5.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -70,6 +70,13 @@ namespace AndreevNIR.ReferenceData
             this.groupBox5.TabIndex = 21;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Название операции";
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(7, 27);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(1062, 26);
+            this.textBox4.TabIndex = 0;
             // 
             // label5
             // 
@@ -248,13 +255,6 @@ namespace AndreevNIR.ReferenceData
             this.richTextBox2.TabIndex = 0;
             this.richTextBox2.Text = "";
             // 
-            // textBox4
-            // 
-            this.textBox4.Location = new System.Drawing.Point(7, 27);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(1062, 26);
-            this.textBox4.TabIndex = 0;
-            // 
             // FormAddTypeHealOperations
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -268,7 +268,7 @@ namespace AndreevNIR.ReferenceData
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox6);
             this.Name = "FormAddTypeHealOperations";
-            this.Text = "FormAddTypeHealOperations";
+            this.Text = "Операции";
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.groupBox1.ResumeLayout(false);

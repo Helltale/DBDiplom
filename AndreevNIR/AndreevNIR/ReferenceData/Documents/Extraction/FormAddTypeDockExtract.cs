@@ -44,6 +44,9 @@ namespace AndreevNIR.ReferenceData
             dgv1.Columns[0].Visible = false; //id_staff
             cl.ShowDGV("select t1.id_patient, t2.full_name from patient_in_room t1 join patient t2 on t1.omc = t2.omc", dgv2, db._connectionString); //пац
             dgv2.Columns[0].Visible = false; //id_patient
+
+            //dgv1.ClearSelection(); 
+            //dgv2.ClearSelection();
         }
 
         private void button1_Click_Find(object sender, EventArgs e)
@@ -85,15 +88,53 @@ namespace AndreevNIR.ReferenceData
         private void button8_Click(object sender, EventArgs e)
         {
             ClassLogicExtraction cle = new ClassLogicExtraction();
-            if (number_extract != null) //изменяем ли мы запись?
+            CheckFields cf = new CheckFields();
+
+            var listFill1 = cf.CheckAllFields(textBox1, textBox5, textBox4);
+            var errorMessage1 = cf.GenerateErrorMessageEmptyTextBox(listFill1, "Время", "Номер выписного листа", "Диагноз при выписке", "Рекомендации");
+            if (errorMessage1 == "Следующие поля не были заполнены: ")
             {
-                cle.ChangeExtraction(number_extract, textBox5.Text, monthCalendar1.SelectionStart, textBox1.Text, textBox4.Text, richTextBox1.Text, checkBox1.Checked);
+                //выбраны данные в DGV?
+                var flag1 = cf.SelectedDGV(dataGridView1); //therapist
+                var flag2 = cf.SelectedDGV(dataGridView2); //patient
+                var listFill2 = new List<bool>();
+                listFill2.AddRange(new bool[] { flag1, flag2 });
+
+                var errorMessage2 = cf.GenerateErrorMessageEmptyDGV(listFill2, "Лечащий врач", "Пациент");
+                if (errorMessage2 == "Не были выбраны: ")
+                {
+                    var flag3 = cf.DigitAndColon(textBox1); //time
+                    var flag4 = cf.DigitAndDash(textBox5); //number_extraction
+                    //var flag5 = cf.(textBox4); //diagnosis
+                    var listFill3 = new List<bool>();
+                    listFill3.AddRange(new bool[] { flag3, flag4 });
+
+                    var errorMessage3 = cf.GenerateErrorMessageErrors(listFill3, "Время", "Номер выписного листа");
+                    if (errorMessage3 == "Следующие поля были заполнены с ошибками: ")
+                    {
+                        if (number_extract != null) //изменяем ли мы запись?
+                        {
+                            cle.ChangeExtraction(number_extract, textBox5.Text, monthCalendar1.SelectionStart, textBox1.Text, textBox4.Text, richTextBox1.Text, checkBox1.Checked);
+                        }
+                        else
+                        {
+
+                            cle.CreateExtraction(textBox5.Text, id_staff, id_patient, monthCalendar1.SelectionStart, textBox1.Text, textBox4.Text, richTextBox1.Text, checkBox1.Checked);
+                        }
+                        this.Close();
+                    }
+                    else {
+                        MessageBox.Show(errorMessage3);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show(errorMessage2);
+                }
             }
             else {
-                
-                cle.CreateExtraction(textBox5.Text, id_staff, id_patient, monthCalendar1.SelectionStart, textBox1.Text, textBox4.Text, richTextBox1.Text, checkBox1.Checked);
+                MessageBox.Show(errorMessage1);
             }
-            this.Close();
         }
 
         private void button7_Click(object sender, EventArgs e)

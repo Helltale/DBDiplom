@@ -124,6 +124,7 @@
     <Compile Include="additionalForms\PrimeTime.Designer.cs">
       <DependentUpon>PrimeTime.cs</DependentUpon>
     </Compile>
+    <Compile Include="CheckFields.cs" />
     <Compile Include="CoreLogic.cs" />
     <Compile Include="DBLogicConnection.cs" />
     <Compile Include="authorization\FormAutorizationSettings.cs">
@@ -138,12 +139,19 @@
     <Compile Include="Formtest.Designer.cs">
       <DependentUpon>Formtest.cs</DependentUpon>
     </Compile>
+    <Compile Include="OperationalData\History\FormChildAdd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OperationalData\History\FormChildAdd.Designer.cs">
+      <DependentUpon>FormChildAdd.cs</DependentUpon>
+    </Compile>
     <Compile Include="OperationalData\FormOperativeData.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="OperationalData\FormOperativeData.Designer.cs">
       <DependentUpon>FormOperativeData.cs</DependentUpon>
     </Compile>
+    <Compile Include="OperationalData\History\HistoryClass.cs" />
     <Compile Include="OperationalData\ListOut\ListOut.cs" />
     <Compile Include="OperationalData\Patients\ClassPatientAddLogic.cs" />
     <Compile Include="OperationalData\Patients\ClassPatientInRoom.cs" />
@@ -164,6 +172,13 @@
     </Compile>
     <Compile Include="ReferenceData\Procedures\FormAddDrug.Designer.cs">
       <DependentUpon>FormAddDrug.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReferenceData\Staff\ClassStaff.cs" />
+    <Compile Include="ReferenceData\Staff\FormStaff.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReferenceData\Staff\FormStaff.Designer.cs">
+      <DependentUpon>FormStaff.cs</DependentUpon>
     </Compile>
     <Compile Include="ReferenceData\Struct\ClassStruct.cs" />
     <Compile Include="ReferenceData\Staff\FormAddStaff.cs">
@@ -331,6 +346,9 @@
     <EmbeddedResource Include="Formtest.resx">
       <DependentUpon>Formtest.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="OperationalData\History\FormChildAdd.resx">
+      <DependentUpon>FormChildAdd.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="OperationalData\FormOperativeData.resx">
       <DependentUpon>FormOperativeData.cs</DependentUpon>
     </EmbeddedResource>
@@ -342,6 +360,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ReferenceData\Staff\FormAddStaff.resx">
       <DependentUpon>FormAddStaff.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReferenceData\Staff\FormStaff.resx">
+      <DependentUpon>FormStaff.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReferenceData\Struct\FormAddStruct1.resx">
       <DependentUpon>FormAddStruct1.cs</DependentUpon>
@@ -448,7 +469,9 @@
   <ItemGroup>
     <None Include="assets\setting.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="todoFile.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\build\Microsoft.Extensions.Logging.Abstractions.targets" Condition="Exists('..\packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\build\Microsoft.Extensions.Logging.Abstractions.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

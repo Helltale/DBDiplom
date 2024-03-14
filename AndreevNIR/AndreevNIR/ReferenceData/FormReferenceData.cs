@@ -14,6 +14,7 @@ using AndreevNIR.ReferenceData.Documents.Extraction;
 using AndreevNIR.ReferenceData.Documents.ListNotWorking;
 using AndreevNIR.ReferenceData.Procedures;
 using AndreevNIR.ReferenceData.TypeHeal;
+using AndreevNIR.ReferenceData.Staff;
 
 namespace AndreevNIR
 {
@@ -53,6 +54,12 @@ namespace AndreevNIR
             switch (tabControl1.SelectedIndex)
             {
                 case 0: //персонал
+                    {
+                        FormStaff fs = new FormStaff();
+                        fs.ShowDialog();
+                        string str = "SELECT staff.full_name AS \"ФИО\",  CASE WHEN nurce.id_staff IS NOT NULL THEN 'Медицинская сестра' WHEN therapist.id_staff IS NOT NULL THEN 'Врач' WHEN receptionist.id_staff IS NOT NULL THEN 'Врач приёмного покоя' WHEN dep_boss.id_staff IS NOT NULL THEN 'Заведующий отделения' WHEN hir_hosp_boss.id_staff IS NOT NULL THEN 'Главный врач' WHEN big_boss.id_staff IS NOT NULL THEN 'Начальник больницы' END AS \"Должность\", type_department.name_department AS \"Название отделения\", hir_hospital.name_hir_department AS \"Название стационара\", staff.phone AS \"Телефон\", staff.mail AS \"Почта\", user_info.role_user AS \"Уровень доступа\" FROM staff  LEFT JOIN user_info ON staff.id_staff = user_info.id_staff LEFT JOIN receptionist ON receptionist.id_staff = staff.id_staff LEFT JOIN dep_boss ON dep_boss.id_staff = staff.id_staff LEFT JOIN hir_hosp_boss ON hir_hosp_boss.id_staff = staff.id_staff LEFT JOIN big_boss ON big_boss.id_staff = staff.id_staff LEFT JOIN therapist ON therapist.id_staff = staff.id_staff LEFT JOIN department ON staff.code_hir_department = department.code_hir_department and staff.id_department = department.id_department LEFT JOIN type_department ON department.id_department = type_department.id_department  LEFT JOIN hir_hospital ON staff.code_hir_department = hir_hospital.code_hir_department LEFT JOIN nurce ON nurce.id_staff = staff.id_staff;";
+                        ShowDGV(str, dataGridView2, dBLogicConnection._connectionString);
+                    }
                     FormAddStaff fad = new FormAddStaff();
                     fad.ShowDialog();
                     break;
@@ -973,6 +980,11 @@ namespace AndreevNIR
                                 ct.DeleleOperation(selectedMouseCell);
                                 string str = "select o.id_operation, pa.full_name as \"ФИО пациента\", s.full_name as \"ФИО врача\", o.name_operation as \"Название операции\", o.date_operation as \"Дата проведения\", o.time_operation as \"Время проведения\", o.discriptionary_operation as \"Описание\", o.discriptionary_bad as \"Описание осложнений\" from operation o join staff s on s.id_staff = o.id_staff join patient_in_room dir on dir.id_patient = o.id_patient join patient pa on pa.omc = dir.omc"; 
                                 ShowDGV(str, dataGridView4, dBLogicConnection._connectionString);
+                            }
+                            break;
+                        case 3: //meetings
+                            { 
+                            
                             }
                             break;
                     }

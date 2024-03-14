@@ -83,6 +83,11 @@ namespace AndreevNIR
         private void button8_Click(object sender, EventArgs e)
         {
             ClassProcedures cp = new ClassProcedures();
+            CheckFields cf = new CheckFields();
+
+            
+
+
             if (id_procedure != null)
             {
                 cp.SetProcedure(id_procedure, selectedMouseDrugID, textBox3, textBox2, comboBox1);

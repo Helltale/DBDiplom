@@ -139,3 +139,4 @@ D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.OperationalData.Patients.Fo
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.ReferenceData.Procedures.FormAddDrug.resources
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.additionalForms.PrimeTime.resources
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.OperationalData.FormOperativeData.resources
+D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.OperationalData.History.FormChildAdd.resources

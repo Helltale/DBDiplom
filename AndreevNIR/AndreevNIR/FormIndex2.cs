@@ -84,58 +84,6 @@ namespace AndreevNIR
             ShowPrimeTime();
         }
 
-        private void comboBoxOperationalData_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            string selected = comboBoxOperationalData.SelectedItem.ToString();
-
-            switch (selected) {
-
-                case "Учёт пациентов":
-                    panelForms.Controls.Clear();
-
-                    FormOperationalDataPatient formChild1 = new FormOperationalDataPatient()
-                    { TopLevel = false, TopMost = true };
-                    formChild1.FormBorderStyle = FormBorderStyle.None;
-                    panelForms.Controls.Add(formChild1);
-                    formChild1.Show();
-
-                    ShowPrimeTime();
-
-                    break;
-
-                case "Выписные листы":
-                    panelForms.Controls.Clear();
-
-                    FormOperationalDataList formChild2 = new FormOperationalDataList()
-                    { TopLevel = false, TopMost = true };
-                    formChild2.FormBorderStyle = FormBorderStyle.None;
-                    panelForms.Controls.Add(formChild2);
-                    formChild2.Show();
-
-                    ShowPrimeTime();
-
-                    break;
-
-                case "История болезни":
-                    panelForms.Controls.Clear();
-
-                    FormOperationalDataHistory formChild3 = new FormOperationalDataHistory()
-                    { TopLevel = false, TopMost = true };
-                    formChild3.FormBorderStyle = FormBorderStyle.None;
-                    panelForms.Controls.Add(formChild3);
-                    formChild3.Show();
-
-                    ShowPrimeTime();
-
-                    break;
-
-                default:
-                    MessageBox.Show("Ошбика выбора оперативных данных");
-                    break;
-            }
-
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             panelForms.Controls.Clear();
