@@ -30,7 +30,11 @@ namespace AndreevNIR
             InitializeComponent();
             comboBox1.Text = "Выберите стационар";
             comboBox2.Text = "Выберите отделение";
+
             comboBox2.Enabled = false;
+
+            numericUpDown2.Minimum = 1;
+            numericUpDown2.Value = 1;
         }
 
         public FormAddStruct1(string id_department, string code_hir_department, string number_room) {
@@ -39,6 +43,9 @@ namespace AndreevNIR
             dataForUpdate = cs.GetStruct(comboBox1, comboBox2, numericUpDown2, textBox1, id_department, code_hir_department, number_room);
 
             isUpdate = true;
+
+            numericUpDown2.Minimum = 1;
+            numericUpDown2.Value = 1;
         }
         
 
@@ -108,7 +115,7 @@ namespace AndreevNIR
         private void button2_Click(object sender, EventArgs e)
         {
             nameDepartment = comboBox1.SelectedItem.ToString();
-            FormHospitalUpdate fh = new FormHospitalUpdate(nameDepartment);
+            FormHospital fh = new FormHospital(nameDepartment);
             fh.ShowDialog();
             ShowHirDepartmentCombobox();
             comboBox2.SelectedItem = null;
@@ -184,20 +191,50 @@ namespace AndreevNIR
 
         private void button8_Click(object sender, EventArgs e)
         {
-            if (!isUpdate)
+            CheckFields cf = new CheckFields();
+
+            var listFill1 = cf.CheckAllFields(textBox1);
+            var errorMessage1 = cf.GenerateErrorMessageEmptyTextBox(listFill1, "Палата");
+            if (errorMessage1 == "Следующие поля не были заполнены: ")
             {
-                ClassStruct cs = new ClassStruct();
-                cs.CreateRoom(comboBox2, comboBox1, numericUpDown2, textBox1);
-                this.Close();
+                var flag1 = cf.CheckedCombobox(comboBox1); //hir_hospital
+                var flag2 = cf.CheckedCombobox(comboBox2); //department
+
+                var listFill3 = new List<bool>();
+                listFill3.AddRange(new bool[] { flag1, flag2 });
+                var errorMessage3 = cf.GenerateErrorMessageEmptyComboBox(listFill3, "Стационар", "Отделение");
+                if (errorMessage3 == "Значения в следующих выпадающих меню не были выбраны: ")
+                {
+                    var flag3 = cf.Digit(textBox1); // номер палаты           
+
+                    var listFill4 = new List<bool>();
+                    listFill4.AddRange(new bool[] { flag3 });
+                    var errorMessage4 = cf.GenerateErrorMessageErrors(listFill4, "Номер палаты");
+                    if (errorMessage4 == "Следующие поля были заполнены с ошибками: ")
+                    {
+                        ClassStruct cs = new ClassStruct();
+                        if (!isUpdate)
+                        {
+                            cs.CreateRoom(comboBox2, comboBox1, numericUpDown2, textBox1);
+                        }
+                        else
+                        {
+                            cs.UpdateStruct(dataForUpdate, comboBox2, comboBox1, numericUpDown2, textBox1);
+                        }
+                        this.Close();
+                    }
+                    else { MessageBox.Show(errorMessage4); }
+                }
+                else { MessageBox.Show(errorMessage3); }
             }
-            else {
-                ClassStruct cs = new ClassStruct();
-                cs.UpdateStruct(dataForUpdate, comboBox2, comboBox1, numericUpDown2, textBox1);
-                this.Close();
-            }
+            else { MessageBox.Show(errorMessage1); }
+            
             
         }
 
+        private void button9_Click(object sender, EventArgs e)
+        {
 
+        }
     }
 }

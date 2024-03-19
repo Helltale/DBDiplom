@@ -76,16 +76,55 @@ namespace AndreevNIR.ReferenceData
 
         private void button8_Click(object sender, EventArgs e)
         {
-            if (isUpdate)
+            CheckFields cf = new CheckFields();
+
+            var listFill1 = cf.CheckAllFields(textBox1);
+            var errorMessage1 = cf.GenerateErrorMessageEmptyTextBox(listFill1, "Время проведения");
+            if (errorMessage1 == "Следующие поля не были заполнены: ")
             {
-                string id_procedure_new = ct.ReturnProcedureID(comboBox2.Text);
-                ct.UpdateConservative(id_therapist, id_patient, id_procedure, date_procedure, time_procedure, id_procedure_new, id_nurce, monthCalendar1.SelectionStart, textBox1.Text);
+                var flag1 = cf.CheckedCombobox(comboBox2);
+                var listFill2 = new List<bool>();
+                listFill2.AddRange(new bool[] { flag1 });
+                var errorMessage2 = cf.GenerateErrorMessageEmptyComboBox(listFill2, "Процедура");
+                if (errorMessage2 == "Значения в следующих выпадающих меню не были выбраны: ")
+                {
+
+                    var flag2 = cf.SelectedDGV(dataGridView1);
+                    var flag3 = cf.SelectedDGV(dataGridView2);
+                    var flag4 = cf.SelectedDGV(dataGridView3);
+
+                    var listFill3 = new List<bool>();
+                    listFill3.AddRange(new bool[] { flag2, flag3, flag4 });
+                    var errorMessage3 = cf.GenerateErrorMessageEmptyDGV(listFill3, "Лечащий врач", "Пациент", "Медицинская сестра");
+                    if (errorMessage3 == "Не были выбраны поля: ")
+                    {
+
+                        var flag5 = cf.DigitAndColon(textBox1);
+
+                        var listFill4 = new List<bool>();
+                        listFill4.AddRange(new bool[] { flag5 });
+                        var errorMessage4 = cf.GenerateErrorMessageErrors(listFill4, "Время проведения");
+                        if (errorMessage4 == "Следующие поля были заполнены с ошибками: ")
+                        {
+                            if (isUpdate)
+                            {
+                                string id_procedure_new = ct.ReturnProcedureID(comboBox2.Text);
+                                ct.UpdateConservative(id_therapist, id_patient, id_procedure, date_procedure, time_procedure, id_procedure_new, id_nurce, monthCalendar1.SelectionStart, textBox1.Text);
+                            }
+                            else
+                            {
+                                string id_procedure = ct.ReturnProcedureID(comboBox2.SelectedItem.ToString());
+                                ct.CreateConservative(id_therapist, id_patient, id_procedure, id_nurce, monthCalendar1.SelectionStart, textBox1.Text);
+                            }
+                            this.Close();
+                        }
+                        else { MessageBox.Show(errorMessage4); }
+                    }
+                    else { MessageBox.Show(errorMessage3); }
+                }
+                else { MessageBox.Show(errorMessage2); }
             }
-            else {
-                string id_procedure = ct.ReturnProcedureID(comboBox2.SelectedItem.ToString());
-                ct.CreateConservative(id_therapist, id_patient, id_procedure, id_nurce, monthCalendar1.SelectionStart, textBox1.Text);
-            }
-            this.Close();
+            else { MessageBox.Show(errorMessage1); }
         }
     }
 }

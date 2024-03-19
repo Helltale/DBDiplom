@@ -48,13 +48,43 @@ namespace AndreevNIR.ReferenceData
 
         private void button8_Click(object sender, EventArgs e)
         {
-            ClassTypeHealOperation ct = new ClassTypeHealOperation();
-            if (id_operation == null) {
-                ct.CreateOperation(monthCalendar1, textBox1.Text, id_therapist, id_patient, textBox4, richTextBox1, richTextBox2);
-            } else {
-                ct.ChangeOperation(id_operation, monthCalendar1, textBox1, textBox4, richTextBox1, richTextBox2);
+            CheckFields cf = new CheckFields();
+
+            var listFill1 = cf.CheckAllFields(textBox1, textBox4);
+            var errorMessage1 = cf.GenerateErrorMessageEmptyTextBox(listFill1, "Время проведения", "Название операции");
+            if (errorMessage1 == "Следующие поля не были заполнены: ")
+            {
+                var flag1 = cf.CheckRichTextBox(richTextBox1);
+                var listFill2 = new List<bool>();
+                listFill2.AddRange(new bool[] { flag1 });
+                var errorMessage2 = cf.GenerateErrorMessageEmptyRichTextBox(listFill2, "Описание операции");
+                if (errorMessage2 == "Не были заполнены: ")
+                {
+
+                    var flag2 = cf.DigitAndColon(textBox1); //время
+                    var flag3 = cf.LetterAndDotAndCommaAndSpaceAndDigitAndDash(textBox4); //название операции
+
+                    var listFill4 = new List<bool>();
+                    listFill4.AddRange(new bool[] { flag2, flag3 });
+                    var errorMessage4 = cf.GenerateErrorMessageErrors(listFill4, "Время проведения", "Название операции");
+                    if (errorMessage4 == "Следующие поля были заполнены с ошибками: ")
+                    {
+                        ClassTypeHealOperation ct = new ClassTypeHealOperation();
+                        if (id_operation == null)
+                        {
+                            ct.CreateOperation(monthCalendar1, textBox1.Text, id_therapist, id_patient, textBox4, richTextBox1, richTextBox2);
+                        }
+                        else
+                        {
+                            ct.ChangeOperation(id_operation, monthCalendar1, textBox1, textBox4, richTextBox1, richTextBox2);
+                        }
+                        this.Close();
+                    }
+                    else { MessageBox.Show(errorMessage4); }
+                }
+                else { MessageBox.Show(errorMessage2); }
             }
-            this.Close();
+            else { MessageBox.Show(errorMessage1); }
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)

@@ -222,6 +222,7 @@ namespace AndreevNIR.ReferenceData.Staff
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(361, 28);
             this.comboBox1.TabIndex = 2;
+            this.comboBox1.SelectionChangeCommitted += new System.EventHandler(this.comboBox1_SelectionChangeCommitted);
             // 
             // label13
             // 
@@ -301,6 +302,7 @@ namespace AndreevNIR.ReferenceData.Staff
             this.button1.TabIndex = 0;
             this.button1.Text = "Сохранить";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // groupBox6
             // 
@@ -320,6 +322,7 @@ namespace AndreevNIR.ReferenceData.Staff
             this.button2.TabIndex = 1;
             this.button2.Text = "Закрыть";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // label4
             // 
@@ -471,7 +474,7 @@ namespace AndreevNIR.ReferenceData.Staff
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "FormStaff";
-            this.Text = "FormStaff";
+            this.Text = "Сотрудник";
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.groupBox5.ResumeLayout(false);

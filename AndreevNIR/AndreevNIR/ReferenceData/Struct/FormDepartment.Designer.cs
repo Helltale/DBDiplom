@@ -30,6 +30,8 @@ namespace AndreevNIR.ReferenceData.FormAddStruct
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -37,8 +39,6 @@ namespace AndreevNIR.ReferenceData.FormAddStruct
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.SuspendLayout();
@@ -56,6 +56,23 @@ namespace AndreevNIR.ReferenceData.FormAddStruct
             this.groupBox1.Size = new System.Drawing.Size(586, 164);
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(8, 107);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(195, 20);
+            this.label2.TabIndex = 10;
+            this.label2.Text = "Заведущий отделением";
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(218, 104);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(341, 28);
+            this.comboBox2.TabIndex = 11;
             // 
             // label1
             // 
@@ -120,23 +137,6 @@ namespace AndreevNIR.ReferenceData.FormAddStruct
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(8, 107);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(195, 20);
-            this.label2.TabIndex = 10;
-            this.label2.Text = "Заведущий отделением";
-            // 
-            // comboBox2
-            // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(218, 104);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(341, 28);
-            this.comboBox2.TabIndex = 11;
-            // 
             // FormDepartment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -145,7 +145,7 @@ namespace AndreevNIR.ReferenceData.FormAddStruct
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox6);
             this.Name = "FormDepartment";
-            this.Text = "FormDepartment";
+            this.Text = "Отделение";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox6.ResumeLayout(false);

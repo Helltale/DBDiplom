@@ -146,7 +146,6 @@ namespace AndreevNIR.ReferenceData.FormAddStruct
             this.button7.TabIndex = 1;
             this.button7.Text = "Закрыть";
             this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // button8
             // 
@@ -184,7 +183,7 @@ namespace AndreevNIR.ReferenceData.FormAddStruct
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox6);
             this.Name = "FormHospital";
-            this.Text = "FormHospital";
+            this.Text = "Стационар";
             this.groupBox6.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

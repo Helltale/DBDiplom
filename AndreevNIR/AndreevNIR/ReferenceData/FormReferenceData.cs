@@ -57,11 +57,12 @@ namespace AndreevNIR
                     {
                         FormStaff fs = new FormStaff();
                         fs.ShowDialog();
-                        string str = "SELECT staff.full_name AS \"ФИО\",  CASE WHEN nurce.id_staff IS NOT NULL THEN 'Медицинская сестра' WHEN therapist.id_staff IS NOT NULL THEN 'Врач' WHEN receptionist.id_staff IS NOT NULL THEN 'Врач приёмного покоя' WHEN dep_boss.id_staff IS NOT NULL THEN 'Заведующий отделения' WHEN hir_hosp_boss.id_staff IS NOT NULL THEN 'Главный врач' WHEN big_boss.id_staff IS NOT NULL THEN 'Начальник больницы' END AS \"Должность\", type_department.name_department AS \"Название отделения\", hir_hospital.name_hir_department AS \"Название стационара\", staff.phone AS \"Телефон\", staff.mail AS \"Почта\", user_info.role_user AS \"Уровень доступа\" FROM staff  LEFT JOIN user_info ON staff.id_staff = user_info.id_staff LEFT JOIN receptionist ON receptionist.id_staff = staff.id_staff LEFT JOIN dep_boss ON dep_boss.id_staff = staff.id_staff LEFT JOIN hir_hosp_boss ON hir_hosp_boss.id_staff = staff.id_staff LEFT JOIN big_boss ON big_boss.id_staff = staff.id_staff LEFT JOIN therapist ON therapist.id_staff = staff.id_staff LEFT JOIN department ON staff.code_hir_department = department.code_hir_department and staff.id_department = department.id_department LEFT JOIN type_department ON department.id_department = type_department.id_department  LEFT JOIN hir_hospital ON staff.code_hir_department = hir_hospital.code_hir_department LEFT JOIN nurce ON nurce.id_staff = staff.id_staff;";
+                        string str = "SELECT staff.id_staff, staff.full_name AS \"ФИО\",  CASE WHEN nurce.id_staff IS NOT NULL THEN 'Медицинская сестра' WHEN therapist.id_staff IS NOT NULL THEN 'Врач' WHEN receptionist.id_staff IS NOT NULL THEN 'Врач приёмного покоя' WHEN dep_boss.id_staff IS NOT NULL THEN 'Заведующий отделения' WHEN hir_hosp_boss.id_staff IS NOT NULL THEN 'Главный врач' WHEN big_boss.id_staff IS NOT NULL THEN 'Начальник больницы' END AS \"Должность\", type_department.name_department AS \"Название отделения\", hir_hospital.name_hir_department AS \"Название стационара\", staff.phone AS \"Телефон\", staff.mail AS \"Почта\", user_info.role_user AS \"Уровень доступа\" FROM staff  LEFT JOIN user_info ON staff.id_staff = user_info.id_staff LEFT JOIN receptionist ON receptionist.id_staff = staff.id_staff LEFT JOIN dep_boss ON dep_boss.id_staff = staff.id_staff LEFT JOIN hir_hosp_boss ON hir_hosp_boss.id_staff = staff.id_staff LEFT JOIN big_boss ON big_boss.id_staff = staff.id_staff LEFT JOIN therapist ON therapist.id_staff = staff.id_staff LEFT JOIN department ON staff.code_hir_department = department.code_hir_department and staff.id_department = department.id_department LEFT JOIN type_department ON department.id_department = type_department.id_department  LEFT JOIN hir_hospital ON staff.code_hir_department = hir_hospital.code_hir_department LEFT JOIN nurce ON nurce.id_staff = staff.id_staff;";
                         ShowDGV(str, dataGridView2, dBLogicConnection._connectionString);
+                        dataGridView2.Columns[0].Visible = false;
                     }
-                    FormAddStaff fad = new FormAddStaff();
-                    fad.ShowDialog();
+                    //FormAddStaff fad = new FormAddStaff();
+                    //fad.ShowDialog();
                     break;
                 case 1: //структура больницы
                     {
@@ -172,8 +173,10 @@ namespace AndreevNIR
         }
 
         public void InitialLoadForFirstPage() {
-            string str0 = "SELECT staff.full_name AS \"ФИО\",  CASE WHEN nurce.id_staff IS NOT NULL THEN 'Медицинская сестра' WHEN therapist.id_staff IS NOT NULL THEN 'Врач' WHEN receptionist.id_staff IS NOT NULL THEN 'Врач приёмного покоя' WHEN dep_boss.id_staff IS NOT NULL THEN 'Заведующий отделения' WHEN hir_hosp_boss.id_staff IS NOT NULL THEN 'Главный врач' WHEN big_boss.id_staff IS NOT NULL THEN 'Начальник больницы' END AS \"Должность\", type_department.name_department AS \"Название отделения\", hir_hospital.name_hir_department AS \"Название стационара\", staff.phone AS \"Телефон\", staff.mail AS \"Почта\", user_info.role_user AS \"Уровень доступа\" FROM staff  LEFT JOIN user_info ON staff.id_staff = user_info.id_staff LEFT JOIN receptionist ON receptionist.id_staff = staff.id_staff LEFT JOIN dep_boss ON dep_boss.id_staff = staff.id_staff LEFT JOIN hir_hosp_boss ON hir_hosp_boss.id_staff = staff.id_staff LEFT JOIN big_boss ON big_boss.id_staff = staff.id_staff LEFT JOIN therapist ON therapist.id_staff = staff.id_staff LEFT JOIN department ON staff.code_hir_department = department.code_hir_department and staff.id_department = department.id_department LEFT JOIN type_department ON department.id_department = type_department.id_department  LEFT JOIN hir_hospital ON staff.code_hir_department = hir_hospital.code_hir_department LEFT JOIN nurce ON nurce.id_staff = staff.id_staff;";
+            string str0 = "SELECT staff.id_staff, staff.full_name AS \"ФИО\",  CASE WHEN nurce.id_staff IS NOT NULL THEN 'Медицинская сестра' WHEN therapist.id_staff IS NOT NULL THEN 'Врач' WHEN receptionist.id_staff IS NOT NULL THEN 'Врач приёмного покоя' WHEN dep_boss.id_staff IS NOT NULL THEN 'Заведующий отделения' WHEN hir_hosp_boss.id_staff IS NOT NULL THEN 'Главный врач' WHEN big_boss.id_staff IS NOT NULL THEN 'Начальник больницы' END AS \"Должность\", type_department.name_department AS \"Название отделения\", hir_hospital.name_hir_department AS \"Название стационара\", staff.phone AS \"Телефон\", staff.mail AS \"Почта\", user_info.role_user AS \"Уровень доступа\" FROM staff  LEFT JOIN user_info ON staff.id_staff = user_info.id_staff LEFT JOIN receptionist ON receptionist.id_staff = staff.id_staff LEFT JOIN dep_boss ON dep_boss.id_staff = staff.id_staff LEFT JOIN hir_hosp_boss ON hir_hosp_boss.id_staff = staff.id_staff LEFT JOIN big_boss ON big_boss.id_staff = staff.id_staff LEFT JOIN therapist ON therapist.id_staff = staff.id_staff LEFT JOIN department ON staff.code_hir_department = department.code_hir_department and staff.id_department = department.id_department LEFT JOIN type_department ON department.id_department = type_department.id_department  LEFT JOIN hir_hospital ON staff.code_hir_department = hir_hospital.code_hir_department LEFT JOIN nurce ON nurce.id_staff = staff.id_staff;";
             ShowDGV(str0, dataGridView2, dBLogicConnection._connectionString);
+            dataGridView2.Columns[0].Visible = false;
+
             cl.CreateFullListOfShowDGV("SELECT staff.id_staff as \"ID\", staff.full_name AS \"ФИО\",  CASE WHEN nurce.id_staff IS NOT NULL THEN 'Медицинская сестра' WHEN therapist.id_staff IS NOT NULL THEN 'Врач' WHEN receptionist.id_staff IS NOT NULL THEN 'Врач приёмного покоя' WHEN dep_boss.id_staff IS NOT NULL THEN 'Заведующий отделения' WHEN hir_hosp_boss.id_staff IS NOT NULL THEN 'Главный врач' WHEN big_boss.id_staff IS NOT NULL THEN 'Начальник больницы' END AS \"Должность\", type_department.name_department AS \"Название отделения\", hir_hospital.name_hir_department AS \"Название стационара\", staff.phone AS \"Телефон\", staff.mail AS \"Почта\", user_info.role_user AS \"Уровень доступа\" FROM staff  LEFT JOIN user_info ON staff.id_staff = user_info.id_staff LEFT JOIN receptionist ON receptionist.id_staff = staff.id_staff LEFT JOIN dep_boss ON dep_boss.id_staff = staff.id_staff LEFT JOIN hir_hosp_boss ON hir_hosp_boss.id_staff = staff.id_staff LEFT JOIN big_boss ON big_boss.id_staff = staff.id_staff LEFT JOIN therapist ON therapist.id_staff = staff.id_staff LEFT JOIN department ON staff.code_hir_department = department.code_hir_department and staff.id_department = department.id_department LEFT JOIN type_department ON department.id_department = type_department.id_department  LEFT JOIN hir_hospital ON staff.code_hir_department = hir_hospital.code_hir_department LEFT JOIN nurce ON nurce.id_staff = staff.id_staff;", ShowDGVFullList, '|');
 
             List<string> list = new List<string>();
@@ -187,7 +190,7 @@ namespace AndreevNIR
             switch (tabControl1.SelectedIndex)
             {
                 case 0: //персонал
-                    string str0 = "SELECT staff.full_name AS \"ФИО\",  CASE WHEN nurce.id_staff IS NOT NULL THEN 'Медицинская сестра' WHEN therapist.id_staff IS NOT NULL THEN 'Врач' WHEN receptionist.id_staff IS NOT NULL THEN 'Врач приёмного покоя' WHEN dep_boss.id_staff IS NOT NULL THEN 'Заведующий отделения' WHEN hir_hosp_boss.id_staff IS NOT NULL THEN 'Главный врач' WHEN big_boss.id_staff IS NOT NULL THEN 'Начальник больницы' END AS \"Должность\", type_department.name_department AS \"Название отделения\", hir_hospital.name_hir_department AS \"Название стационара\", staff.phone AS \"Телефон\", staff.mail AS \"Почта\", user_info.role_user AS \"Уровень доступа\" FROM staff  LEFT JOIN user_info ON staff.id_staff = user_info.id_staff LEFT JOIN receptionist ON receptionist.id_staff = staff.id_staff LEFT JOIN dep_boss ON dep_boss.id_staff = staff.id_staff LEFT JOIN hir_hosp_boss ON hir_hosp_boss.id_staff = staff.id_staff LEFT JOIN big_boss ON big_boss.id_staff = staff.id_staff LEFT JOIN therapist ON therapist.id_staff = staff.id_staff LEFT JOIN department ON staff.code_hir_department = department.code_hir_department and staff.id_department = department.id_department LEFT JOIN type_department ON department.id_department = type_department.id_department  LEFT JOIN hir_hospital ON staff.code_hir_department = hir_hospital.code_hir_department LEFT JOIN nurce ON nurce.id_staff = staff.id_staff;";
+                    string str0 = "SELECT staff.id_staff, staff.full_name AS \"ФИО\",  CASE WHEN nurce.id_staff IS NOT NULL THEN 'Медицинская сестра' WHEN therapist.id_staff IS NOT NULL THEN 'Врач' WHEN receptionist.id_staff IS NOT NULL THEN 'Врач приёмного покоя' WHEN dep_boss.id_staff IS NOT NULL THEN 'Заведующий отделения' WHEN hir_hosp_boss.id_staff IS NOT NULL THEN 'Главный врач' WHEN big_boss.id_staff IS NOT NULL THEN 'Начальник больницы' END AS \"Должность\", type_department.name_department AS \"Название отделения\", hir_hospital.name_hir_department AS \"Название стационара\", staff.phone AS \"Телефон\", staff.mail AS \"Почта\", user_info.role_user AS \"Уровень доступа\" FROM staff  LEFT JOIN user_info ON staff.id_staff = user_info.id_staff LEFT JOIN receptionist ON receptionist.id_staff = staff.id_staff LEFT JOIN dep_boss ON dep_boss.id_staff = staff.id_staff LEFT JOIN hir_hosp_boss ON hir_hosp_boss.id_staff = staff.id_staff LEFT JOIN big_boss ON big_boss.id_staff = staff.id_staff LEFT JOIN therapist ON therapist.id_staff = staff.id_staff LEFT JOIN department ON staff.code_hir_department = department.code_hir_department and staff.id_department = department.id_department LEFT JOIN type_department ON department.id_department = type_department.id_department  LEFT JOIN hir_hospital ON staff.code_hir_department = hir_hospital.code_hir_department LEFT JOIN nurce ON nurce.id_staff = staff.id_staff;";
                     ShowDGV(str0, dataGridView2, dBLogicConnection._connectionString);
                     cl.CreateFullListOfShowDGV("SELECT staff.id_staff as \"ID\", staff.full_name AS \"ФИО\",  CASE WHEN nurce.id_staff IS NOT NULL THEN 'Медицинская сестра' WHEN therapist.id_staff IS NOT NULL THEN 'Врач' WHEN receptionist.id_staff IS NOT NULL THEN 'Врач приёмного покоя' WHEN dep_boss.id_staff IS NOT NULL THEN 'Заведующий отделения' WHEN hir_hosp_boss.id_staff IS NOT NULL THEN 'Главный врач' WHEN big_boss.id_staff IS NOT NULL THEN 'Начальник больницы' END AS \"Должность\", type_department.name_department AS \"Название отделения\", hir_hospital.name_hir_department AS \"Название стационара\", staff.phone AS \"Телефон\", staff.mail AS \"Почта\", user_info.role_user AS \"Уровень доступа\" FROM staff  LEFT JOIN user_info ON staff.id_staff = user_info.id_staff LEFT JOIN receptionist ON receptionist.id_staff = staff.id_staff LEFT JOIN dep_boss ON dep_boss.id_staff = staff.id_staff LEFT JOIN hir_hosp_boss ON hir_hosp_boss.id_staff = staff.id_staff LEFT JOIN big_boss ON big_boss.id_staff = staff.id_staff LEFT JOIN therapist ON therapist.id_staff = staff.id_staff LEFT JOIN department ON staff.code_hir_department = department.code_hir_department and staff.id_department = department.id_department LEFT JOIN type_department ON department.id_department = type_department.id_department  LEFT JOIN hir_hospital ON staff.code_hir_department = hir_hospital.code_hir_department LEFT JOIN nurce ON nurce.id_staff = staff.id_staff;", ShowDGVFullList, '|');
 
@@ -257,9 +260,6 @@ namespace AndreevNIR
                     groupBox1.Hide();
                     groupBox2.Hide();
                     groupBox3.Hide();
-                    break;
-
-                case 6: //пациенты - врачи
                     break;
             }
         } //отображение данных в dgv при смене вкладки
@@ -909,25 +909,12 @@ namespace AndreevNIR
             switch (tabControl1.SelectedIndex) {
                 case 0: //персонал
                     {
-                        //получение id сотрудника
-                        staffID = cl.GetElementFromListOfShowDGV(ShowDGVFullList, '|', selectedMouseRowID, 0); 
-
-                        DBLogicConnection dB = new DBLogicConnection();
-                        using (NpgsqlConnection connection = new NpgsqlConnection(dB._connectionString))
-                        {
-                            connection.Open();
-                            using (NpgsqlCommand command = new NpgsqlCommand($"DELETE FROM staff WHERE id_staff = '{staffID}';", connection))
-                            {
-                                try
-                                {
-                                    command.ExecuteNonQuery();
-                                }
-                                catch (Exception ex) { MessageBox.Show("" + ex); }
-                                MessageBox.Show("Сотрудник удалён");
-                            }
-                        }
-                        string str = "SELECT staff.full_name AS \"ФИО\",  CASE WHEN nurce.id_staff IS NOT NULL THEN 'Медицинская сестра' WHEN therapist.id_staff IS NOT NULL THEN 'Врач' WHEN receptionist.id_staff IS NOT NULL THEN 'Врач приёмного покоя' WHEN dep_boss.id_staff IS NOT NULL THEN 'Заведующий отделения' WHEN hir_hosp_boss.id_staff IS NOT NULL THEN 'Главный врач' WHEN big_boss.id_staff IS NOT NULL THEN 'Начальник больницы' END AS \"Должность\", type_department.name_department AS \"Название отделения\", hir_hospital.name_hir_department AS \"Название стационара\", staff.phone AS \"Телефон\", staff.mail AS \"Почта\", user_info.role_user AS \"Уровень доступа\" FROM staff  LEFT JOIN user_info ON staff.id_staff = user_info.id_staff LEFT JOIN receptionist ON receptionist.id_staff = staff.id_staff LEFT JOIN dep_boss ON dep_boss.id_staff = staff.id_staff LEFT JOIN hir_hosp_boss ON hir_hosp_boss.id_staff = staff.id_staff LEFT JOIN big_boss ON big_boss.id_staff = staff.id_staff LEFT JOIN therapist ON therapist.id_staff = staff.id_staff LEFT JOIN department ON staff.code_hir_department = department.code_hir_department and staff.id_department = department.id_department LEFT JOIN type_department ON department.id_department = type_department.id_department  LEFT JOIN hir_hospital ON staff.code_hir_department = hir_hospital.code_hir_department LEFT JOIN nurce ON nurce.id_staff = staff.id_staff;";
+                        ClassStaff cs = new ClassStaff();
+                        cs.DeleteStaff(selectedMouseCell);
+                        string str = "SELECT staff.id_staff, staff.full_name AS \"ФИО\",  CASE WHEN nurce.id_staff IS NOT NULL THEN 'Медицинская сестра' WHEN therapist.id_staff IS NOT NULL THEN 'Врач' WHEN receptionist.id_staff IS NOT NULL THEN 'Врач приёмного покоя' WHEN dep_boss.id_staff IS NOT NULL THEN 'Заведующий отделения' WHEN hir_hosp_boss.id_staff IS NOT NULL THEN 'Главный врач' WHEN big_boss.id_staff IS NOT NULL THEN 'Начальник больницы' END AS \"Должность\", type_department.name_department AS \"Название отделения\", hir_hospital.name_hir_department AS \"Название стационара\", staff.phone AS \"Телефон\", staff.mail AS \"Почта\", user_info.role_user AS \"Уровень доступа\" FROM staff  LEFT JOIN user_info ON staff.id_staff = user_info.id_staff LEFT JOIN receptionist ON receptionist.id_staff = staff.id_staff LEFT JOIN dep_boss ON dep_boss.id_staff = staff.id_staff LEFT JOIN hir_hosp_boss ON hir_hosp_boss.id_staff = staff.id_staff LEFT JOIN big_boss ON big_boss.id_staff = staff.id_staff LEFT JOIN therapist ON therapist.id_staff = staff.id_staff LEFT JOIN department ON staff.code_hir_department = department.code_hir_department and staff.id_department = department.id_department LEFT JOIN type_department ON department.id_department = type_department.id_department  LEFT JOIN hir_hospital ON staff.code_hir_department = hir_hospital.code_hir_department LEFT JOIN nurce ON nurce.id_staff = staff.id_staff;";
+                        
                         ShowDGV(str, dataGridView2, dBLogicConnection._connectionString);
+                        dataGridView2.Columns[0].Visible = false;
                     }
                     break;
                 case 1: //стуктура больницы
@@ -1033,9 +1020,18 @@ namespace AndreevNIR
             switch (tabControl1.SelectedIndex)
             {
                 case 0: //персонал
-                    staffID = cl.GetElementFromListOfShowDGV(ShowDGVFullList, '|', selectedMouseRowID, 0);
-                    FormUpdateStaff fud = new FormUpdateStaff(staffID);
-                    fud.ShowDialog();
+                    {
+                        if (selectedMouseCell == null)
+                        {
+                            FormStaff fs = new FormStaff(selectedMouseCell);
+                            fs.ShowDialog();
+                            string str = "SELECT staff.id_staff, staff.full_name AS \"ФИО\",  CASE WHEN nurce.id_staff IS NOT NULL THEN 'Медицинская сестра' WHEN therapist.id_staff IS NOT NULL THEN 'Врач' WHEN receptionist.id_staff IS NOT NULL THEN 'Врач приёмного покоя' WHEN dep_boss.id_staff IS NOT NULL THEN 'Заведующий отделения' WHEN hir_hosp_boss.id_staff IS NOT NULL THEN 'Главный врач' WHEN big_boss.id_staff IS NOT NULL THEN 'Начальник больницы' END AS \"Должность\", type_department.name_department AS \"Название отделения\", hir_hospital.name_hir_department AS \"Название стационара\", staff.phone AS \"Телефон\", staff.mail AS \"Почта\", user_info.role_user AS \"Уровень доступа\" FROM staff  LEFT JOIN user_info ON staff.id_staff = user_info.id_staff LEFT JOIN receptionist ON receptionist.id_staff = staff.id_staff LEFT JOIN dep_boss ON dep_boss.id_staff = staff.id_staff LEFT JOIN hir_hosp_boss ON hir_hosp_boss.id_staff = staff.id_staff LEFT JOIN big_boss ON big_boss.id_staff = staff.id_staff LEFT JOIN therapist ON therapist.id_staff = staff.id_staff LEFT JOIN department ON staff.code_hir_department = department.code_hir_department and staff.id_department = department.id_department LEFT JOIN type_department ON department.id_department = type_department.id_department  LEFT JOIN hir_hospital ON staff.code_hir_department = hir_hospital.code_hir_department LEFT JOIN nurce ON nurce.id_staff = staff.id_staff;";
+                            ShowDGV(str, dataGridView2, dBLogicConnection._connectionString);
+
+                            dataGridView2.Columns[0].Visible = false;
+                        }
+                        else { MessageBox.Show("Выберите запись"); }
+                    }
                     break;
                 case 1: //структура
                     string number_room = cl.GetElementFromListOfShowDGV(ShowDGVFullList, '|', selectedMouseRowID, 9);
@@ -1117,7 +1113,7 @@ namespace AndreevNIR
 
         private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            try { selectedMouseRowID = dataGridView2.SelectedRows[0].Index; } catch { }
+            try { selectedMouseCell = dataGridView2.SelectedRows[0].Cells[0].Value.ToString(); } catch { }
             
         } //для получения строки по клику
 

@@ -101,7 +101,7 @@ namespace AndreevNIR.ReferenceData
                 listFill2.AddRange(new bool[] { flag1, flag2 });
 
                 var errorMessage2 = cf.GenerateErrorMessageEmptyDGV(listFill2, "Лечащий врач", "Пациент");
-                if (errorMessage2 == "Не были выбраны: ")
+                if (errorMessage2 == "Не были выбраны поля: ")
                 {
                     var flag3 = cf.DigitAndColon(textBox1); //time
                     var flag4 = cf.DigitAndDash(textBox5); //number_extraction

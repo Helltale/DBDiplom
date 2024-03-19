@@ -79,7 +79,6 @@ D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.csproj.CoreCompileInputs.ca
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.csproj.CopyComplete
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.exe
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.pdb
-D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.FormAddStaff.resources
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.FormAddTypeProc.resources
 D:\diplom\AndreevNIR\AndreevNIR\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
 D:\diplom\AndreevNIR\AndreevNIR\bin\Debug\Microsoft.Bcl.HashCode.dll
@@ -123,7 +122,6 @@ D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.ReferenceData.FormAddStruct
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.csproj.AssemblyReference.cache
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.FormAddStruct1.resources
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.ReferenceData.FormAddStructF.FormHospitalUpdate.resources
-D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.ReferenceData.FormUpdateStaff.resources
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.additionalForms.ChipiChipi.resources
 D:\diplom\AndreevNIR\AndreevNIR\bin\Debug\runtimes\win-x86\native\WebView2Loader.dll
 D:\diplom\AndreevNIR\AndreevNIR\bin\Debug\runtimes\win-x64\native\WebView2Loader.dll
@@ -140,3 +138,4 @@ D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.ReferenceData.Procedures.Fo
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.additionalForms.PrimeTime.resources
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.OperationalData.FormOperativeData.resources
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.OperationalData.History.FormChildAdd.resources
+D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.ReferenceData.Staff.FormStaff.resources

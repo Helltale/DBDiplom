@@ -46,8 +46,6 @@
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.dataGridView5 = new System.Windows.Forms.DataGridView();
-            this.tabPage7 = new System.Windows.Forms.TabPage();
-            this.dataGridView7 = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
@@ -74,8 +72,6 @@
             this.tabPage1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView5)).BeginInit();
-            this.tabPage7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView7)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -89,7 +85,6 @@
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage7);
             this.tabControl1.Location = new System.Drawing.Point(14, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -291,28 +286,6 @@
             this.dataGridView5.Size = new System.Drawing.Size(1246, 570);
             this.dataGridView5.TabIndex = 0;
             // 
-            // tabPage7
-            // 
-            this.tabPage7.Controls.Add(this.dataGridView7);
-            this.tabPage7.Location = new System.Drawing.Point(4, 29);
-            this.tabPage7.Name = "tabPage7";
-            this.tabPage7.Size = new System.Drawing.Size(1545, 601);
-            this.tabPage7.TabIndex = 9;
-            this.tabPage7.Text = "Пациенты - Врачи";
-            this.tabPage7.UseVisualStyleBackColor = true;
-            // 
-            // dataGridView7
-            // 
-            this.dataGridView7.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView7.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView7.Location = new System.Drawing.Point(0, 0);
-            this.dataGridView7.Name = "dataGridView7";
-            this.dataGridView7.RowHeadersWidth = 62;
-            this.dataGridView7.RowTemplate.Height = 28;
-            this.dataGridView7.Size = new System.Drawing.Size(1545, 601);
-            this.dataGridView7.TabIndex = 2;
-            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.button5);
@@ -464,8 +437,6 @@
             this.tabPage1.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView5)).EndInit();
-            this.tabPage7.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView7)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
@@ -506,7 +477,5 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.ComboBox comboBox3;
         private System.Windows.Forms.ComboBox comboBox4;
-        private System.Windows.Forms.TabPage tabPage7;
-        private System.Windows.Forms.DataGridView dataGridView7;
     }
 }

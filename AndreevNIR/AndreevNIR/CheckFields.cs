@@ -66,7 +66,22 @@ namespace AndreevNIR
                 }
             }
 
-            string errorMessage = "Не были выбраны: " + string.Join(", ", emptyFieldNames);
+            string errorMessage = "Не были выбраны поля: " + string.Join(", ", emptyFieldNames);
+            return errorMessage;
+        }
+
+        public string GenerateErrorMessageEmptyRichTextBox(List<bool> emptyFieldIndexes, params string[] fieldNames)
+        {
+            List<string> emptyFieldNames = new List<string>();
+            for (int i = 0; i < emptyFieldIndexes.Count; i++)
+            {
+                if (emptyFieldIndexes[i] && i < fieldNames.Length)
+                {
+                    emptyFieldNames.Add(fieldNames[i]);
+                }
+            }
+
+            string errorMessage = "Не были заполнены: " + string.Join(", ", emptyFieldNames);
             return errorMessage;
         }
 
@@ -84,6 +99,21 @@ namespace AndreevNIR
 
             string errorMessage = "Следующие поля были заполнены с ошибками: " + string.Join(", ", emptyFieldNames);
             return errorMessage;
+        }
+
+        //Провеерка выбранности радио батна
+        public string CheckedRadioBtn(string errorMessage, params RadioButton[] rb)
+        {
+            string error = errorMessage;
+            for (int i = 0; i < rb.Count(); i++)
+            {
+                if (rb[i].Checked == true)
+                {
+                    error = null;
+                    break;
+                }
+            }
+            return error;
         }
 
         //выбрано значение кобобокса
@@ -116,6 +146,21 @@ namespace AndreevNIR
             return error;
         }
 
+        //что то написано в richtextbox
+        public bool CheckRichTextBox(params RichTextBox[] rtb)
+        {
+            bool error = false;
+            for (int i = 0; i < rtb.Count(); i++)
+            {
+                if (rtb[i].Text == null)
+                {
+                    error = true;
+                    break;
+                }
+            }
+            return error;
+        }
+
         //буквы и пробелы
         public bool LetterAndSpace(params TextBox[] txtb)
         {
@@ -136,6 +181,32 @@ namespace AndreevNIR
                     }
                 }
                 else {
+                    error = true;
+                }
+            }
+            return error;
+        }
+
+        public bool LetterAndSpaceAndDash(params TextBox[] txtb)
+        {
+            bool error = false;
+            for (int i = 0; i < txtb.Count(); i++)
+            {
+                if (!error)
+                {
+                    string text = txtb[i].Text;
+                    for (int j = 0; j < text.Length; j++)
+                    {
+                        char letter = text[j];
+                        if (!Char.IsLetter(letter) && !Char.IsWhiteSpace(letter) && !Char.Equals(letter, '-'))
+                        {
+                            error = true;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
                     error = true;
                 }
             }
@@ -182,6 +253,60 @@ namespace AndreevNIR
                     {
                         char letter = text[j];
                         if (!Char.IsDigit(letter) && !Char.Equals(letter, '-'))
+                        {
+                            error = true;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    error = true;
+                }
+            }
+            return error;
+        }
+
+        //цифры и тире и пробел
+        public bool DigitAndDashAndSpace(params TextBox[] txtb)
+        {
+            bool error = false;
+            for (int i = 0; i < txtb.Count(); i++)
+            {
+                if (!error)
+                {
+                    string text = txtb[i].Text;
+                    for (int j = 0; j < text.Length; j++)
+                    {
+                        char letter = text[j];
+                        if (!Char.IsDigit(letter) && !Char.Equals(letter, '-') && Char.IsWhiteSpace(letter))
+                        {
+                            error = true;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    error = true;
+                }
+            }
+            return error;
+        }
+
+        //цифры и тире и () и +
+        public bool DigitAndDashAndOpenAndCloseAndPlus(params TextBox[] txtb)
+        {
+            bool error = false;
+            for (int i = 0; i < txtb.Count(); i++)
+            {
+                if (!error)
+                {
+                    string text = txtb[i].Text;
+                    for (int j = 0; j < text.Length; j++)
+                    {
+                        char letter = text[j];
+                        if (!Char.IsDigit(letter) && !Char.Equals(letter, '-') && !Char.Equals(letter, '(') && !Char.Equals(letter, ')') && !Char.Equals(letter, '+'))
                         {
                             error = true;
                             break;
@@ -305,7 +430,7 @@ namespace AndreevNIR
                     for (int j = 0; j < text.Length; j++)
                     {
                         char letter = text[j];
-                        if (!Char.IsLetter(letter) && !Char.Equals(letter, '.') && !Char.Equals(letter, ',') && !Char.IsWhiteSpace(letter) && Char.IsDigit(letter) && !Char.Equals(letter, '-'))
+                        if (!Char.IsLetter(letter) && !Char.Equals(letter, '.') && !Char.Equals(letter, ',') && !Char.IsWhiteSpace(letter) && !Char.IsDigit(letter) && !Char.Equals(letter, '-'))
                         {
                             error = true;
                             break;

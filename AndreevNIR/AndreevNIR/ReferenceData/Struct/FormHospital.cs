@@ -12,12 +12,15 @@ using AndreevNIR.ReferenceData;
 using AndreevNIR;
 using AndreevNIR.ReferenceData.FormAddStruct;
 using System.Diagnostics;
+using AndreevNIR.ReferenceData.Struct;
 
 namespace AndreevNIR.ReferenceData.FormAddStruct
 {
     public partial class FormHospital : Form
     {
         private string staffID;
+        private string idHirDepartment = null;
+        private string nameHirDepartment = null;
         public List<string> listForComboBox;
         public List<string> listIDPlusName;
         CoreLogic cl = new CoreLogic();
@@ -29,52 +32,62 @@ namespace AndreevNIR.ReferenceData.FormAddStruct
             cl.LoadComboboxByQuery(comboBox1, "select t2.full_name  from Hir_hosp_Boss t1 left outer join staff t2 on t1.id_staff = t2.id_staff;", "Выберите главного врача");
         }
 
-        public static string FindIDByName(List<string> records, char delimeter, string name)
+        public FormHospital(string nameDepartment_)
         {
-            foreach (string record in records)
-            {
-                string[] parts = record.Split(delimeter);
-                if (parts[1].Trim() == name)
-                {
-                    return parts[0].Trim();
-                }
-            }
-            return null;
+            InitializeComponent();
+            nameHirDepartment = nameDepartment_;
+            cl.LoadComboboxByQuery(comboBox1, "select t2.full_name  from Hir_hosp_Boss t1 left outer join staff t2 on t1.id_staff = t2.id_staff;", "Выберите главного врача");
+
+            ClassHospital ch = new ClassHospital();
+            idHirDepartment = ch.GetHospital(nameHirDepartment, textBox1, textBox2, textBox3, textBox4, comboBox1);
         }
+
+        
 
 
         private void button8_Click(object sender, EventArgs e)
         {
-            DBLogicConnection dB = new DBLogicConnection();
-            string stringLastID = dB.GetLastId(dB._connectionString, "Hir_hospital", "code_hir_department");
-            int intLastID = int.Parse(stringLastID);
-            intLastID++;
-            stringLastID = intLastID.ToString();
+            CheckFields cf = new CheckFields();
 
-            using (NpgsqlConnection connection = new NpgsqlConnection(dB._connectionString))
+            var listFill1 = cf.CheckAllFields(textBox4, textBox3, textBox1, textBox2);
+            var errorMessage1 = cf.GenerateErrorMessageEmptyTextBox(listFill1, "Название стационара", "Адрес стационара", "Телефон регистратуры", "ОГРМ");
+            if (errorMessage1 == "Следующие поля не были заполнены: ")
             {
-                connection.Open();
-                using (NpgsqlCommand command = new NpgsqlCommand($"INSERT INTO Hir_hospital (code_hir_department, name_hir_department, adress_hir_department, boss_hir_department, phone_hir_department, ogrm_hir_department) VALUES (@code_hir_department, @name_hir_department, @adress_hir_department, @boss_hir_department, @phone_hir_department, @ogrm_hir_department)", connection))
+                var flag1 = cf.CheckedCombobox(comboBox1);
+
+                var listFill2 = new List<bool>();
+                listFill2.AddRange(new bool[] { flag1 });
+
+                var errorMessage2 = cf.GenerateErrorMessageEmptyComboBox(listFill2, "Главный врач");
+                if (errorMessage2 == "Значения в следующих выпадающих меню не были выбраны: ")
                 {
-                    try
+                    var flag2 = cf.LetterAndDotAndCommaAndSpaceAndDigitAndDash(textBox4); //Название
+                    var flag3 = cf.LetterAndDotAndCommaAndSpaceAndDigitAndDash(textBox3); //адрес
+                    var flag4 = cf.DigitAndDashAndOpenAndCloseAndPlus(textBox1); //тел регистратуры
+                    var flag5 = cf.DigitAndDashAndSpace(textBox2); // огрм
+
+                    var listFill3 = new List<bool>();
+                    listFill3.AddRange(new bool[] { flag2, flag3, flag4, flag5 });
+                    var errorMessage3 = cf.GenerateErrorMessageErrors(listFill3, "Название стационара", "Адрес стационара", "Телефон регистратуры", "ОГРМ");
+                    if (errorMessage3 == "Следующие поля были заполнены с ошибками: ")
                     {
-                        command.Parameters.Add("@code_hir_department", NpgsqlTypes.NpgsqlDbType.Varchar).Value = stringLastID;
-                        command.Parameters.Add("@name_hir_department", NpgsqlTypes.NpgsqlDbType.Varchar).Value = textBox4.Text;
-                        command.Parameters.Add("@adress_hir_department", NpgsqlTypes.NpgsqlDbType.Varchar).Value = textBox3.Text;
-
-                        staffID = FindIDByName(listIDPlusName, '|', comboBox1.SelectedValue.ToString());
-                        command.Parameters.Add("@boss_hir_department", NpgsqlTypes.NpgsqlDbType.Varchar).Value = staffID;
-
-                        command.Parameters.Add("@phone_hir_department", NpgsqlTypes.NpgsqlDbType.Varchar).Value = textBox1.Text;
-                        command.Parameters.Add("@ogrm_hir_department", NpgsqlTypes.NpgsqlDbType.Varchar).Value = textBox2.Text;
-                        command.ExecuteNonQuery();
-
-                        MessageBox.Show("Запись добавлена");
+                        ClassHospital ch = new ClassHospital();
+                        if (nameHirDepartment == null)
+                        { //добавление
+                            ch.CreateHospital(textBox4, textBox3, textBox1, textBox2, comboBox1);
+                        }
+                        else
+                        { //изменение
+                            ch.ChangeHospital(comboBox1, textBox1, textBox2, textBox3, textBox4, idHirDepartment);
+                        }
+                        this.Close();
                     }
-                    catch (Exception ex){ MessageBox.Show(""+ex); }
-                    this.Close();
+                    else { MessageBox.Show(errorMessage3); }
                 }
+                else { MessageBox.Show(errorMessage2); }
             }
+            else { MessageBox.Show(errorMessage1); }
+            
         }
 
         private void button7_Click(object sender, EventArgs e)

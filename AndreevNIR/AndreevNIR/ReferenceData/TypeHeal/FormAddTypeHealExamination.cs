@@ -77,13 +77,49 @@ namespace AndreevNIR.ReferenceData
 
         private void button8_Click(object sender, EventArgs e)
         {
-            ClassTypeHealExamination ct = new ClassTypeHealExamination();
-            if (id_meeting == null)
+            CheckFields cf = new CheckFields();
+
+            var listFill1 = cf.CheckAllFields(textBox1);
+            var errorMessage1 = cf.GenerateErrorMessageEmptyTextBox(listFill1, "Время осмотра");
+            if (errorMessage1 == "Следующие поля не были заполнены: ")
             {
-                ct.CreateExamination(id_therapist, id_patient, monthCalendar1.SelectionStart, richTextBox1, richTextBox2, textBox1);
+                var flag1 = cf.SelectedDGV(dataGridView1); //врач
+                var flag2 = cf.SelectedDGV(dataGridView2); //пациент
+
+                var listFill2 = new List<bool>();
+                listFill2.AddRange(new bool[] { flag1, flag2 });
+                var errorMessage2 = cf.GenerateErrorMessageEmptyDGV(listFill2, "Лечащий врач", "Пациент");
+                if (errorMessage2 == "Не были выбраны поля: ")
+                {
+
+                    var flag3 = cf.CheckRichTextBox(richTextBox1);
+                    var listFill3 = new List<bool>();
+                    listFill3.AddRange(new bool[] { flag3 });
+                    var errorMessage3 = cf.GenerateErrorMessageEmptyRichTextBox(listFill3, "Комментарий врача");
+                    if (errorMessage3 == "Не были заполнены: ")
+                    {
+
+                        var flag4 = cf.DigitAndColon(textBox1); //время осмотра
+                        var listFill4 = new List<bool>();
+                        listFill4.AddRange(new bool[] { flag4 });
+                        var errorMessage4 = cf.GenerateErrorMessageErrors(listFill4, "Время осмотра");
+                        if (errorMessage4 == "Следующие поля были заполнены с ошибками: ")
+                        {
+                            ClassTypeHealExamination ct = new ClassTypeHealExamination();
+                            if (id_meeting == null)
+                            {
+                                ct.CreateExamination(id_therapist, id_patient, monthCalendar1.SelectionStart, richTextBox1, richTextBox2, textBox1);
+                            }
+                            else { ct.UpdateExamination(monthCalendar1, richTextBox1, richTextBox2, textBox1); }
+                            this.Close();
+                        }
+                        else { MessageBox.Show(errorMessage4); }
+                    }
+                    else { MessageBox.Show(errorMessage3); }
+                }
+                else { MessageBox.Show(errorMessage2); }
             }
-            else { ct.UpdateExamination(monthCalendar1, richTextBox1, richTextBox2, textBox1); }
-            this.Close();
+            else { MessageBox.Show(errorMessage1); }
         }
 
         private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)

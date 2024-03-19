@@ -180,13 +180,8 @@
     <Compile Include="ReferenceData\Staff\FormStaff.Designer.cs">
       <DependentUpon>FormStaff.cs</DependentUpon>
     </Compile>
+    <Compile Include="ReferenceData\Struct\ClassHospital.cs" />
     <Compile Include="ReferenceData\Struct\ClassStruct.cs" />
-    <Compile Include="ReferenceData\Staff\FormAddStaff.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ReferenceData\Staff\FormAddStaff.Designer.cs">
-      <DependentUpon>FormAddStaff.cs</DependentUpon>
-    </Compile>
     <Compile Include="ReferenceData\Struct\FormAddStruct1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -325,14 +320,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReferenceData\Staff\FormUpdateStaff.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ReferenceData\Staff\FormUpdateStaff.Designer.cs">
-      <DependentUpon>FormUpdateStaff.cs</DependentUpon>
-    </Compile>
     <Compile Include="ReferenceData\ReferenceDataLogicStaff.cs" />
     <Compile Include="SessionInformation.cs" />
+    <Compile Include="SqlStringWrapper.cs" />
     <Compile Include="StringGrouperSQL.cs" />
     <EmbeddedResource Include="additionalForms\ChipiChipi.resx">
       <DependentUpon>ChipiChipi.cs</DependentUpon>
@@ -357,9 +347,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ReferenceData\Procedures\FormAddDrug.resx">
       <DependentUpon>FormAddDrug.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ReferenceData\Staff\FormAddStaff.resx">
-      <DependentUpon>FormAddStaff.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReferenceData\Staff\FormStaff.resx">
       <DependentUpon>FormStaff.cs</DependentUpon>
@@ -440,9 +427,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="ReferenceData\Staff\FormUpdateStaff.resx">
-      <DependentUpon>FormUpdateStaff.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

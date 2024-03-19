@@ -229,7 +229,7 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.tabControl1);
             this.Name = "FormAutorization";
-            this.Text = "FormAutorization";
+            this.Text = "Авторизация";
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
