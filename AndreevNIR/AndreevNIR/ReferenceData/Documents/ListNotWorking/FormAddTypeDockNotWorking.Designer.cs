@@ -183,7 +183,7 @@ namespace AndreevNIR.ReferenceData
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox1);
             this.Name = "FormAddTypeDockNotWorking";
-            this.Text = "FormAddTypeDockNotWorking";
+            this.Text = "Листы нетрудоспособности";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();

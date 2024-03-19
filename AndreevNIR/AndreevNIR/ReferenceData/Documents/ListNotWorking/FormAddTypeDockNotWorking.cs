@@ -62,15 +62,28 @@ namespace AndreevNIR.ReferenceData
 
         private void button8_Click(object sender, EventArgs e)
         {
-            ClassListNotWorking cln = new ClassListNotWorking();
-            if (numb_extract != null)
-            {
-                cln.UpdateListNotWorking(numb_extract, monthCalendar1);
+            CheckFields cf = new CheckFields();
+
+            var flag1 = cf.SelectedDGV(dataGridView2); //пациент
+
+            var listFill1 = new List<bool>();
+            listFill1.AddRange(new bool[] { flag1 });
+            var errorMessage1 = cf.GenerateErrorMessageEmptyDGV(listFill1, "Пациент");
+            if (errorMessage1 == "Не были выбраны поля: ") {
+
+                ClassListNotWorking cln = new ClassListNotWorking();
+                if (numb_extract != null)
+                {
+                    cln.UpdateListNotWorking(numb_extract, monthCalendar1);
+                }
+                else
+                {
+                    cln.CreateListNotWorking(omc, textBox2.Text, monthCalendar1);
+                }
+                this.Close();
             }
-            else {
-                cln.CreateListNotWorking(omc, textBox2.Text, monthCalendar1);
-            }
-            this.Close();
+
+            
         }
     }
 }

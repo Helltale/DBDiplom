@@ -338,7 +338,7 @@ namespace AndreevNIR.ReferenceData
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox3);
             this.Name = "FormAddTypeDockExtract";
-            this.Text = "Создание выписного листа";
+            this.Text = "Выписной лист";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();

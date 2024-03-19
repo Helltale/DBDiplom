@@ -186,7 +186,7 @@ namespace AndreevNIR.ReferenceData
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox6);
             this.Name = "FormAddTypeDockInitial";
-            this.Text = "FormAddTypeDockInitial";
+            this.Text = "Первичный осмотр";
             this.groupBox6.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();

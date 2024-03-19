@@ -93,7 +93,7 @@ namespace AndreevNIR.ReferenceData.Procedures
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox6);
             this.Name = "FormAddDrug";
-            this.Text = "FormAddGrud";
+            this.Text = "Препарат";
             this.groupBox6.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

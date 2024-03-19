@@ -82,20 +82,53 @@ namespace AndreevNIR
 
         private void button8_Click(object sender, EventArgs e)
         {
-            ClassProcedures cp = new ClassProcedures();
             CheckFields cf = new CheckFields();
 
-            
-
-
-            if (id_procedure != null)
+            var listFill1 = cf.CheckAllFields(textBox2, textBox3);
+            var errorMessage1 = cf.GenerateErrorMessageEmptyTextBox(listFill1, "Количество препарата", "Название процедуры");
+            if (errorMessage1 == "Следующие поля не были заполнены: ")
             {
-                cp.SetProcedure(id_procedure, selectedMouseDrugID, textBox3, textBox2, comboBox1);
+                var flag1 = cf.CheckedCombobox(comboBox1); //тип меры
+
+                var listFill2 = new List<bool>();
+                listFill2.AddRange(new bool[] { flag1 });
+                var errorMessage2 = cf.GenerateErrorMessageEmptyComboBox(listFill2, "Тип");
+                if (errorMessage2 == "Значения в следующих выпадающих меню не были выбраны: ")
+                {
+                    var flag2 = cf.SelectedDGV(dataGridView1);
+
+                    var listFill3 = new List<bool>();
+                    listFill3.AddRange(new bool[] { flag2 });
+                    var errorMessage3 = cf.GenerateErrorMessageEmptyDGV(listFill3, "Препарат");
+                    if (errorMessage3 == "Не были выбраны поля: ")
+                    {
+
+                        var flag3 = cf.Digit(textBox2); //кол-во
+                        var flag4 = cf.LetterAndDotAndCommaAndSpaceAndDigitAndDash(textBox3); //название процедуры
+
+                        var listFill4 = new List<bool>();
+                        listFill4.AddRange(new bool[] { flag3, flag4 });
+                        var errorMessage4 = cf.GenerateErrorMessageErrors(listFill4, "Количество препарата", "Название процедуры");
+                        if (errorMessage4 == "Следующие поля были заполнены с ошибками: ")
+                        {
+                            ClassProcedures cp = new ClassProcedures();
+                            if (id_procedure != null)
+                            {
+                                cp.SetProcedure(id_procedure, selectedMouseDrugID, textBox3, textBox2, comboBox1);
+                            }
+                            else
+                            {
+                                cp.CreateProcedures(selectedMouseDrugID, textBox3, textBox2, comboBox1);
+                            }
+                            this.Close();
+                        }
+                        else { MessageBox.Show(errorMessage4); }
+                    }
+                    else { MessageBox.Show(errorMessage3); }
+                }
+                else { MessageBox.Show(errorMessage2); }
             }
-            else {
-                cp.CreateProcedures(selectedMouseDrugID, textBox3, textBox2, comboBox1);
-            }
-            this.Close();
+            else { MessageBox.Show(errorMessage1); }
         }
 
         private void dataGridView1_KeyDown(object sender, KeyEventArgs e)

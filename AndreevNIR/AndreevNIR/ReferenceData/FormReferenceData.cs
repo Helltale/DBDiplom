@@ -116,14 +116,17 @@ namespace AndreevNIR
                                 FormAddTypeDockExtract fatde = new FormAddTypeDockExtract();
                                 fatde.ShowDialog();
                                 ShowDGV(str, dataGridView1, dBLogicConnection._connectionString);
+                                
                             }
                             break;
                         case 1:
                             {
+                                /*
                                 string str = "select pa.omc, pa.full_name as \"full_patient\", i.date_initial as \"date\", i.time_initial as \"time\", s.full_name as \"full_staff\", s.id_staff, i.diagnosis as \"diagnosis\" from initial_inspection i join patient pa on pa.omc = i.omc join staff s on s.id_staff = i.doc_receptinoist;";
                                 FormAddTypeDockInitial fatdi = new FormAddTypeDockInitial(selectedMouseCell);
                                 fatdi.ShowDialog();
-                                cl.ShowDGV(str, dataGridView1, dBLogicConnection._connectionString);
+                                cl.ShowDGV(str, dataGridView1, dBLogicConnection._connectionString); */
+                                MessageBox.Show("Нельзя добавить ещё один первичный осмотр.\nПервичный осмотр заполняется при добавлении пациента.");
                             }
                             break;
                         case 2:
