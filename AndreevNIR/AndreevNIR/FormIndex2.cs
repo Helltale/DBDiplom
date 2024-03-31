@@ -60,13 +60,23 @@ namespace AndreevNIR
 
         private void buttonRequests_Click(object sender, EventArgs e)
         {
+            //panelForms.Controls.Clear();
+
+            //FormRequests formRequests = new FormRequests()
+            //{ TopLevel = false, TopMost = true };
+            //formRequests.FormBorderStyle = FormBorderStyle.None;
+            //panelForms.Controls.Add(formRequests);
+            //formRequests.Show();
+
+            //ShowPrimeTime();
+
             panelForms.Controls.Clear();
 
-            FormRequests formRequests = new FormRequests()
+            FormRequests formChild = new FormRequests()
             { TopLevel = false, TopMost = true };
-            formRequests.FormBorderStyle = FormBorderStyle.None;
-            panelForms.Controls.Add(formRequests);
-            formRequests.Show();
+            formChild.FormBorderStyle = FormBorderStyle.None;
+            panelForms.Controls.Add(formChild);
+            try { formChild.Show(); } catch { }
 
             ShowPrimeTime();
         }

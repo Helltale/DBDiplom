@@ -15,6 +15,7 @@ using AndreevNIR.ReferenceData.Documents.ListNotWorking;
 using AndreevNIR.ReferenceData.Procedures;
 using AndreevNIR.ReferenceData.TypeHeal;
 using AndreevNIR.ReferenceData.Staff;
+using AndreevNIR.ReferenceData.Roles;
 
 namespace AndreevNIR
 {
@@ -253,7 +254,8 @@ namespace AndreevNIR
                     break;
 
                 case 5: //роли
-                    string str5 = "select staff.full_name ФИО, user_info.login_user Логин, user_info.role_user \"Уровень доступа\" from staff join user_info on staff.id_staff = user_info.id_staff";
+                    selectedMouseCell = null;
+                    string str5 = "select t2.full_name \"ФИО сотрудника\", t1.login_user \"Логин\", t1.role_user \"Уровень доступа\", t1.trust_user \"Доступ\" from user_info t1 left join staff t2 on t1.id_staff = t2.id_staff";
                     ShowDGV(str5, dataGridView5, dBLogicConnection._connectionString);
 
                     List<string> list5 = new List<string>();
@@ -1167,6 +1169,37 @@ namespace AndreevNIR
                 try { selectedMouseCell = dataGridView4.SelectedRows[0].Cells[0].Value.ToString(); } catch { }
             }
             
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void dataGridView5_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try { selectedMouseCell = dataGridView5.SelectedRows[0].Cells[1].Value.ToString(); } catch { } //user_login
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            
+            Role r = new Role();
+            r.DeleteUser(selectedMouseCell);
+            cl.ShowDGV("select t2.full_name \"ФИО сотрудника\", t1.login_user \"Логин\", t1.role_user \"Уровень доступа\", t1.trust_user \"Доверенный аккаунт\" from user_info t1 left join staff t2 on t1.id_staff = t2.id_staff", dataGridView5, dBLogicConnection._connectionString);
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            if (selectedMouseCell != null)
+            {
+                RoleF rf = new RoleF(selectedMouseCell);
+                rf.ShowDialog();
+                cl.ShowDGV("select t2.full_name \"ФИО сотрудника\", t1.login_user \"Логин\", t1.role_user \"Уровень доступа\", t1.trust_user \"Доверенный аккаунт\" from user_info t1 left join staff t2 on t1.id_staff = t2.id_staff", dataGridView5, dBLogicConnection._connectionString);
+            }
+            else {
+                MessageBox.Show("Выберите строку");
+            }
         }
     }
 }

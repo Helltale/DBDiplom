@@ -124,8 +124,21 @@
     <Compile Include="additionalForms\PrimeTime.Designer.cs">
       <DependentUpon>PrimeTime.cs</DependentUpon>
     </Compile>
+    <Compile Include="authorization\AutorizationClass.cs" />
     <Compile Include="CheckFields.cs" />
     <Compile Include="CoreLogic.cs" />
+    <Compile Include="CrystalReport\CrystalReport1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CrystalReport1.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CrystalReport\Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CrystalReport\Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
     <Compile Include="DBLogicConnection.cs" />
     <Compile Include="authorization\FormAutorizationSettings.cs">
       <SubType>Form</SubType>
@@ -172,6 +185,13 @@
     </Compile>
     <Compile Include="ReferenceData\Procedures\FormAddDrug.Designer.cs">
       <DependentUpon>FormAddDrug.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReferenceData\Roles\Role.cs" />
+    <Compile Include="ReferenceData\Roles\RoleF.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReferenceData\Roles\RoleF.Designer.cs">
+      <DependentUpon>RoleF.cs</DependentUpon>
     </Compile>
     <Compile Include="ReferenceData\Staff\ClassStaff.cs" />
     <Compile Include="ReferenceData\Staff\FormStaff.cs">
@@ -306,16 +326,16 @@
     <Compile Include="ReferenceData\FormReferenceData.Designer.cs">
       <DependentUpon>FormReferenceData.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormReport.cs">
+    <Compile Include="CrystalReport\FormReport.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormReport.Designer.cs">
+    <Compile Include="CrystalReport\FormReport.Designer.cs">
       <DependentUpon>FormReport.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormRequests.cs">
+    <Compile Include="Request\FormRequests.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormRequests.Designer.cs">
+    <Compile Include="Request\FormRequests.Designer.cs">
       <DependentUpon>FormRequests.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -333,6 +353,13 @@
     <EmbeddedResource Include="authorization\FormAutorizationSettings.resx">
       <DependentUpon>FormAutorizationSettings.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CrystalReport\CrystalReport1.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CrystalReport1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CrystalReport\Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Formtest.resx">
       <DependentUpon>Formtest.cs</DependentUpon>
     </EmbeddedResource>
@@ -347,6 +374,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ReferenceData\Procedures\FormAddDrug.resx">
       <DependentUpon>FormAddDrug.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReferenceData\Roles\RoleF.resx">
+      <DependentUpon>RoleF.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReferenceData\Staff\FormStaff.resx">
       <DependentUpon>FormStaff.cs</DependentUpon>
@@ -411,10 +441,10 @@
     <EmbeddedResource Include="ReferenceData\FormReferenceData.resx">
       <DependentUpon>FormReferenceData.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormReport.resx">
+    <EmbeddedResource Include="CrystalReport\FormReport.resx">
       <DependentUpon>FormReport.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormRequests.resx">
+    <EmbeddedResource Include="Request\FormRequests.resx">
       <DependentUpon>FormRequests.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -456,6 +486,7 @@
   <ItemGroup>
     <Content Include="todoFile.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\build\Microsoft.Extensions.Logging.Abstractions.targets" Condition="Exists('..\packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\build\Microsoft.Extensions.Logging.Abstractions.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

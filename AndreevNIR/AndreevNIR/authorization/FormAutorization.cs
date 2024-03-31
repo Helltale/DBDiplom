@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
+using AndreevNIR.authorization;
 
 namespace AndreevNIR
 {
@@ -56,6 +57,32 @@ namespace AndreevNIR
         {
             FormAutorizationSettings setting = new FormAutorizationSettings();
             setting.ShowDialog();
+        }
+
+        private void buttonRegistration_Click(object sender, EventArgs e)
+        {
+            AutorizationClass ac = new AutorizationClass();
+            CheckFields cf = new CheckFields();
+            var listFill1 = cf.CheckAllFields(textBoxNewLogin, textBoxNewPassword, textBox1);
+            var errorMessage1 = cf.GenerateErrorMessageEmptyTextBox(listFill1, "Логин", "Пароль", "Повторный пароль");
+            if (errorMessage1 == "Следующие поля не были заполнены: ")
+            {
+                var flag1 = cf.CheckedCombobox(comboBoxNewJobTitle);
+                var listFill2 = new List<bool>();
+                listFill2.AddRange(new bool[] { flag1 });
+                var errorMessage2 = cf.GenerateErrorMessageEmptyComboBox(listFill2, "Должность сотрудника");
+                if (errorMessage2 == "Значения в следующих выпадающих меню не были выбраны: ")
+                {
+                    var flag2 = ac.CheckPasswordGenerateMessage(textBoxNewPassword, textBox1);
+                    if (flag2 == false) {
+                        //запрос на регистрацию
+                        ac.CreateNewUser(textBoxNewLogin, textBoxNewPassword, comboBoxNewJobTitle);
+                        MessageBox.Show("Заявка на создание аккаунта создана!\nСвяжитесь с администратором.");
+                    }
+                }
+                else { MessageBox.Show(errorMessage2); }
+            }
+            else { MessageBox.Show(errorMessage1); }
         }
     }
 }

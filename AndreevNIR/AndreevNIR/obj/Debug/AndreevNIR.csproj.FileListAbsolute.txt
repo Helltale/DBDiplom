@@ -139,3 +139,5 @@ D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.additionalForms.PrimeTime.r
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.OperationalData.FormOperativeData.resources
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.OperationalData.History.FormChildAdd.resources
 D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.ReferenceData.Staff.FormStaff.resources
+D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.CrystalReport.Form1.resources
+D:\diplom\AndreevNIR\AndreevNIR\obj\Debug\AndreevNIR.ReferenceData.Roles.RoleF.resources
