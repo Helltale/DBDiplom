@@ -48,6 +48,13 @@
     <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=6.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\lib\net461\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Office.Interop.Word, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Word.15.0.4797.1004\lib\net20\Microsoft.Office.Interop.Word.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Web.WebView2.Core, Version=1.0.2210.55, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.WebView2.1.0.2210.55\lib\net45\Microsoft.Web.WebView2.Core.dll</HintPath>
     </Reference>
@@ -127,18 +134,6 @@
     <Compile Include="authorization\AutorizationClass.cs" />
     <Compile Include="CheckFields.cs" />
     <Compile Include="CoreLogic.cs" />
-    <Compile Include="CrystalReport\CrystalReport1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CrystalReport1.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="CrystalReport\Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="CrystalReport\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
     <Compile Include="DBLogicConnection.cs" />
     <Compile Include="authorization\FormAutorizationSettings.cs">
       <SubType>Form</SubType>
@@ -326,12 +321,31 @@
     <Compile Include="ReferenceData\FormReferenceData.Designer.cs">
       <DependentUpon>FormReferenceData.cs</DependentUpon>
     </Compile>
-    <Compile Include="CrystalReport\FormReport.cs">
+    <Compile Include="Report\DialogDatesBetween.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CrystalReport\FormReport.Designer.cs">
+    <Compile Include="Report\DialogDatesBetween.Designer.cs">
+      <DependentUpon>DialogDatesBetween.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Report\FormGetPatient.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Report\FormGetPatient.Designer.cs">
+      <DependentUpon>FormGetPatient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Report\FormReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Report\FormReport.Designer.cs">
       <DependentUpon>FormReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="Report\GetMeetingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Report\GetMeetingForm.Designer.cs">
+      <DependentUpon>GetMeetingForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Report\WordHelper.cs" />
     <Compile Include="Request\FormRequests.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -342,6 +356,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReferenceData\ReferenceDataLogicStaff.cs" />
     <Compile Include="SessionInformation.cs" />
+    <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="SqlStringWrapper.cs" />
     <Compile Include="StringGrouperSQL.cs" />
     <EmbeddedResource Include="additionalForms\ChipiChipi.resx">
@@ -352,13 +367,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="authorization\FormAutorizationSettings.resx">
       <DependentUpon>FormAutorizationSettings.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CrystalReport\CrystalReport1.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CrystalReport1.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CrystalReport\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formtest.resx">
       <DependentUpon>Formtest.cs</DependentUpon>
@@ -441,8 +449,17 @@
     <EmbeddedResource Include="ReferenceData\FormReferenceData.resx">
       <DependentUpon>FormReferenceData.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CrystalReport\FormReport.resx">
+    <EmbeddedResource Include="Report\DialogDatesBetween.resx">
+      <DependentUpon>DialogDatesBetween.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\FormGetPatient.resx">
+      <DependentUpon>FormGetPatient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\FormReport.resx">
       <DependentUpon>FormReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\GetMeetingForm.resx">
+      <DependentUpon>GetMeetingForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Request\FormRequests.resx">
       <DependentUpon>FormRequests.cs</DependentUpon>
@@ -467,6 +484,18 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Report\extruct.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Report\initial.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Report\meeting.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Report\operation.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -484,9 +513,54 @@
     <None Include="assets\setting.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="assets\out.png" />
+    <None Include="assets\operation.png" />
+    <None Include="assets\initia%3b.png" />
+    <None Include="assets\MEETING.png" />
+    <Content Include="SqlServerTypes\readme.htm" />
+    <Content Include="SqlServerTypes\x64\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x64\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="todoFile.txt" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Word1">
+      <Guid>{00020905-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>8</VersionMajor>
+      <VersionMinor>7</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\build\Microsoft.Extensions.Logging.Abstractions.targets" Condition="Exists('..\packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\build\Microsoft.Extensions.Logging.Abstractions.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
